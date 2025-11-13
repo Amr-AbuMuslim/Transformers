@@ -1,13 +1,12 @@
 "use client";
 
-import type React from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { PageHeader } from "@/components/PageHeader";
 import SectionTitle from "@/components/SectionTitle";
-import { useState } from "react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -24,9 +23,6 @@ export default function Contact() {
     sms: false,
   });
 
-  // -------------------------
-  // GENERIC CHANGE HANDLER
-  // -------------------------
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -41,9 +37,6 @@ export default function Contact() {
     }));
   };
 
-  // -------------------------
-  // PRODUCTS/SERVICES CHECKBOXES
-  // -------------------------
   const handleProductChange = (product: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -56,7 +49,6 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    // Add form submission logic here (API, EmailJS, etc.)
   };
 
   return (
@@ -68,28 +60,30 @@ export default function Contact() {
         image="/contact-support-team.jpg"
       />
 
-      <section className="py-20 px-4 bg-background">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-16 px-4 bg-background">
+        <div className="max-w-5xl mx-auto">
           <SectionTitle
             title="Let us help transform your next event!"
             subtitle="Fill out the form below to request a free quote regarding any of our products or services."
           />
 
-          {/* Contact Form */}
-          <form id="contact-form" onSubmit={handleSubmit} className="mt-12">
-            {/* Free Quote Section */}
-            <h3 className="text-xl font-bold mb-4">Free Quote</h3>
+          <form
+            id="contact-form"
+            onSubmit={handleSubmit}
+            className="mt-12 bg-white p-6 md:p-10 rounded-3xl shadow-lg border border-gray-100"
+          >
+            <h3 className="text-2xl font-bold mb-6">Free Quote</h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Name Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              {/* Name */}
               <input
                 type="text"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder="First Name *"
-                className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
                 required
+                className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-secondary-foreground focus:outline-none shadow-sm"
               />
               <input
                 type="text"
@@ -97,8 +91,8 @@ export default function Contact() {
                 value={formData.lastName}
                 onChange={handleChange}
                 placeholder="Last Name *"
-                className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
                 required
+                className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-secondary-foreground focus:outline-none shadow-sm"
               />
 
               {/* Email & Phone */}
@@ -108,8 +102,8 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Email *"
-                className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
                 required
+                className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-secondary-foreground focus:outline-none shadow-sm"
               />
               <input
                 type="tel"
@@ -117,8 +111,8 @@ export default function Contact() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Phone *"
-                className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
                 required
+                className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-secondary-foreground focus:outline-none shadow-sm"
               />
 
               {/* Company & State */}
@@ -128,8 +122,8 @@ export default function Contact() {
                 value={formData.company}
                 onChange={handleChange}
                 placeholder="Company Name *"
-                className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
                 required
+                className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-secondary-foreground focus:outline-none shadow-sm"
               />
               <input
                 type="text"
@@ -137,8 +131,8 @@ export default function Contact() {
                 value={formData.stateRegion}
                 onChange={handleChange}
                 placeholder="State/Region *"
-                className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
                 required
+                className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-secondary-foreground focus:outline-none shadow-sm"
               />
 
               {/* How can we help */}
@@ -146,8 +140,8 @@ export default function Contact() {
                 name="eventType"
                 value={formData.eventType}
                 onChange={handleChange}
-                className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
                 required
+                className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-secondary-foreground focus:outline-none shadow-sm"
               >
                 <option value="">How can we help? *</option>
                 <option value="trade-show">Trade Show</option>
@@ -156,8 +150,8 @@ export default function Contact() {
                 <option value="other">Other</option>
               </select>
 
-              {/* Products/Services */}
-              <div className="col-span-2 flex flex-wrap gap-4">
+              {/* Products / Services */}
+              <div className="col-span-1 md:col-span-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {[
                   "Display design",
                   "Display rental",
@@ -168,7 +162,10 @@ export default function Contact() {
                   "Event services",
                   "Other",
                 ].map((product) => (
-                  <label key={product} className="flex items-center gap-2">
+                  <label
+                    key={product}
+                    className="flex items-center gap-2 p-2 border rounded-xl hover:shadow-sm cursor-pointer transition-all text-sm"
+                  >
                     <input
                       type="checkbox"
                       checked={formData.products.includes(product)}
@@ -186,13 +183,13 @@ export default function Contact() {
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Message *"
-                className="col-span-2 p-4 bg-white rounded-lg border border-secondary-foreground/10"
                 required
+                className="col-span-1 md:col-span-2 w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-secondary-foreground focus:outline-none shadow-sm min-h-[120px]"
               />
 
-              {/* Upload files + SMS opt-in */}
-              <div className="col-span-2 flex flex-wrap gap-6 items-center mt-2">
-                <label className="flex items-center gap-2">
+              {/* Upload files + SMS */}
+              <div className="col-span-1 md:col-span-2 flex flex-col sm:flex-row gap-4 mt-2">
+                <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     name="uploadFiles"
@@ -203,7 +200,7 @@ export default function Contact() {
                   Do you have files to upload?
                 </label>
 
-                <label className="flex items-center gap-2">
+                <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     name="sms"
@@ -215,7 +212,7 @@ export default function Contact() {
                 </label>
               </div>
 
-              <p className="col-span-2 text-sm text-gray-500 mt-1">
+              <p className="col-span-1 md:col-span-2 text-sm text-gray-500 mt-1">
                 We do not sell your data. Text message frequency may vary,
                 message & data rates may apply. You may opt out at any time by
                 texting STOP. For help, text HELP or visit applerock.com. Visit
@@ -225,7 +222,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="mt-8 px-6 py-3 bg-secondary-foreground text-secondary rounded-lg hover:opacity-90 transition-opacity font-semibold"
+              className="mt-6 md:mt-8 w-full md:w-auto px-6 py-3 bg-secondary-foreground text-secondary rounded-xl hover:opacity-90 transition-opacity font-semibold"
             >
               Submit
             </button>
