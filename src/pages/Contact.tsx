@@ -16,23 +16,24 @@ export default function Contact() {
     email: "",
     phone: "",
     company: "",
-    boothType: "",
+    stateRegion: "",
     eventType: "",
-    services: [] as string[],
+    products: [] as string[],
     message: "",
     uploadFiles: false,
-    whatsapp: false,
+    sms: false,
   });
 
   // -------------------------
-  // GENERIC HANDLER (NO FAKE EVENTS)
+  // GENERIC CHANGE HANDLER
   // -------------------------
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
-    const { name, value, type, checked } = e.target;
+    const target = e.target as HTMLInputElement;
+    const { name, type, value, checked } = target;
 
     setFormData((prev) => ({
       ...prev,
@@ -41,20 +42,21 @@ export default function Contact() {
   };
 
   // -------------------------
-  // SERVICES ARRAY CHECKBOXES
+  // PRODUCTS/SERVICES CHECKBOXES
   // -------------------------
-  const handleServiceChange = (service: string) => {
+  const handleProductChange = (product: string) => {
     setFormData((prev) => ({
       ...prev,
-      services: prev.services.includes(service)
-        ? prev.services.filter((s) => s !== service)
-        : [...prev.services, service],
+      products: prev.products.includes(product)
+        ? prev.products.filter((p) => p !== product)
+        : [...prev.products, product],
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
+    // Add form submission logic here (API, EmailJS, etc.)
   };
 
   return (
@@ -69,105 +71,127 @@ export default function Contact() {
       <section className="py-20 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
           <SectionTitle
-            title="Get in Touch"
-            subtitle="Request a quote or get expert advice on your booth needs"
+            title="Let us help transform your next event!"
+            subtitle="Fill out the form below to request a free quote regarding any of our products or services."
           />
 
-          {/* Still have questions */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="bg-secondary rounded-lg p-8 text-center mt-16"
-          >
-            <h3 className="font-serif text-2xl font-bold text-secondary-foreground mb-3">
-              Still Have Questions?
-            </h3>
-            <p className="text-secondary-foreground/90 mb-6">
-              Our team is ready to help. Reach out for personalized assistance
-              with your booth requirements.
-            </p>
-            <a
-              href="#contact-form"
-              className="inline-block px-6 py-3 bg-secondary-foreground text-secondary rounded-lg hover:opacity-90 transition-opacity font-semibold"
-            >
-              Contact Our Team
-            </a>
-          </motion.div>
-
           {/* Contact Form */}
-          <form id="contact-form" onSubmit={handleSubmit} className="mt-16">
+          <form id="contact-form" onSubmit={handleSubmit} className="mt-12">
+            {/* Free Quote Section */}
+            <h3 className="text-xl font-bold mb-4">Free Quote</h3>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Name Fields */}
               <input
                 type="text"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
-                placeholder="First Name"
+                placeholder="First Name *"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
+                required
               />
-
               <input
                 type="text"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                placeholder="Last Name"
+                placeholder="Last Name *"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
+                required
               />
 
+              {/* Email & Phone */}
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Email"
+                placeholder="Email *"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
+                required
               />
-
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="Phone"
+                placeholder="Phone *"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
+                required
               />
 
+              {/* Company & State */}
               <input
                 type="text"
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                placeholder="Company"
+                placeholder="Company Name *"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
+                required
+              />
+              <input
+                type="text"
+                name="stateRegion"
+                value={formData.stateRegion}
+                onChange={handleChange}
+                placeholder="State/Region *"
+                className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
+                required
               />
 
-              <select
-                name="boothType"
-                value={formData.boothType}
-                onChange={handleChange}
-                className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
-              >
-                <option value="">Select Booth Type</option>
-                <option value="standard">Standard Booth</option>
-                <option value="premium">Premium Booth</option>
-              </select>
-
+              {/* How can we help */}
               <select
                 name="eventType"
                 value={formData.eventType}
                 onChange={handleChange}
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
+                required
               >
-                <option value="">Select Event Type</option>
+                <option value="">How can we help? *</option>
                 <option value="trade-show">Trade Show</option>
-                <option value="conference">Conference</option>
+                <option value="event">Event</option>
+                <option value="brand-space">Brand Space</option>
+                <option value="other">Other</option>
               </select>
 
-              {/* Upload files + WhatsApp */}
-              <div className="flex items-center space-x-4">
+              {/* Products/Services */}
+              <div className="col-span-2 flex flex-wrap gap-4">
+                {[
+                  "Display design",
+                  "Display rental",
+                  "Portable displays",
+                  "Interactive technology",
+                  "Graphics",
+                  "Branded environment",
+                  "Event services",
+                  "Other",
+                ].map((product) => (
+                  <label key={product} className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={formData.products.includes(product)}
+                      onChange={() => handleProductChange(product)}
+                      className="accent-secondary-foreground"
+                    />
+                    {product}
+                  </label>
+                ))}
+              </div>
+
+              {/* Message */}
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Message *"
+                className="col-span-2 p-4 bg-white rounded-lg border border-secondary-foreground/10"
+                required
+              />
+
+              {/* Upload files + SMS opt-in */}
+              <div className="col-span-2 flex flex-wrap gap-6 items-center mt-2">
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
@@ -176,61 +200,27 @@ export default function Contact() {
                     onChange={handleChange}
                     className="accent-secondary-foreground"
                   />
-                  Upload Files
+                  Do you have files to upload?
                 </label>
 
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
-                    name="whatsapp"
-                    checked={formData.whatsapp}
+                    name="sms"
+                    checked={formData.sms}
                     onChange={handleChange}
                     className="accent-secondary-foreground"
                   />
-                  WhatsApp
+                  Would you like to receive text messages?
                 </label>
               </div>
 
-              {/* Services checkboxes */}
-              <div className="flex flex-wrap items-center gap-6">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={formData.services.includes("design")}
-                    onChange={() => handleServiceChange("design")}
-                    className="accent-secondary-foreground"
-                  />
-                  Design
-                </label>
-
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={formData.services.includes("setup")}
-                    onChange={() => handleServiceChange("setup")}
-                    className="accent-secondary-foreground"
-                  />
-                  Setup
-                </label>
-
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={formData.services.includes("maintenance")}
-                    onChange={() => handleServiceChange("maintenance")}
-                    className="accent-secondary-foreground"
-                  />
-                  Maintenance
-                </label>
-              </div>
-
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Your Message"
-                className="col-span-2 p-4 bg-white rounded-lg border border-secondary-foreground/10"
-              />
+              <p className="col-span-2 text-sm text-gray-500 mt-1">
+                We do not sell your data. Text message frequency may vary,
+                message & data rates may apply. You may opt out at any time by
+                texting STOP. For help, text HELP or visit applerock.com. Visit
+                our Privacy Policy and SMS policy for Terms of Service.
+              </p>
             </div>
 
             <button
