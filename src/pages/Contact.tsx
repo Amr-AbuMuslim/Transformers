@@ -24,25 +24,25 @@ export default function Contact() {
     whatsapp: false,
   });
 
+  // -------------------------
+  // GENERIC HANDLER (NO FAKE EVENTS)
+  // -------------------------
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
-    const { name, value, type } = e.target;
-    if (type === "checkbox") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: (e.target as HTMLInputElement).checked,
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
+  // -------------------------
+  // SERVICES ARRAY CHECKBOXES
+  // -------------------------
   const handleServiceChange = (service: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -107,6 +107,7 @@ export default function Contact() {
                 placeholder="First Name"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
               />
+
               <input
                 type="text"
                 name="lastName"
@@ -115,6 +116,7 @@ export default function Contact() {
                 placeholder="Last Name"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
               />
+
               <input
                 type="email"
                 name="email"
@@ -123,6 +125,7 @@ export default function Contact() {
                 placeholder="Email"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
               />
+
               <input
                 type="tel"
                 name="phone"
@@ -131,6 +134,7 @@ export default function Contact() {
                 placeholder="Phone"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
               />
+
               <input
                 type="text"
                 name="company"
@@ -139,6 +143,7 @@ export default function Contact() {
                 placeholder="Company"
                 className="p-4 bg-white rounded-lg border border-secondary-foreground/10"
               />
+
               <select
                 name="boothType"
                 value={formData.boothType}
@@ -149,6 +154,7 @@ export default function Contact() {
                 <option value="standard">Standard Booth</option>
                 <option value="premium">Premium Booth</option>
               </select>
+
               <select
                 name="eventType"
                 value={formData.eventType}
@@ -159,69 +165,57 @@ export default function Contact() {
                 <option value="trade-show">Trade Show</option>
                 <option value="conference">Conference</option>
               </select>
+
+              {/* Upload files + WhatsApp */}
               <div className="flex items-center space-x-4">
-                <label>
+                <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     name="uploadFiles"
                     checked={formData.uploadFiles}
-                    onChange={() =>
-                      handleChange({
-                        target: {
-                          name: "uploadFiles",
-                          type: "checkbox",
-                          checked: !formData.uploadFiles,
-                        },
-                      })
-                    }
+                    onChange={handleChange}
                     className="accent-secondary-foreground"
                   />
                   Upload Files
                 </label>
-                <label>
+
+                <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     name="whatsapp"
                     checked={formData.whatsapp}
-                    onChange={() =>
-                      handleChange({
-                        target: {
-                          name: "whatsapp",
-                          type: "checkbox",
-                          checked: !formData.whatsapp,
-                        },
-                      })
-                    }
+                    onChange={handleChange}
                     className="accent-secondary-foreground"
                   />
                   WhatsApp
                 </label>
               </div>
-              <div className="flex flex-wrap items-center space-x-4">
-                <label>
+
+              {/* Services checkboxes */}
+              <div className="flex flex-wrap items-center gap-6">
+                <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
-                    name="services"
                     checked={formData.services.includes("design")}
                     onChange={() => handleServiceChange("design")}
                     className="accent-secondary-foreground"
                   />
                   Design
                 </label>
-                <label>
+
+                <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
-                    name="services"
                     checked={formData.services.includes("setup")}
                     onChange={() => handleServiceChange("setup")}
                     className="accent-secondary-foreground"
                   />
                   Setup
                 </label>
-                <label>
+
+                <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
-                    name="services"
                     checked={formData.services.includes("maintenance")}
                     onChange={() => handleServiceChange("maintenance")}
                     className="accent-secondary-foreground"
@@ -229,6 +223,7 @@ export default function Contact() {
                   Maintenance
                 </label>
               </div>
+
               <textarea
                 name="message"
                 value={formData.message}
@@ -237,6 +232,7 @@ export default function Contact() {
                 className="col-span-2 p-4 bg-white rounded-lg border border-secondary-foreground/10"
               />
             </div>
+
             <button
               type="submit"
               className="mt-8 px-6 py-3 bg-secondary-foreground text-secondary rounded-lg hover:opacity-90 transition-opacity font-semibold"
