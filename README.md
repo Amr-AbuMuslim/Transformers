@@ -13,7 +13,7 @@ A premium, modern website for Transformers - eco-friendly, foldable aluminum dis
 
 ## Tech Stack
 
-- **Next.js 16** - React framework with App Router
+- **React.js 18** - React Library with App Router
 - **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first CSS framework
 - **Framer Motion** - Animation library
@@ -41,25 +41,6 @@ A premium, modern website for Transformers - eco-friendly, foldable aluminum dis
    \`\`\`
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-### Option 2: Manual Setup
-
-1. Create a new Next.js project:
-   \`\`\`bash
-   npx create-next-app@latest transformers-display-system
-   \`\`\`
-
-2. Copy all project files into the new project
-
-3. Install required dependencies:
-   \`\`\`bash
-   npm install framer-motion lucide-react
-   \`\`\`
-
-4. Run the development server:
-   \`\`\`bash
-   npm run dev
-   \`\`\`
 
 ## Project Structure
 
