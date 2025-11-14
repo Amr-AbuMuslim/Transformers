@@ -170,7 +170,7 @@ export default function Contact() {
                       type="checkbox"
                       checked={formData.products.includes(product)}
                       onChange={() => handleProductChange(product)}
-                      className="accent-secondary-foreground"
+                      className="accent-foreground"
                     />
                     {product}
                   </label>
@@ -195,7 +195,7 @@ export default function Contact() {
                     name="uploadFiles"
                     checked={formData.uploadFiles}
                     onChange={handleChange}
-                    className="accent-secondary-foreground"
+                    className="accent-foreground"
                   />
                   Do you have files to upload?
                 </label>
@@ -206,7 +206,7 @@ export default function Contact() {
                     name="sms"
                     checked={formData.sms}
                     onChange={handleChange}
-                    className="accent-secondary-foreground"
+                    className="accent-foreground"
                   />
                   Would you like to receive text messages?
                 </label>
@@ -222,7 +222,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="mt-6 md:mt-8 w-full md:w-auto px-6 py-3 bg-secondary-foreground text-secondary rounded-xl hover:opacity-90 transition-opacity font-semibold"
+              className="mt-6 md:mt-8 w-full md:w-auto px-6 py-3 bg-foreground text-white rounded-xl hover:opacity-90 transition-opacity font-semibold"
             >
               Submit
             </button>
