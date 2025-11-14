@@ -97,11 +97,11 @@ export default function TrustedByCarousel() {
 
         <div className="grid grid-cols-3 gap-8 mt-12 text-center">
           <div>
-            <p className="text-3xl font-bold text-primary">500+</p>
+            <p className="text-3xl font-bold text-primary">1K+</p>
             <p className="text-muted-foreground">Projects Completed</p>
           </div>
           <div>
-            <p className="text-3xl font-bold text-primary">50+</p>
+            <p className="text-3xl font-bold text-primary">250+</p>
             <p className="text-muted-foreground">Satisfied Clients</p>
           </div>
           <div>

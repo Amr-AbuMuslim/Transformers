@@ -9,74 +9,47 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import TrustedByCarousel from "@/components/TrustedByCarousel";
 
-const galleryItems = [
-  {
-    id: 1,
-    title: "Luxury Tech Booth",
-    image: "/luxury-tech-booth-exhibition-design.jpg",
-  },
-  {
-    id: 2,
-    title: "Fashion Brand Display",
-    image: "/fashion-brand-booth-luxury-display.jpg",
-  },
-  {
-    id: 3,
-    title: "Interactive Experience",
-    image: "/interactive-exhibition-booth-experience.jpg",
-  },
-  {
-    id: 4,
-    title: "Premium Furniture Booth",
-    image: "/furniture-booth-luxury-exhibition.jpg",
-  },
-  {
-    id: 5,
-    title: "Digital Innovation Hub",
-    image: "/interactive-technology-digital-experience.jpg",
-  },
-  {
-    id: 6,
-    title: "Luxury Retail Display",
-    image: "/luxury-design-team-working-together.jpg",
-  },
-  {
-    id: 7,
-    title: "Luxury Retail Display",
-    image: "/modern-aluminum-modular-display-booth-exhibition.jpg",
-  },
-  {
-    id: 8,
-    title: "Luxury Retail Display",
-    image: "/modern-aluminum-modular-display-booth-exhibition.jpg",
-  },
-  {
-    id: 9,
-    title: "Luxury Retail Display",
-    image: "/modern-aluminum-modular-display-booth-exhibition.jpg",
-  },
-  {
-    id: 10,
-    title: "Luxury Retail Display",
-    image: "/modern-aluminum-modular-display-booth-exhibition.jpg",
-  },
-  {
-    id: 11,
-    title: "Luxury Retail Display",
-    image: "/modern-aluminum-modular-display-booth-exhibition.jpg",
-  },
+// ------------------------------
+// SPLIT IMAGES 1–18
+// ------------------------------
+
+const carouselImages = [
+  { id: 1, title: "Exhibition 1", image: "/1.jpg" },
+  { id: 2, title: "Exhibition 2", image: "/2.jpg" },
+  { id: 3, title: "Exhibition 3", image: "/3.jpg" },
+  { id: 4, title: "Exhibition 4", image: "/4.jpg" },
+  { id: 5, title: "Exhibition 5", image: "/5.jpg" },
+  { id: 6, title: "Exhibition 6", image: "/8.jpg" },
+  { id: 8, title: "Exhibition 6", image: "/28.jpg" },
+  { id: 9, title: "Exhibition 6", image: "/32.jpg" },
+  { id: 10, title: "Exhibition 6", image: "/25.jpg" },
+];
+
+const galleryImages = [
+  { id: 7, title: "Gallery Item 1", image: "/9.jpg" },
+  { id: 8, title: "Gallery Item 2", image: "/8.jpg" },
+  { id: 9, title: "Gallery Item 3", image: "/25.jpg" },
+  { id: 10, title: "Gallery Item 4", image: "/10.jpg" },
+  { id: 11, title: "Gallery Item 5", image: "/21.jpg" },
+  { id: 12, title: "Gallery Item 6", image: "/12.jpg" },
+  { id: 13, title: "Gallery Item 7", image: "/13.jpg" },
+  { id: 14, title: "Gallery Item 8", image: "/14.jpg" },
+  { id: 15, title: "Gallery Item 9", image: "/15.jpg" },
+  { id: 16, title: "Gallery Item 10", image: "/26.jpg" },
+  { id: 17, title: "Gallery Item 11", image: "/29.jpg" },
+  { id: 18, title: "Gallery Item 12", image: "/18.jpg" },
 ];
 
 export default function Gallery() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % galleryItems.length);
+    setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
   };
 
   const prevSlide = () => {
     setCurrentSlide(
-      (prev) => (prev - 1 + galleryItems.length) % galleryItems.length
+      (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
     );
   };
 
@@ -84,10 +57,7 @@ export default function Gallery() {
     <>
       <Navbar />
 
-      <PageHeader
-        title="Our Work"
-        image="/exhibition-booth-setup-professional-team.jpg"
-      />
+      <PageHeader title="Our Work" image="/1.jpg" />
 
       {/* Carousel Section */}
       <section className="py-20 px-4 bg-background">
@@ -99,8 +69,8 @@ export default function Gallery() {
 
           <div className="relative h-96 md:h-[500px] rounded-lg overflow-hidden bg-card border border-border">
             <img
-              src={galleryItems[currentSlide].image || "/placeholder.svg"}
-              alt={galleryItems[currentSlide].title}
+              src={carouselImages[currentSlide].image}
+              alt={carouselImages[currentSlide].title}
               className="w-full h-full object-cover"
             />
 
@@ -119,17 +89,17 @@ export default function Gallery() {
             </button>
 
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full text-sm">
-              {galleryItems[currentSlide].title}
+              {carouselImages[currentSlide].title}
             </div>
 
             <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-xs">
-              {currentSlide + 1} / {galleryItems.length}
+              {currentSlide + 1} / {carouselImages.length}
             </div>
           </div>
 
           {/* Carousel Indicators */}
           <div className="flex gap-2 justify-center mt-6">
-            {galleryItems.map((_, index) => (
+            {carouselImages.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
@@ -141,7 +111,9 @@ export default function Gallery() {
           </div>
         </div>
       </section>
-      <TrustedByCarousel></TrustedByCarousel>
+
+      <TrustedByCarousel />
+
       {/* Grid Gallery */}
       <section className="py-20 px-4 bg-card">
         <div className="max-w-6xl mx-auto">
@@ -151,7 +123,7 @@ export default function Gallery() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {galleryItems.map((item, index) => (
+            {galleryImages.map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -161,10 +133,11 @@ export default function Gallery() {
                 className="relative h-64 rounded-lg overflow-hidden group cursor-pointer border border-border"
               >
                 <img
-                  src={item.image || "/placeholder.svg"}
+                  src={item.image}
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
+
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <p className="text-white font-serif text-xl font-semibold text-center px-4">
                     {item.title}

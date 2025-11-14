@@ -57,7 +57,7 @@ export default function Contact() {
 
       <PageHeader
         title="Contact Transformers"
-        image="/contact-support-team.jpg"
+        image="/Contact.jpg"
       />
 
       <section className="py-16 px-4 bg-background">
