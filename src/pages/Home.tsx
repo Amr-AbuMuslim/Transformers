@@ -43,7 +43,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen md:h-[600px] flex items-center justify-center overflow-hidden">
         <img
-          src="/modern-aluminum-modular-display-booth-exhibition.jpg"
+          src="/download.png"
           alt="Transformers Display System"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -179,7 +179,7 @@ export default function Home() {
               </Link>
             </div>
             <img
-              src="/transformers-aluminum-booth-system-modular.jpg"
+              src="/whatis.jpg"
               alt="Transformers System"
               className="rounded-lg w-full"
             />

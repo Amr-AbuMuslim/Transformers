@@ -88,9 +88,9 @@ export default function Gallery() {
               <ChevronRight size={24} />
             </button>
 
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full text-sm">
+            {/* <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full text-sm">
               {carouselImages[currentSlide].title}
-            </div>
+            </div> */}
 
             <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-xs">
               {currentSlide + 1} / {carouselImages.length}
@@ -138,11 +138,7 @@ export default function Gallery() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
 
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <p className="text-white font-serif text-xl font-semibold text-center px-4">
-                    {item.title}
-                  </p>
-                </div>
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"></div>
               </motion.div>
             ))}
           </div>

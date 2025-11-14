@@ -6,50 +6,173 @@ import { PageHeader } from "@/components/PageHeader";
 import SectionTitle from "@/components/SectionTitle";
 import { motion } from "framer-motion";
 
-const boothTypes = [
+export const booths = [
   {
-    category: "U-Shape Booths",
-    items: ["Size A", "Size B", "Size C", "Size D", "Size E"],
-    description:
-      "Classic U-shaped configurations perfect for interactive exhibitions",
-    image: "/u-shape-aluminum-booth.jpg",
-  },
-  {
-    category: "L-Shape Booths",
-    items: ["Size F", "Size G", "Size H"],
-    description: "Ideal for corner spaces and semi-enclosed booth areas",
-    image: "/l-shape-modular-booth.jpg",
-  },
-  {
-    category: "Luxury & Elegant",
-    items: ["Premium Configurations"],
-    description: "High-end designs for premium brands and luxury exhibitions",
-    image: "/luxury-exhibition-booth-design.jpg",
-  },
-  {
-    category: "Specialized Booths",
-    items: [
-      "With Towers (G, P)",
-      "With Rings (H, J)",
-      "Octopus Booth (N)",
-      "Free Space (O)",
-      "Pavilion (Q)",
+    code: "A",
+    name: "U Shape Booth – Code A",
+    sizes: ["3×3", "4×3", "5×3", "6×3", "9×3"],
+    specs: [
+      "U SHAPE BOOTH / Podium Included",
+      "Wooden Sign (70×30 CM / vinyl print)",
+      "3 Spotlights for every 9 m²",
     ],
-    description: "Unique configurations for specific event requirements",
-    image: "/specialized-modular-booth-system.jpg",
+    image: "/A.png",
   },
-];
 
-const extras = [
-  { code: "I", name: "Tower", description: "Additional height and visibility" },
+  {
+    code: "B",
+    name: "U Shape Elegant Booth – Code B",
+    sizes: ["3×3", "4×3", "5×3", "6×3", "9×3"],
+    specs: ["U SHAPE BOOTH / Podium Included", "3 Spotlights for every 9 m²"],
+    image: "/B.jpg",
+  },
+
+  {
+    code: "C",
+    name: "U Shape Luxury Booth – Code C",
+    sizes: ["6×3", "6×4", "6×5"],
+    specs: [
+      "U SHAPE BOOTH / Podium Included",
+      "Wooden Sign (70×30 CM / vinyl print)",
+      "3 Spotlights for every 9 m²",
+      "Extra Spotlight: 75 LE",
+      "Single Print",
+      "Extra Banners: 80 EGP/m² (double print)",
+    ],
+    image: "/C.png",
+  },
+
+  {
+    code: "D",
+    name: "U Shape Simple Booth – Code D",
+    sizes: ["6×3", "6×4", "6×5"],
+    specs: ["U SHAPE BOOTH / Podium Included", "3 Spotlights for every 9 m²"],
+    image: "/D.png",
+  },
+
+  {
+    code: "E",
+    name: "U Shape Economic Booth – Code E",
+    sizes: ["3×3", "4×3", "5×3", "6×3", "7×3"],
+    specs: [
+      "U SHAPE BOOTH / Podium Included",
+      "3 Spotlights for every 9 m²",
+      "Extra Spotlight: 75 LE",
+      "Single Print",
+      "Extra Banners: 80 EGP/m² (double print)",
+    ],
+    image: "/E.png",
+  },
+
+  {
+    code: "F",
+    name: "L Shape Simple Booth – Code F",
+    sizes: ["3×3", "4×3", "5×3", "6×3", "9×3"],
+    specs: ["L SHAPE BOOTH / Podium Included", "3 Spotlights for every 9 m²"],
+    image: "/F.png",
+  },
+
+  {
+    code: "G",
+    name: "Elegant Booth with Tower – Code G",
+    sizes: ["4×3", "5×3", "6×3", "7×3", "8×3"],
+    specs: [
+      "L SHAPE BOOTH / Podium Included / Tower",
+      "3 Spotlights for every 9 m²",
+    ],
+    image: "/G.png",
+  },
+
+  {
+    code: "H",
+    name: "Elegant Booth with Ring – Code H",
+    sizes: ["4×3", "5×3", "6×3", "7×3", "8×3"],
+    specs: [
+      "L SHAPE BOOTH / Podium Included / Wooden Ring",
+      "Wooden Sign (70×30 CM / vinyl print)",
+      "3 Spotlights for every 9 m²",
+    ],
+    image: "/H.jpg",
+  },
+
+  {
+    code: "I",
+    name: "Extra Tower – Code I",
+    sizes: ["85H × 420W"],
+    specs: ["Tower Add-on Structure"],
+    image: "/I.jpg",
+  },
+
   {
     code: "J",
-    name: "Wooden Ring",
-    description: "Elegant ring structure element",
+    name: "Wooden Ring – Code J",
+    sizes: ["DIA: 125 CM"],
+    specs: ["Wooden Ring with Double Print"],
+    image: "/J.png",
   },
-  { code: "K", name: "China Gate", description: "Decorative gateway entrance" },
-  { code: "L", name: "Wooden Sign", description: "Custom branding signage" },
-  { code: "M", name: "Podium", description: "Included with all booths" },
+
+  {
+    code: "K",
+    name: "China Gate – Code K",
+    sizes: [],
+    specs: ["Decorative China Gate Entrance"],
+    image: "/K.png",
+  },
+
+  {
+    code: "L",
+    name: "Wooden Sign – Code L",
+    sizes: ["70×30 CM"],
+    specs: ["Vinyl Print"],
+    image: "/L.png",
+  },
+
+  {
+    code: "M",
+    name: "Podium – Code M",
+    sizes: ["90×130 CM"],
+    specs: ["Single Print with sign and lighting", "Price: 500 LE"],
+    image: "/M.png",
+  },
+
+  {
+    code: "N",
+    name: "Octopus Booth – Code N",
+    sizes: ["3×3"],
+    specs: ["Full Print and Lighting"],
+    image: "/N.png",
+  },
+
+  {
+    code: "O",
+    name: "Free Space Booth – Code O",
+    sizes: [],
+    specs: ["Custom Free-Space Layout"],
+    image: "/O.png",
+  },
+
+  {
+    code: "P",
+    name: "U Shape Luxury Booth with Tower – Code P",
+    sizes: ["6×3", "6×4", "6×5"],
+    specs: [
+      "U SHAPE BOOTH / Podium Included / Tower",
+      "Wooden Sign (70×30 CM / vinyl print)",
+    ],
+    image: "/P.png",
+  },
+
+  {
+    code: "Q",
+    name: "Pavilion – Code Q",
+    sizes: ["3×3", "3×4"],
+    specs: [
+      "U SHAPE BOOTH / Podium Included",
+      "3 Spotlights for every 9 m²",
+      "Extra Spotlight: 75 LE",
+    ],
+    image: "/Q.jpg",
+  },
 ];
 
 export default function Products() {
@@ -57,10 +180,7 @@ export default function Products() {
     <>
       <Navbar />
 
-      <PageHeader
-        title="Transformers Booth System"
-        image="/complete-modular-booth-system-catalog.jpg"
-      />
+      <PageHeader title="Transformers Booth System" image="/Products.jpg" />
 
       {/* Overview */}
       <section className="py-20 px-4 bg-background">
@@ -100,83 +220,47 @@ export default function Products() {
         </div>
       </section>
 
-      {/* Booth Types */}
-      <section className="py-20 px-4 bg-card">
-        <div className="max-w-6xl mx-auto">
-          <SectionTitle
-            title="Booth Types"
-            subtitle="Choose the configuration that fits your event"
-          />
-
-          <div className="space-y-12">
-            {boothTypes.map((type, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
-              >
-                <div className={index % 2 === 1 ? "md:order-2" : ""}>
-                  <h3 className="font-serif text-3xl font-bold text-foreground mb-3">
-                    {type.category}
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    {type.description}
-                  </p>
-                  <div className="space-y-2">
-                    {type.items.map((item, i) => (
-                      <div key={i} className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-secondary rounded-full" />
-                        <span className="text-foreground">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className={index % 2 === 1 ? "md:order-1" : ""}>
-                  <img
-                    src={type.image || "/placeholder.svg"}
-                    alt={type.category}
-                    className="rounded-lg w-full"
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Extra Elements */}
       <section className="py-20 px-4 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <SectionTitle
-            title="Extra Elements"
-            subtitle="Enhance your booth with premium add-ons"
-          />
+        <div className="max-w-6xl mx-auto space-y-20">
+          {booths.map((booth, index) => (
+            <motion.div
+              key={booth.code}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className={`grid grid-cols-1 md:grid-cols-2 gap-10 items-center ${
+                index % 2 === 1 ? "md:flex-row-reverse" : ""
+              }`}
+            >
+              <img
+                src={booth.image}
+                alt={booth.name}
+                className="rounded-lg w-full shadow"
+              />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {extras.map((extra, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-card rounded-lg p-6 border border-border text-center"
-              >
-                <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mx-auto mb-3 text-secondary-foreground font-bold text-lg">
-                  {extra.code}
-                </div>
-                <h4 className="font-semibold text-foreground mb-2">
-                  {extra.name}
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  {extra.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+              <div>
+                <h3 className="font-serif text-3xl font-bold mb-3">
+                  {booth.name}
+                </h3>
+
+                {booth.sizes.length > 0 && (
+                  <p className="mb-3 text-muted-foreground">
+                    Available Sizes: {booth.sizes.join(", ")}
+                  </p>
+                )}
+
+                <ul className="space-y-2 mb-3">
+                  {booth.specs.map((spec, i) => (
+                    <li key={i} className="flex gap-2">
+                      <div className="w-2 h-2 bg-secondary rounded-full" />
+                      <span>{spec}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 

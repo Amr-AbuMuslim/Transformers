@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
-import { PageHeader } from "@/components/PageHeader"
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { PageHeader } from "@/components/PageHeader";
 import SectionTitle from "@/components/SectionTitle";
-import { useState } from "react"
-import { ChevronDown } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const faqItems = [
   {
@@ -111,10 +111,18 @@ const faqItems = [
       },
     ],
   },
-]
+];
 
-function FAQItem({ question, answer, index }: { question: string; answer: string; index: number }) {
-  const [isOpen, setIsOpen] = useState(false)
+function FAQItem({
+  question,
+  answer,
+  index,
+}: {
+  question: string;
+  answer: string;
+  index: number;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <motion.div
@@ -129,7 +137,11 @@ function FAQItem({ question, answer, index }: { question: string; answer: string
         className="w-full flex items-center justify-between gap-4 p-6 bg-card hover:bg-card/80 transition-colors"
       >
         <h4 className="font-semibold text-foreground text-left">{question}</h4>
-        <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="flex-shrink-0">
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+          className="flex-shrink-0"
+        >
           <ChevronDown className="text-secondary" size={20} />
         </motion.div>
       </button>
@@ -143,12 +155,14 @@ function FAQItem({ question, answer, index }: { question: string; answer: string
             transition={{ duration: 0.3 }}
             className="border-t border-border bg-background"
           >
-            <p className="p-6 text-muted-foreground leading-relaxed">{answer}</p>
+            <p className="p-6 text-muted-foreground leading-relaxed">
+              {answer}
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
     </motion.div>
-  )
+  );
 }
 
 export default function FAQ() {
@@ -156,7 +170,7 @@ export default function FAQ() {
     <>
       <Navbar />
 
-      <PageHeader title="Frequently Asked Questions" image="/faq-help-support.jpg" />
+      <PageHeader title="Frequently Asked Questions" image="/FAQ.jpg" position="top"/>
 
       <section className="py-20 px-4 bg-background">
         <div className="max-w-4xl mx-auto">
@@ -181,7 +195,12 @@ export default function FAQ() {
 
                 <div className="space-y-3 mb-8">
                   {category.questions.map((item, qIndex) => (
-                    <FAQItem key={qIndex} question={item.q} answer={item.a} index={qIndex} />
+                    <FAQItem
+                      key={qIndex}
+                      question={item.q}
+                      answer={item.a}
+                      index={qIndex}
+                    />
                   ))}
                 </div>
               </div>
@@ -195,9 +214,12 @@ export default function FAQ() {
             viewport={{ once: true }}
             className="bg-secondary rounded-lg p-8 text-center mt-16"
           >
-            <h3 className="font-serif text-2xl font-bold text-secondary-foreground mb-3">Still Have Questions?</h3>
+            <h3 className="font-serif text-2xl font-bold text-secondary-foreground mb-3">
+              Still Have Questions?
+            </h3>
             <p className="text-secondary-foreground/90 mb-6">
-              Our team is ready to help. Reach out for personalized assistance with your booth requirements.
+              Our team is ready to help. Reach out for personalized assistance
+              with your booth requirements.
             </p>
             <a
               href="/contact"
@@ -211,5 +233,5 @@ export default function FAQ() {
 
       <Footer />
     </>
-  )
+  );
 }
