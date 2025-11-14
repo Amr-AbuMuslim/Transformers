@@ -74,7 +74,7 @@ export default function TrustedByCarousel() {
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 60,
+                duration: 40,
                 ease: "linear",
               },
             }}
