@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Leaf, DollarSign, Clock, Boxes } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
+import TrustedByCarousel from "@/components/TrustedByCarousel";
 
 const benefits = [
   {
@@ -134,6 +135,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <TrustedByCarousel></TrustedByCarousel>
 
       {/* Product Overview */}
       <section className="py-20 px-4 bg-card">

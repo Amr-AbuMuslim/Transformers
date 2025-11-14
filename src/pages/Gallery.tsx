@@ -7,6 +7,7 @@ import SectionTitle from "@/components/SectionTitle";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import TrustedByCarousel from "@/components/TrustedByCarousel";
 
 const galleryItems = [
   {
@@ -140,7 +141,7 @@ export default function Gallery() {
           </div>
         </div>
       </section>
-
+      <TrustedByCarousel></TrustedByCarousel>
       {/* Grid Gallery */}
       <section className="py-20 px-4 bg-card">
         <div className="max-w-6xl mx-auto">
