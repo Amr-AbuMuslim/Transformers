@@ -19,22 +19,20 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-background border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="flex items-center gap-3">
+        <div className="flex justify-between items-center h-24">
+          {/* Logo container */}
+          <Link to="/" className="flex items-center">
+            <div className="w-20 h-20 md:w-28 md:h-28 overflow-hidden flex items-center justify-center">
               <img
                 src="/LOGO (1) (2).png"
                 alt="Transformers"
-                className="w-16 h-16 object-contain"
+                className="w-full h-full object-contain opacity-95"
               />
             </div>
-            <span className="font-serif font-bold text-2xl hidden sm:inline tracking-wide">
-              Transformers
-            </span>
           </Link>
 
           {/* Desktop menu */}
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex gap-10">
             {links.map((link) => (
               <Link
                 key={link.href}
@@ -46,6 +44,7 @@ export default function Navbar() {
             ))}
           </div>
 
+          {/* Button */}
           <Link
             to="/contact"
             className="hidden md:block px-6 py-2 bg-secondary text-secondary-foreground rounded-lg hover:opacity-90 transition-opacity font-medium text-sm"
