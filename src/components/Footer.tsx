@@ -6,6 +6,7 @@ import {
   Instagram,
   Linkedin,
   Twitter,
+  Facebook,
 } from "lucide-react";
 
 export default function Footer() {
@@ -104,14 +105,23 @@ export default function Footer() {
             &copy; 2025 Transformers Display System. All rights reserved.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-secondary transition-colors">
+            <a
+              href="https://www.instagram.com/transformers_me/"
+              className="hover:text-secondary transition-colors"
+            >
               <Instagram size={20} />
             </a>
-            <a href="#" className="hover:text-secondary transition-colors">
+            <a
+              href="https://eg.linkedin.com/company/transformersdisplaysystem"
+              className="hover:text-secondary transition-colors"
+            >
               <Linkedin size={20} />
             </a>
-            <a href="#" className="hover:text-secondary transition-colors">
-              <Twitter size={20} />
+            <a
+              href="https://www.facebook.com/transformersdisplaysystem/"
+              className="hover:text-secondary transition-colors"
+            >
+              <Facebook size={20} />
             </a>
           </div>
         </div>
