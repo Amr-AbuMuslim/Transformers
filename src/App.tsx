@@ -5,6 +5,7 @@ import Products from "./pages/Products";
 import FAQ from "./pages/FAQ";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
+import Events from "./pages/Events";
 import ScrollToTop from "./utils/ScrollToTop";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/events" element={<Events />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
