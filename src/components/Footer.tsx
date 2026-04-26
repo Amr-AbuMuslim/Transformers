@@ -60,6 +60,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  to="/events"
+                  className="hover:text-secondary transition-colors"
+                >
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/faq"
                   className="hover:text-secondary transition-colors"
                 >
@@ -88,6 +96,8 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <Phone size={16} /> +201110999646
+                <Phone size={16} /> +201110999647
+                <Phone size={16} /> +201110999648
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={16} /> sales@transformers-me.com
