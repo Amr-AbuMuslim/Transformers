@@ -1,536 +1,438 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  AudioLines,
-  Award,
-  ChevronLeft,
-  ChevronRight,
-  Clapperboard,
-  Lightbulb,
-  Monitor,
-  Sofa,
-  Sparkles,
   Trophy,
+  Briefcase,
+  Pill,
+  Monitor,
+  AudioLines,
+  Lightbulb,
+  Layers,
+  CheckCircle2,
+  Phone,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { PageHeader } from "@/components/PageHeader";
+import PageHeader from "@/components/PageHeader";
 import SectionTitle from "@/components/SectionTitle";
-
-type EventItem = {
-  file: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  labels?: string[];
-};
-
-type EventSection = {
-  folder: string;
-  icon: LucideIcon;
-  subtitle: string;
-  description: string;
-  labels?: string[];
-  items: EventItem[];
-};
-
-type EventSectionMeta = {
-  icon: LucideIcon;
-  subtitle: string;
-  description: string;
-  labels?: string[];
-};
-
-const sectionFiles: Record<string, string[]> = {
-  "01_Hero": ["hero_background.jpg"],
-  "02_Exhibition_Booths": [
-    "CodeA_UShape_Standard.jpg",
-    "CodeB_Elegant_UShape_3D.jpg",
-    "CodeB_Elegant_UShape_Live.jpg",
-    "CodeD_UShape_Simple.jpg",
-    "CodeE_UShape_Economic.jpg",
-    "CodeF_LShape_Simple.jpg",
-    "CodeG_Elegant_Tower.jpg",
-    "CodeH_Elegant_Ring.jpg",
-  ],
-  "03_Complete_Event_Solution": [
-    "Audio_Systems.jpg",
-    "Furniture.jpg",
-    "LED_Displays.jpg",
-    "Stage_Lighting.jpg",
-  ],
-  "04_LED_Screens": [
-    "LED_Branded_Stage.jpg",
-    "LED_Conference_Setup.jpg",
-    "LED_Curved_Screen.jpg",
-    "LED_Digital_Signage_Row.jpg",
-    "LED_Large_Venue.jpg",
-    "LED_Speaker_Stage.jpg",
-    "LED_Touch_Screen_Kiosk.jpg",
-  ],
-  "05_Sound_Systems": [
-    "Line_Array_Speakers.jpg",
-    "PA_System_Mixing_Console.jpg",
-    "Wireless_Microphone_Package.jpg",
-  ],
-  "06_Event_Lighting": [
-    "ARERA_Expo.jpg",
-    "HR_Conference.jpg",
-    "PROXIMA_Gala.jpg",
-    "SHIRA_20Years_Anniversary.jpg",
-  ],
-  "07_Furniture": [
-    "Hydraulic_Tables.jpg",
-    "Meeting_Tables.jpg",
-    "Mini_Bars.jpg",
-    "XTables_Sales_Tables.jpg",
-  ],
-  "08_Stages": [
-    "German_Stage_Glass.jpg",
-    "German_Stage_Installed.jpg",
-    "Plexi_Stage_Black.jpg",
-    "Plexi_Stage_White.jpg",
-    "Stage_Setup.jpg",
-    "Stage_System.jpg",
-    "Stage_Type1.jpg",
-    "Stage_Type2.jpg",
-  ],
-  "09_Past_Events": [
-    "Career_Expos.jpg",
-    "Career_Expo_Hall.jpg",
-    "Healthcare_Expos.jpg",
-    "Investment_Forums.jpg",
-    "Limitless_Naturals_Booth.jpg",
-    // "Luxury_Exhibitions.jpg",
-    "Luxury_Exhibition_Hall.jpg",
-    "MANNOR_Booth.jpg",
-    "Medical_Conferences.jpg",
-    "Our_Team.jpg",
-    "Product_Launches.jpg",
-  ],
-  "10_Sports_Events": [
-    "African_Weightlifting_Championships.jpg",
-    "Africa_Open_Powerlifting_2022.jpg",
-    "BDS_Store_Launch.jpg",
-    "CITI_PARA_Swimming_Egypt_2024.jpg",
-    "CMAS_Finswimming_2023_1.jpg",
-    "CMAS_Finswimming_2023_2.jpg",
-    "CMAS_Swimming_Athletes.jpg",
-    "CMAS_Swimming_World_Championship.jpg",
-    "Egyptian_Para_Powerlifting_1.jpg",
-    "Egyptian_Para_Powerlifting_2.jpg",
-    "International_Gymnastics_Championship.jpg",
-    "LED_Install_In_Progress.jpg",
-    "Outdoor_Event_Setup.jpg",
-    "Premium_Gala_Dinners.jpg",
-    "Sports_Event_Setup.jpg",
-    "Winzoxib_Gala_Dinner.jpg",
-    "World_Para_Powerlifting_1.jpg",
-    "World_Para_Powerlifting_2.jpg",
-    "World_Para_Powerlifting_HeavyWeight.jpg",
-  ],
-  "11_Awards": [
-    "Glass_Display_Cases.jpg",
-    "International_Recognition.jpg",
-    "Multi_Level_Showcase.jpg",
-    "Premium_Trophy_Displays.jpg",
-  ],
-  "12_Trade_Shows": [
-    "BDS_Store_Launch.jpg",
-    "Corporate_Conference_Booths.jpg",
-    "MOG_Exhibition_Large_Setup.jpg",
-  ],
-};
-
-const sectionMeta: Record<string, EventSectionMeta> = {
-  "01_Hero": {
-    icon: Sparkles,
-    subtitle: "One Partner. Infinite Possibilities.",
-    description: "Seamless Integration with a single point of contact.",
-    labels: ["Complete Event Solution", "Consistent Quality Standards"],
-  },
-  "02_Exhibition_Booths": {
-    icon: Clapperboard,
-    subtitle: "Premium Booth Concepts",
-    description:
-      "Professional visual environments that balance branding, flow, and visitor engagement.",
-  },
-  "03_Complete_Event_Solution": {
-    icon: Sparkles,
-    subtitle: "Complete Event Solution",
-    description:
-      "Single Point of Contact, Cost & Time Efficiency, and consistent quality from planning to delivery.",
-    labels: ["Seamless Integration", "Cost & Time Efficiency"],
-  },
-  "04_LED_Screens": {
-    icon: Monitor,
-    subtitle: "Professional Visual Solutions",
-    description:
-      "LED Display Screens with premium output and reliability for conferences, shows, and launches.",
-    labels: ["4K Resolution", "360° Viewing Angle", "∞ Brightness", "24/7 Reliability"],
-  },
-  "05_Sound_Systems": {
-    icon: AudioLines,
-    subtitle: "Professional Audio Solutions",
-    description:
-      "Crystal-clear coverage with pro-grade equipment and 24/7 technical support.",
-    labels: ["360° Sound Coverage", "HD Crystal Clear", "Pro Grade Equipment", "24/7 Support"],
-  },
-  "06_Event_Lighting": {
-    icon: Lightbulb,
-    subtitle: "Professional Event Lighting",
-    description: "Real Event Setups & Solutions for conferences, expos, and galas.",
-  },
-  "07_Furniture": {
-    icon: Sofa,
-    subtitle: "Furniture - Tables & Accessories",
-    description:
-      "Sales & X-Tables, Hydraulic Tables, Meeting Tables, and Mini Bars with event-ready finishes.",
-  },
-  "08_Stages": {
-    icon: Trophy,
-    subtitle: "Professional Stage Solutions",
-    description:
-      "Event Stages & Setup with safe structures, modern materials, and scalable configurations.",
-    labels: ["∞ Configurations", "Pro Grade Materials", "✓ Safe & Stable", "24/7 Support"],
-  },
-  "09_Past_Events": {
-    icon: Sparkles,
-    subtitle: "Past Events Portfolio",
-    description: "A curated archive of delivered projects across sectors and formats.",
-  },
-  "10_Sports_Events": {
-    icon: Trophy,
-    subtitle: "Large-Scale Sports Event Delivery",
-    description:
-      "Competition-ready setups with production precision, visibility, and operational resilience.",
-  },
-  "11_Awards": {
-    icon: Award,
-    subtitle: "Recognition & Showcase Excellence",
-    description: "Premium presentation systems for awards, displays, and official recognitions.",
-  },
-  "12_Trade_Shows": {
-    icon: Clapperboard,
-    subtitle: "Trade Show Execution",
-    description: "Professional exhibition setups optimized for lead generation and brand impact.",
-  },
-};
-
-const itemOverrides: Record<string, Partial<EventItem>> = {
-  "SHIRA_20Years_Anniversary.jpg": {
-    title: "SHIRA 20 Years",
-    subtitle: "Anniversary celebration",
-  },
-  "HR_Conference.jpg": {
-    title: "HR Conference",
-    subtitle: "Professional conference",
-  },
-  "ARERA_Expo.jpg": {
-    title: "ARERA Expo",
-    subtitle: "Large exhibition",
-  },
-  "PROXIMA_Gala.jpg": {
-    title: "PROXIMA Gala",
-    subtitle: "Gala event",
-  },
-  "XTables_Sales_Tables.jpg": {
-    title: "Sales & X-Tables",
-    subtitle: "Codes: T-001 to T-010",
-  },
-  "Hydraulic_Tables.jpg": {
-    title: "Hydraulic Tables",
-    subtitle: "Codes: T-011 to T-014 (Adjustable Height)",
-  },
-  "Meeting_Tables.jpg": {
-    title: "Meeting Tables",
-    subtitle: "Round & Rectangular Options",
-  },
-  "Mini_Bars.jpg": {
-    title: "Mini Bars",
-    subtitle: "Codes: M-001, M-002",
-  },
-  "Plexi_Stage_Black.jpg": {
-    title: "Plexi Stage",
-    subtitle: "Modern transparent design",
-  },
-  "German_Stage_Glass.jpg": {
-    title: "German Stage",
-    subtitle: "Premium engineering",
-  },
-  "Stage_Setup.jpg": {
-    title: "Stage Setup",
-    subtitle: "Professional configuration",
-  },
-  "Stage_System.jpg": {
-    title: "Stage System",
-    subtitle: "Complete solution",
-  },
-};
-
-function titleFromFilename(file: string) {
-  return file
-    .replace(/\.[^/.]+$/, "")
-    .replace(/_/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-function sectionDisplayTitle(folder: string) {
-  return folder
-    .replace(/^\d+_/, "")
-    .replace(/_/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-function sectionImage(folder: string, file: string) {
-  return `/Transformers_Assets/${folder}/${file}`;
-}
-
-function itemDescription(folder: string, title: string) {
-  const defaultText =
-    "Delivered with premium production quality, strong visual hierarchy, and audience-first setup planning.";
-
-  if (folder === "04_LED_Screens") {
-    return `${title} configured for high-impact visuals with 4K-ready clarity and dependable 24/7 performance.`;
-  }
-  if (folder === "05_Sound_Systems") {
-    return `${title} tuned for balanced coverage, crystal clarity, and stable operation across the full venue.`;
-  }
-  if (folder === "08_Stages") {
-    return `${title} engineered with professional-grade materials for safe load handling and smooth execution.`;
-  }
-  if (folder === "06_Event_Lighting") {
-    return `${title} executed as a real event setup with focused atmosphere design and seamless technical support.`;
-  }
-  return defaultText;
-}
-
-function SectionCarousel({ section }: { section: EventSection }) {
-  const [active, setActive] = useState(0);
-
-  const prev = () => {
-    setActive((p) => (p - 1 + section.items.length) % section.items.length);
-  };
-
-  const next = () => {
-    setActive((p) => (p + 1) % section.items.length);
-  };
-
-  const item = section.items[active];
-
-  return (
-    <div className="space-y-5">
-      <div className="relative overflow-hidden rounded-xl border border-border bg-card">
-        <img
-          src={sectionImage(section.folder, item.file)}
-          alt={item.title}
-          className="h-[260px] w-full object-cover md:h-[420px]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
-
-        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
-          <p className="text-xs md:text-sm opacity-90">{item.subtitle}</p>
-          <h3 className="font-serif text-xl md:text-3xl font-semibold mb-2">
-            {item.title}
-          </h3>
-          <p className="text-sm md:text-base text-white/90 max-w-3xl">
-            {item.description}
-          </p>
-        </div>
-
-        <button
-          onClick={prev}
-          className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-white/40 bg-black/40 p-2 text-white transition hover:bg-black/70"
-          aria-label={`Previous ${section.folder} slide`}
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <button
-          onClick={next}
-          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-white/40 bg-black/40 p-2 text-white transition hover:bg-black/70"
-          aria-label={`Next ${section.folder} slide`}
-        >
-          <ChevronRight size={18} />
-        </button>
-      </div>
-
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        {section.items.map((entry, idx) => (
-          <button
-            key={entry.file}
-            onClick={() => setActive(idx)}
-            className={`h-2 rounded-full transition-all ${
-              idx === active ? "w-8 bg-secondary" : "w-2 bg-border"
-            }`}
-            aria-label={`Show ${entry.title}`}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+import SEOHead from "@/components/SEOHead";
+import ProjectCard from "@/components/ProjectCard";
+import { PROJECTS } from "@/data/projects";
 
 export default function Events() {
-  const heroImage = sectionImage("01_Hero", sectionFiles["01_Hero"][0]);
-
-  const sections = useMemo<EventSection[]>(
-    () =>
-      Object.entries(sectionFiles).map(([folder, files]) => {
-        const meta = sectionMeta[folder as keyof typeof sectionMeta];
-        return {
-          folder,
-          icon: meta.icon,
-          subtitle: meta.subtitle,
-          description: meta.description,
-          labels: meta.labels,
-          items: files.map((file) => {
-            const defaultTitle = titleFromFilename(file);
-            const override = itemOverrides[file];
-            const title = override?.title || defaultTitle;
-            const subtitle = override?.subtitle || "Professional Event Setup";
-            return {
-              file,
-              title,
-              subtitle,
-              description: itemDescription(folder, title),
-              labels: override?.labels,
-            };
-          }),
-        };
-      }),
-    []
+  const sportsProjects = PROJECTS.filter(
+    (p) => p.pillar === "events" && p.category.toLowerCase().includes("championship") || p.category.toLowerCase().includes("tournament") || p.category.toLowerCase().includes("sports")
+  );
+  const commercialProjects = PROJECTS.filter(
+    (p) => p.pillar === "events" && (p.category.toLowerCase().includes("launch") || p.category.toLowerCase().includes("gala") || p.category.toLowerCase().includes("activation")) && !p.id.includes("winzoxib")
+  );
+  const pharmaProjects = PROJECTS.filter(
+    (p) => p.pillar === "events" && (p.id.includes("winzoxib") || p.category.toLowerCase().includes("pharma") || p.category.toLowerCase().includes("medical"))
   );
 
-  const contentSections = sections.filter((section) => section.folder !== "01_Hero");
+  const breadcrumbs = [{ label: "Events Management" }];
+
+  const eventsSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Event Management, Production & Staging Egypt",
+    provider: {
+      "@type": "Organization",
+      name: "Transformers for Events Management and Display Systems",
+      url: "https://transformers-me.com",
+    },
+    serviceType: "Event Management and Production",
+    areaServed: {
+      "@type": "Country",
+      name: "Egypt",
+    },
+    description:
+      "Turnkey event management and production across Egypt: Commercial brand launches, pharmaceutical symposia, and international sports tournaments. In-house LED screens, sound systems, staging, and lighting.",
+  };
 
   return (
     <>
+      <SEOHead
+        title="Event Management & Production Egypt | Commercial, Pharma & Sports"
+        description="Turnkey event management, AV staging, LED screens, and production in Egypt for commercial launches, pharmaceutical symposia, and international sports tournaments."
+        canonicalPath="/events"
+        structuredData={eventsSchema}
+      />
+
       <Navbar />
 
-      <PageHeader title="Events" image={heroImage} />
+      <PageHeader
+        title="Event Management & Production"
+        subtitle="Turnkey production for high-stakes Commercial Events, Pharmaceutical Symposia, and International Sports Tournaments across Egypt."
+        image="/Transformers_Assets/01_Hero/hero_background.jpg"
+        breadcrumbs={breadcrumbs}
+        badge="Business Pillar 02"
+      />
 
-      <section className="py-16 px-4 bg-background">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-5">
-            Complete Event Solution
+      {/* --- INTRO SECTION --- */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-100">
+        <div className="max-w-5xl mx-auto text-center">
+          <span className="text-xs uppercase tracking-wider font-bold text-[#1787b2] bg-[#1787b2]/10 px-3 py-1 rounded-full border border-[#1787b2]/20 mb-3 inline-block">
+            One Turnkey Partner. Infinite Possibilities.
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0a2540] mb-4">
+            Live Production Without Friction
           </h2>
-          <p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            One Partner. Infinite Possibilities. Seamless Integration with a
-            Single Point of Contact, Consistent Quality Standards, and smarter
-            Cost & Time Efficiency across every event lifecycle.
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+            Events require an entirely different rhythm than static exhibitions. From timing-critical sports broadcasts to high-compliance pharmaceutical summits and glamorous brand launches, Transformers provides synchronized production: in-house LED video walls, precision sound arrays, certified staging, and atmospheric lighting managed by experienced Cairo technical crews.
           </p>
         </div>
       </section>
 
-      {contentSections.map((section, sectionIndex) => {
-        const Icon = section.icon;
-        const useCarousel = section.items.length >= 7;
+      {/* --- EVENT CATEGORY 1: COMMERCIAL EVENTS --- */}
+      <section id="commercial-events" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="flex items-center gap-2 mb-2 text-[#1787b2]">
+                <Briefcase size={18} />
+                <span className="text-xs uppercase tracking-wider font-bold">Category 01</span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0a2540] mb-4">
+                Commercial Brand Events & Launches
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base mb-6 leading-relaxed">
+                Whether launching a retail flagship, unveiling a new product line, or celebrating a major corporate milestone, commercial events demand dramatic impact and flawless media presence. We design immersive brand environments, reveal stages, and dynamic lighting choreography that capture audience attention.
+              </p>
 
-        return (
-          <section
-            key={section.folder}
-            className={`py-20 px-4 ${sectionIndex % 2 === 0 ? "bg-card" : "bg-background"}`}
-          >
-            <div className="max-w-6xl mx-auto">
-              <SectionTitle
-                title={sectionDisplayTitle(section.folder)}
-                subtitle={section.subtitle}
-              />
-
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55 }}
-                viewport={{ once: true }}
-                className="rounded-xl border border-border bg-background p-5 md:p-6 mb-8"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
-                    <Icon size={20} />
-                  </div>
+              <div className="space-y-3 mb-8">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-serif text-xl font-semibold text-foreground mb-1">
-                      {section.subtitle}
-                    </p>
-                    <p className="text-sm md:text-base text-muted-foreground">
-                      {section.description}
-                    </p>
-                    {section.labels && (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {section.labels.map((label) => (
-                          <span
-                            key={label}
-                            className="rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-foreground"
-                          >
-                            {label}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                    <h4 className="font-semibold text-sm text-[#0a2540]">Product & Retail Store Launches</h4>
+                    <p className="text-xs text-slate-600">Grand opening portals, red carpet entryways, glass display plinths, and high-impact audio (e.g. BDS Store Launch).</p>
                   </div>
                 </div>
-              </motion.div>
 
-              {useCarousel ? (
-                <SectionCarousel section={section} />
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {section.items.map((item, index) => (
-                    <motion.article
-                      key={item.file}
-                      initial={{ opacity: 0, y: 16 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.06 }}
-                      viewport={{ once: true }}
-                      className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl"
-                    >
-                      <div className="overflow-hidden">
-                        <img
-                          src={sectionImage(section.folder, item.file)}
-                          alt={item.title}
-                          className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="p-5">
-                        <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-                          {item.subtitle}
-                        </p>
-                        <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
-                          {item.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-                    </motion.article>
-                  ))}
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-sm text-[#0a2540]">Milestone Celebrations & Galas</h4>
+                    <p className="text-xs text-slate-600">High-gloss plexiglass runways, custom video backdrops, and synchronized intelligent lighting (e.g. SHIRA 20-Year Anniversary, PROXIMA Gala).</p>
+                  </div>
                 </div>
-              )}
-            </div>
-          </section>
-        );
-      })}
 
-      <section className="py-20 px-4 bg-primary text-primary-foreground">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">
-            Ready To Build Your Next Event Experience?
-          </h2>
-          <p className="text-lg md:text-xl opacity-90 mb-8">
-            From LED Display Screens and Sound Systems to Stages, Furniture, and
-            Lighting, our team delivers a fully synchronized event ecosystem.
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-sm text-[#0a2540]">Outdoor & Corporate Brand Activations</h4>
+                    <p className="text-xs text-slate-600">Weather-tested aluminum truss structures, outdoor LED totems, and branded lounge furniture.</p>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                to="/contact?service=Commercial+Events"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#0a2540] hover:bg-[#1787b2] text-white text-xs font-semibold rounded-xl transition-colors shadow-sm"
+              >
+                <span>Plan a Commercial Event</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-[4/3] bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/10_Sports_Events/BDS_Store_Launch.jpg"
+                  alt="BDS Store Launch Staging"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-[4/3] bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/06_Event_Lighting/SHIRA_20Years_Anniversary.jpg"
+                  alt="SHIRA 20 Years Gala lighting"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-[4/3] bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/06_Event_Lighting/PROXIMA_Gala.jpg"
+                  alt="PROXIMA Corporate Gala"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-[4/3] bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/09_Past_Events/Product_Launches.jpg"
+                  alt="Corporate Product Launch Stage"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- EVENT CATEGORY 2: PHARMACEUTICAL EVENTS --- */}
+      <section id="pharma-events" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="sm:col-span-2 rounded-2xl overflow-hidden shadow-md aspect-[16/9] bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/10_Sports_Events/Winzoxib_Gala_Dinner.jpg"
+                  alt="Winzoxib Pharmaceutical Scientific Gala Dinner"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-[4/3] bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/09_Past_Events/Medical_Conferences.jpg"
+                  alt="Medical Industry Scientific Presentation"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-[4/3] bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/09_Past_Events/Healthcare_Expos.jpg"
+                  alt="Healthcare Industry Gathering"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <div className="flex items-center gap-2 mb-2 text-[#1787b2]">
+                <Pill size={18} />
+                <span className="text-xs uppercase tracking-wider font-bold">Category 02</span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0a2540] mb-4">
+                Pharmaceutical Symposia & Medical Events
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base mb-6 leading-relaxed">
+                Healthcare and pharmaceutical events require precision, strict adherence to technical timing, and pristine visual clarity for clinical data presentation. We balance professional scientific requirements with engaging dinner or ceremony environments.
+              </p>
+
+              <div className="space-y-3 mb-8">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-[#1787b2] shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-sm text-[#0a2540]">Clinical Data Clarity (P2.6 LED Screens)</h4>
+                    <p className="text-xs text-slate-600">Ultra-sharp high-definition LED displays ensure that fine medical charts, graphs, and study data remain crystal-clear to all delegates.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-[#1787b2] shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-sm text-[#0a2540]">Multi-Microphone Audio for Q&A Panels</h4>
+                    <p className="text-xs text-slate-600">Feedback-free wireless boundary, lavalier, and handheld microphone packages with dedicated sound technicians.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-[#1787b2] shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-sm text-[#0a2540]">Scientific Gala Dinners (e.g. Winzoxib)</h4>
+                    <p className="text-xs text-slate-600">Smooth transition from rigorous daylight scientific presentations into an atmospheric evening celebration.</p>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                to="/contact?service=Pharmaceutical+Events"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#1787b2] hover:bg-[#0a2540] text-white text-xs font-semibold rounded-xl transition-colors shadow-sm"
+              >
+                <span>Plan a Pharma Event</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- EVENT CATEGORY 3: SPORTS & TOURNAMENTS --- */}
+      <section id="sports-events" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="flex items-center gap-2 mb-2 text-[#1787b2]">
+                <Trophy size={18} />
+                <span className="text-xs uppercase tracking-wider font-bold">Category 03</span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0a2540] mb-4">
+                Sports & Tournament Production
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base mb-6 leading-relaxed">
+                Large-scale sports tournaments demand certified structural resilience, wide-angle spectator visibility, and broadcast-ready lighting. Transformers has delivered the production staging and branding for major international championships in Egypt.
+              </p>
+
+              <div className="space-y-3 mb-8">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-sm text-[#0a2540]">CITI Para Swimming World Series Egypt 2024</h4>
+                    <p className="text-xs text-slate-600">Full aquatics venue perimeter branding, medal ceremony podiums, VIP review areas, and timing display integration.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-sm text-[#0a2540]">World Para Powerlifting World Cup</h4>
+                    <p className="text-xs text-slate-600">Certified heavy-duty German stage platforms capable of handling extreme athlete and weight-load impacts under broadcast scrutiny.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-sm text-[#0a2540]">CMAS Finswimming & Gymnastics World Events</h4>
+                    <p className="text-xs text-slate-600">Poolside and arena truss gateways, press backdrop walls, and stadium-wide distributed acoustic audio.</p>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                to="/contact?service=Sports+and+Tournaments"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#0a2540] hover:bg-[#1787b2] text-white text-xs font-semibold rounded-xl transition-colors shadow-sm"
+              >
+                <span>Plan a Sports Championship</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-square bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/10_Sports_Events/CITI_PARA_Swimming_Egypt_2024.jpg"
+                  alt="CITI Para Swimming Egypt 2024"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-square bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/10_Sports_Events/World_Para_Powerlifting_1.jpg"
+                  alt="World Para Powerlifting Competition Stage"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-square bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/10_Sports_Events/CMAS_Finswimming_2023_1.jpg"
+                  alt="CMAS Finswimming Championships"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-md aspect-square bg-slate-100 border border-slate-200">
+                <img
+                  src="/Transformers_Assets/10_Sports_Events/International_Gymnastics_Championship.jpg"
+                  alt="International Gymnastics Championship"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- IN-HOUSE PRODUCTION CAPABILITIES --- */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <SectionTitle
+            badge="Technical Backbone"
+            title="Complete Event Production Ecosystem"
+            subtitle="Owned equipment and technical teams deployed across Egypt."
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-lg transition-all">
+              <div className="w-12 h-12 rounded-xl bg-[#1787b2]/10 text-[#1787b2] flex items-center justify-center mb-4">
+                <Monitor size={24} />
+              </div>
+              <h3 className="font-serif text-lg font-bold text-[#0a2540] mb-2">LED Screen Systems</h3>
+              <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                High-resolution P2.6 and P3.9 indoor and outdoor LED video walls, curved screens, and vertical totems with live video switching.
+              </p>
+              <Link to="/rental-products" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
+                Explore LED Inventory <ArrowRight size={12} />
+              </Link>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-lg transition-all">
+              <div className="w-12 h-12 rounded-xl bg-[#1787b2]/10 text-[#1787b2] flex items-center justify-center mb-4">
+                <AudioLines size={24} />
+              </div>
+              <h3 className="font-serif text-lg font-bold text-[#0a2540] mb-2">Pro Audio & PA</h3>
+              <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                Line array speaker arrays, digital mixing consoles, and multi-channel UHF wireless microphone systems with feedback management.
+              </p>
+              <Link to="/rental-products" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
+                Explore Sound Inventory <ArrowRight size={12} />
+              </Link>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-lg transition-all">
+              <div className="w-12 h-12 rounded-xl bg-[#1787b2]/10 text-[#1787b2] flex items-center justify-center mb-4">
+                <Lightbulb size={24} />
+              </div>
+              <h3 className="font-serif text-lg font-bold text-[#0a2540] mb-2">Intelligent Lighting</h3>
+              <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                DMX-controlled moving heads, stage wash battens, architectural truss illumination, and custom gobo brand projections.
+              </p>
+              <Link to="/rental-products" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
+                Explore Lighting Inventory <ArrowRight size={12} />
+              </Link>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-lg transition-all">
+              <div className="w-12 h-12 rounded-xl bg-[#1787b2]/10 text-[#1787b2] flex items-center justify-center mb-4">
+                <Layers size={24} />
+              </div>
+              <h3 className="font-serif text-lg font-bold text-[#0a2540] mb-2">Stages & Rigging</h3>
+              <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                Heavy-duty German stage platforms, high-gloss plexiglass runways, aluminum trusses, and certified safety guardrails.
+              </p>
+              <Link to="/rental-products" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
+                Explore Staging Inventory <ArrowRight size={12} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- CTA BANNER --- */}
+      <section className="py-16 px-4 bg-[#0a2540] text-white text-center">
+        <div className="max-w-3xl mx-auto">
+          <h3 className="font-serif text-2xl sm:text-3xl font-bold mb-4">
+            Planning a Major Event in Egypt?
+          </h3>
+          <p className="text-slate-300 text-sm sm:text-base mb-8 leading-relaxed">
+            Consolidate your staging, AV, lighting, and environmental branding with a single, dependable production partner in Cairo.
           </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 rounded-lg bg-secondary px-8 py-4 text-lg font-semibold text-secondary-foreground transition-opacity hover:opacity-90"
-          >
-            Start Your Event Plan <ArrowRight size={18} />
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/contact?service=Event+Management+and+Production"
+              className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-sm rounded-xl transition-all shadow-md"
+            >
+              Request an Event Proposal
+            </Link>
+            <a
+              href="tel:+201110999646"
+              className="px-8 py-3.5 border border-white/20 hover:bg-white/10 text-white font-semibold text-sm rounded-xl transition-colors flex items-center justify-center gap-2"
+            >
+              <Phone size={16} /> +20 111 099 9646
+            </a>
+          </div>
         </div>
       </section>
 

@@ -48,65 +48,65 @@ export default function TrustedByCarousel() {
 
   useEffect(() => {
     if (containerRef.current) {
-      setScrollWidth(containerRef.current.scrollWidth / 2); // width of first set
+      setScrollWidth(containerRef.current.scrollWidth / 2);
     }
   }, []);
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-14 sm:py-20 bg-white border-y border-slate-100 overflow-hidden w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-serif font-bold mb-2">
+        <h2 className="text-center text-2xl sm:text-3xl font-serif font-bold text-[#0a2540] mb-2">
           Trusted By Industry Leaders
         </h2>
-        <p className="text-center text-muted-foreground mb-12">
-          Working with the world's best brands
+        <p className="text-center text-xs sm:text-sm text-slate-500 mb-8 sm:mb-12 max-w-xl mx-auto">
+          Delivering exhibition, event, and conference solutions for prominent brands across Egypt and the Middle East.
         </p>
 
-        <div className="relative overflow-hidden">
-          <div className="absolute left-0 top-0 z-10 w-20 h-full bg-gradient-to-r from-background to-transparent pointer-events-none" />
-          <div className="absolute right-0 top-0 z-10 w-20 h-full bg-gradient-to-l from-background to-transparent pointer-events-none" />
+        <div className="relative overflow-hidden w-full">
+          <div className="absolute left-0 top-0 z-10 w-12 sm:w-20 h-full bg-gradient-to-r from-white to-transparent pointer-events-none" />
+          <div className="absolute right-0 top-0 z-10 w-12 sm:w-20 h-full bg-gradient-to-l from-white to-transparent pointer-events-none" />
 
           <motion.div
             ref={containerRef}
-            className="flex gap-8"
+            className="flex gap-6 sm:gap-8 items-center"
             animate={{ x: [0, -scrollWidth] }}
             transition={{
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 40,
+                duration: 45,
                 ease: "linear",
               },
             }}
           >
             {[...clientLogos, ...clientLogos].map((logo, idx) => (
-              <motion.div
+              <div
                 key={idx}
-                className="min-w-max flex items-center justify-center"
-                whileHover={{ scale: 1.05 }}
+                className="shrink-0 flex items-center justify-center p-2"
               >
                 <img
                   src={logo.image || "/placeholder.svg"}
                   alt={logo.name}
-                  className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 drop-shadow-sm"
+                  loading="lazy"
+                  className="h-10 sm:h-12 md:h-14 w-auto object-contain grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300 drop-shadow-xs"
                 />
-              </motion.div>
+              </div>
             ))}
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-3 gap-8 mt-12 text-center">
-          <div>
-            <p className="text-3xl font-bold text-primary">1K+</p>
-            <p className="text-muted-foreground">Projects Completed</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-10 sm:mt-14 pt-8 border-t border-slate-100 text-center">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+            <p className="text-2xl sm:text-3xl font-serif font-bold text-[#0a2540]">1,000+</p>
+            <p className="text-xs text-slate-600 mt-1">Exhibitions & Events Delivered</p>
           </div>
-          <div>
-            <p className="text-3xl font-bold text-primary">250+</p>
-            <p className="text-muted-foreground">Satisfied Clients</p>
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+            <p className="text-2xl sm:text-3xl font-serif font-bold text-[#0a2540]">Sole Distributor</p>
+            <p className="text-xs text-slate-600 mt-1">Taiwan Transformers Modular System</p>
           </div>
-          <div>
-            <p className="text-3xl font-bold text-primary">15+</p>
-            <p className="text-muted-foreground">Years Experience</p>
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+            <p className="text-2xl sm:text-3xl font-serif font-bold text-[#0a2540]">28+ Years</p>
+            <p className="text-xs text-slate-600 mt-1">Industry Heritage (Est. 1997)</p>
           </div>
         </div>
       </div>
