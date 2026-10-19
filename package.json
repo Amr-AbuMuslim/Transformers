@@ -74,5 +74,15 @@
     "tailwindcss": "^4.1.9",
     "typescript": "^5.3.3",
     "vite": "^5.0.8"
+  },
+  "overrides": {
+    "motion-dom": "12.23.23",
+    "motion-utils": "12.23.6"
+  },
+  "pnpm": {
+    "overrides": {
+      "motion-dom": "12.23.23",
+      "motion-utils": "12.23.6"
+    }
   }
 }
