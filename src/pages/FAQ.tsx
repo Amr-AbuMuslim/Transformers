@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { ChevronDown, ArrowRight, HelpCircle, Phone, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ContinueLinks } from "@/components/SectionNav";
 import PageHeader from "@/components/PageHeader";
 import SectionTitle from "@/components/SectionTitle";
 import SEOHead from "@/components/SEOHead";
@@ -112,7 +113,7 @@ export default function FAQ() {
     setOpenItems((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const breadcrumbs = [{ label: "Frequently Asked Questions" }];
+  const breadcrumbs = [{ label: "FAQ" }];
 
   const allQuestions = FAQ_DATA.flatMap((cat) => cat.items);
 
@@ -218,7 +219,7 @@ export default function FAQ() {
               to="/contact"
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-sm rounded-xl transition-all shadow-md"
             >
-              Contact Our Sales Team
+              Request a Quote
             </Link>
             <a
               href="tel:+201110999646"
@@ -229,6 +230,15 @@ export default function FAQ() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/exhibitions", label: "Exhibitions" },
+          { href: "/events", label: "Events" },
+          { href: "/conferences", label: "Conferences" },
+          { href: "/insights", label: "Insights" },
+        ]}
+      />
 
       <Footer />
     </>

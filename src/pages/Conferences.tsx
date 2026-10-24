@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   ArrowRight,
   Monitor,
@@ -20,11 +20,19 @@ import SectionTitle from "@/components/SectionTitle";
 import SEOHead from "@/components/SEOHead";
 import ProjectCard from "@/components/ProjectCard";
 import { PROJECTS } from "@/data/projects";
+import { CONFERENCE_SECTIONS, QUOTE, quoteHref, sectionLabel } from "@/data/navigation";
+import SectionNav, { ContinueLinks, sectionScrollClass } from "@/components/SectionNav";
 
 export default function Conferences() {
+  const { hash } = useLocation();
   const conferenceProjects = PROJECTS.filter((p) => p.pillar === "conferences");
+  const currentSection = sectionLabel(CONFERENCE_SECTIONS, hash);
 
-  const breadcrumbs = [{ label: "Conferences" }];
+  const breadcrumbs = [
+    { label: "Services", href: "/#services" },
+    currentSection ? { label: "Conferences", href: "/conferences" } : { label: "Conferences" },
+    ...(currentSection ? [{ label: currentSection }] : []),
+  ];
 
   const conferenceFaqs = [
     {
@@ -79,8 +87,10 @@ export default function Conferences() {
         subtitle="Turnkey mainstage engineering, panoramic LED backdrops, acoustic speech clarity, and branded conference environments across Egypt."
         image="/Transformers_Assets/04_LED_Screens/LED_Conference_Setup.jpg"
         breadcrumbs={breadcrumbs}
-        badge="Business Pillar 03"
+        badge="Services"
       />
+
+      <SectionNav label="Conference services" items={CONFERENCE_SECTIONS} />
 
       {/* --- INTRO SECTION --- */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-100">
@@ -108,7 +118,7 @@ export default function Conferences() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Service 1: Stages */}
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div id="keynote-stages" className={`${sectionScrollClass} bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow`}>
               <div className="w-12 h-12 rounded-xl bg-[#1787b2]/10 text-[#1787b2] flex items-center justify-center mb-4">
                 <Layers size={24} />
               </div>
@@ -124,7 +134,7 @@ export default function Conferences() {
             </div>
 
             {/* Service 2: LED Video Walls */}
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div id="led-backdrops" className={`${sectionScrollClass} bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow`}>
               <div className="w-12 h-12 rounded-xl bg-[#1787b2]/10 text-[#1787b2] flex items-center justify-center mb-4">
                 <Monitor size={24} />
               </div>
@@ -140,7 +150,7 @@ export default function Conferences() {
             </div>
 
             {/* Service 3: Audio */}
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div id="speech-audio" className={`${sectionScrollClass} bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow`}>
               <div className="w-12 h-12 rounded-xl bg-[#1787b2]/10 text-[#1787b2] flex items-center justify-center mb-4">
                 <Mic size={24} />
               </div>
@@ -156,7 +166,7 @@ export default function Conferences() {
             </div>
 
             {/* Service 4: Foyer Environments */}
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div id="foyer-hubs" className={`${sectionScrollClass} bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow`}>
               <div className="w-12 h-12 rounded-xl bg-[#1787b2]/10 text-[#1787b2] flex items-center justify-center mb-4">
                 <Users size={24} />
               </div>
@@ -182,6 +192,15 @@ export default function Conferences() {
             title="Delivered Conference Projects"
             subtitle="Proven execution across major national summits, scientific conventions, and leadership forums."
           />
+
+          <div className="mb-8 flex justify-end">
+            <Link
+              to="/projects?pillar=conferences"
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#1787b2] hover:text-[#0a2540]"
+            >
+              View all conference projects <ArrowRight size={16} />
+            </Link>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {conferenceProjects.map((project) => (
@@ -232,7 +251,7 @@ export default function Conferences() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/contact?service=Conferences"
+              to={quoteHref(QUOTE.conferences)}
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-sm rounded-xl transition-all shadow-md"
             >
               Request Conference AV Quote
@@ -246,6 +265,15 @@ export default function Conferences() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/exhibitions", label: "Exhibitions" },
+          { href: "/events", label: "Events" },
+          { href: "/rental-products?category=led_screens", label: "LED screens" },
+          { href: "/projects?pillar=conferences", label: "Conference projects" },
+        ]}
+      />
 
       <Footer />
     </>

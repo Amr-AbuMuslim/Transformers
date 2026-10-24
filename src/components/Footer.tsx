@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { RENTAL_LINKS, SERVICES } from "@/data/navigation";
 import {
   Mail,
   Phone,
@@ -34,7 +35,7 @@ export default function Footer() {
               to="/contact"
               className="px-6 py-3.5 bg-[#1787b2] text-white hover:bg-[#6fbdd7] hover:text-[#0a2540] font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2 text-center"
             >
-              Request a Free Quote <ArrowRight size={15} />
+              Request a Quote <ArrowRight size={15} />
             </Link>
             <a
               href="tel:+201110999646"
@@ -87,89 +88,43 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Three Core Pillars */}
           <div>
             <h4 className="font-serif text-sm sm:text-base font-semibold text-white mb-3 sm:mb-4 border-b border-slate-800 pb-2">
-              Three Core Pillars
+              Services
             </h4>
-            <ul className="space-y-2 text-xs sm:text-sm">
-              <li>
-                <Link to="/exhibitions" className="hover:text-[#6fbdd7] transition-colors flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                  Exhibitions
-                </Link>
-              </li>
-              <li className="pl-3 text-[11px] text-slate-400">
-                • Single Booths (Codes A–Q)
-              </li>
-              <li className="pl-3 text-[11px] text-slate-400">
-                • Full Exhibition Stands
-              </li>
-              <li>
-                <Link to="/events" className="hover:text-[#6fbdd7] transition-colors flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                  Events Management
-                </Link>
-              </li>
-              <li className="pl-3 text-[11px] text-slate-400">
-                • Commercial Brand Launches
-              </li>
-              <li className="pl-3 text-[11px] text-slate-400">
-                • Pharmaceutical Symposia
-              </li>
-              <li className="pl-3 text-[11px] text-slate-400">
-                • Sports Championships
-              </li>
-              <li>
-                <Link to="/conferences" className="hover:text-[#6fbdd7] transition-colors flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                  Conferences
-                </Link>
-              </li>
+            <ul className="space-y-3 text-xs sm:text-sm">
+              {SERVICES.map((service) => (
+                <li key={service.href}>
+                  <Link to={service.href} className="hover:text-[#6fbdd7] transition-colors flex items-center gap-1.5 font-medium text-slate-200">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                    {service.label}
+                  </Link>
+                  <ul className="mt-1.5 space-y-1 pl-4">
+                    {service.children.map((child) => (
+                      <li key={child.href}>
+                        <Link to={child.href} className="text-[11px] text-slate-400 hover:text-[#6fbdd7] transition-colors">
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Equipment & Systems */}
           <div>
             <h4 className="font-serif text-sm sm:text-base font-semibold text-white mb-3 sm:mb-4 border-b border-slate-800 pb-2">
-              Products & Equipment
+              Rental Products
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm">
-              <li>
-                <Link to="/transformers-display-system" className="hover:text-[#6fbdd7] transition-colors">
-                  Transformers Modular System
-                </Link>
-              </li>
-              <li>
-                <Link to="/rental-products" className="hover:text-[#6fbdd7] transition-colors">
-                  Rental Products Catalog
-                </Link>
-              </li>
-              <li>
-                <Link to="/rental-products" className="hover:text-[#6fbdd7] transition-colors">
-                  LED Screens & Video Walls
-                </Link>
-              </li>
-              <li>
-                <Link to="/rental-products" className="hover:text-[#6fbdd7] transition-colors">
-                  Audio & PA Systems
-                </Link>
-              </li>
-              <li>
-                <Link to="/rental-products" className="hover:text-[#6fbdd7] transition-colors">
-                  Stages & German Decks
-                </Link>
-              </li>
-              <li>
-                <Link to="/rental-products" className="hover:text-[#6fbdd7] transition-colors">
-                  Event Lighting & Truss
-                </Link>
-              </li>
-              <li>
-                <Link to="/rental-products" className="hover:text-[#6fbdd7] transition-colors">
-                  Furniture & Showcases
-                </Link>
-              </li>
+              {RENTAL_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link to={link.href} className="hover:text-[#6fbdd7] transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -260,9 +215,15 @@ export default function Footer() {
               </a>
             </div>
 
-            <div className="flex gap-3 text-xs text-slate-400">
+            <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs text-slate-400">
+              <Link to="/projects" className="hover:text-white transition-colors">
+                Projects
+              </Link>
               <Link to="/about" className="hover:text-white transition-colors">
                 About
+              </Link>
+              <Link to="/insights" className="hover:text-white transition-colors">
+                Insights
               </Link>
               <Link to="/faq" className="hover:text-white transition-colors">
                 FAQ

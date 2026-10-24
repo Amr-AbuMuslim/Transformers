@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   ArrowRight,
   CheckCircle2,
@@ -21,12 +21,20 @@ import SEOHead from "@/components/SEOHead";
 import ProjectCard from "@/components/ProjectCard";
 import { PROJECTS } from "@/data/projects";
 import { PRODUCTS } from "@/data/products";
+import { EXHIBITION_SECTIONS, QUOTE, quoteHref, sectionLabel } from "@/data/navigation";
+import SectionNav, { ContinueLinks, sectionScrollClass } from "@/components/SectionNav";
 
 export default function Exhibitions() {
+  const { hash } = useLocation();
   const exhibitionProjects = PROJECTS.filter((p) => p.pillar === "exhibitions");
   const modularBooths = PRODUCTS.filter((p) => p.category === "transformers_system").slice(0, 6);
+  const currentSection = sectionLabel(EXHIBITION_SECTIONS, hash);
 
-  const breadcrumbs = [{ label: "Exhibitions" }];
+  const breadcrumbs = [
+    { label: "Services", href: "/#services" },
+    currentSection ? { label: "Exhibitions", href: "/exhibitions" } : { label: "Exhibitions" },
+    ...(currentSection ? [{ label: currentSection }] : []),
+  ];
 
   const exhibitionsSchema = {
     "@context": "https://schema.org",
@@ -62,8 +70,10 @@ export default function Exhibitions() {
         subtitle="Precision modular booth rentals, custom exhibition stand design, and turnkey build services across Egypt's premier convention centers."
         image="/modern-aluminum-modular-display-booth-exhibition.jpg"
         breadcrumbs={breadcrumbs}
-        badge="Business Pillar 01"
+        badge="Services"
       />
+
+      <SectionNav label="Exhibition services" items={EXHIBITION_SECTIONS} />
 
       {/* --- INTRO / OVERVIEW --- */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-100">
@@ -81,7 +91,7 @@ export default function Exhibitions() {
       </section>
 
       {/* --- SUBSECTION 1: SINGLE EXHIBITION BOOTHS --- */}
-      <section id="single-booths" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <section id="single-booths" className={`${sectionScrollClass} py-20 px-4 sm:px-6 lg:px-8 bg-slate-50`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -123,13 +133,13 @@ export default function Exhibitions() {
 
               <div className="flex flex-wrap gap-4">
                 <Link
-                  to="/rental-products"
+                  to="/rental-products?category=transformers_system"
                   className="px-6 py-3 bg-[#0a2540] hover:bg-[#1787b2] text-white text-xs font-semibold rounded-xl transition-colors shadow-sm"
                 >
                   View Single Booth Models (A–Q)
                 </Link>
                 <Link
-                  to="/contact?service=Single+Exhibition+Booths"
+                  to={quoteHref(QUOTE.singleBooths)}
                   className="px-6 py-3 border border-slate-300 hover:bg-white text-slate-700 text-xs font-semibold rounded-xl transition-colors"
                 >
                   Request Single Booth Quote
@@ -176,7 +186,7 @@ export default function Exhibitions() {
       </section>
 
       {/* --- SUBSECTION 2: FULL EXHIBITION STANDS --- */}
-      <section id="full-stands" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="full-stands" className={`${sectionScrollClass} py-20 px-4 sm:px-6 lg:px-8 bg-white`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -245,16 +255,16 @@ export default function Exhibitions() {
 
               <div className="flex flex-wrap gap-4">
                 <Link
-                  to="/contact?service=Full+Exhibition+Stands"
+                  to={quoteHref(QUOTE.fullStands)}
                   className="px-6 py-3 bg-[#1787b2] hover:bg-[#0a2540] text-white text-xs font-semibold rounded-xl transition-colors shadow-sm"
                 >
                   Request Full Stand Consultation
                 </Link>
                 <Link
-                  to="/projects"
+                  to="/projects?pillar=exhibitions"
                   className="px-6 py-3 border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl transition-colors"
                 >
-                  View Completed Full Stands
+                  View Exhibition Projects
                 </Link>
               </div>
             </div>
@@ -263,7 +273,7 @@ export default function Exhibitions() {
       </section>
 
       {/* --- SUBSECTION 3: TRANSFORMERS MODULAR SYSTEM --- */}
-      <section id="modular-system" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-y border-slate-200">
+      <section id="modular-system" className={`${sectionScrollClass} py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-y border-slate-200`}>
         <div className="max-w-7xl mx-auto">
           <SectionTitle
             badge="Patented Engineering"
@@ -327,7 +337,7 @@ export default function Exhibitions() {
       </section>
 
       {/* --- SUBSECTION 4: EXHIBITION DESIGN & BUILD --- */}
-      <section id="design-build" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="design-build" className={`${sectionScrollClass} py-20 px-4 sm:px-6 lg:px-8 bg-white`}>
         <div className="max-w-7xl mx-auto">
           <SectionTitle
             badge="Turnkey Capability"
@@ -380,7 +390,7 @@ export default function Exhibitions() {
       </section>
 
       {/* --- SUBSECTION 5: EXHIBITION PROJECTS PORTFOLIO --- */}
-      <section id="exhibition-projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-slate-200">
+      <section id="exhibition-projects" className={`${sectionScrollClass} py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-slate-200`}>
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
@@ -396,10 +406,10 @@ export default function Exhibitions() {
             </div>
 
             <Link
-              to="/projects"
+              to="/projects?pillar=exhibitions"
               className="inline-flex items-center gap-2 text-sm font-bold text-[#1787b2] hover:text-[#0a2540] transition-colors self-start md:self-auto"
             >
-              <span>View All Company Projects</span>
+              <span>View Exhibition Projects</span>
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -423,7 +433,7 @@ export default function Exhibitions() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/contact?service=Exhibition+Design+and+Build"
+              to={quoteHref(QUOTE.fullStands)}
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-sm rounded-xl transition-all shadow-md"
             >
               Request Exhibition Quote
@@ -437,6 +447,15 @@ export default function Exhibitions() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/events", label: "Events" },
+          { href: "/conferences", label: "Conferences" },
+          { href: "/rental-products?category=transformers_system", label: "Modular booth catalog" },
+          { href: "/projects?pillar=exhibitions", label: "Exhibition projects" },
+        ]}
+      />
 
       <Footer />
     </>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   ArrowRight,
   Trophy,
@@ -20,8 +20,12 @@ import SectionTitle from "@/components/SectionTitle";
 import SEOHead from "@/components/SEOHead";
 import ProjectCard from "@/components/ProjectCard";
 import { PROJECTS } from "@/data/projects";
+import { EVENT_SECTIONS, QUOTE, quoteHref, sectionLabel } from "@/data/navigation";
+import SectionNav, { ContinueLinks, sectionScrollClass } from "@/components/SectionNav";
 
 export default function Events() {
+  const { hash } = useLocation();
+  const currentSection = sectionLabel(EVENT_SECTIONS, hash);
   const sportsProjects = PROJECTS.filter(
     (p) => p.pillar === "events" && p.category.toLowerCase().includes("championship") || p.category.toLowerCase().includes("tournament") || p.category.toLowerCase().includes("sports")
   );
@@ -32,7 +36,11 @@ export default function Events() {
     (p) => p.pillar === "events" && (p.id.includes("winzoxib") || p.category.toLowerCase().includes("pharma") || p.category.toLowerCase().includes("medical"))
   );
 
-  const breadcrumbs = [{ label: "Events Management" }];
+  const breadcrumbs = [
+    { label: "Services", href: "/#services" },
+    currentSection ? { label: "Events", href: "/events" } : { label: "Events" },
+    ...(currentSection ? [{ label: currentSection }] : []),
+  ];
 
   const eventsSchema = {
     "@context": "https://schema.org",
@@ -68,8 +76,10 @@ export default function Events() {
         subtitle="Turnkey production for high-stakes Commercial Events, Pharmaceutical Symposia, and International Sports Tournaments across Egypt."
         image="/Transformers_Assets/01_Hero/hero_background.jpg"
         breadcrumbs={breadcrumbs}
-        badge="Business Pillar 02"
+        badge="Services"
       />
+
+      <SectionNav label="Event services" items={EVENT_SECTIONS} />
 
       {/* --- INTRO SECTION --- */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-100">
@@ -87,7 +97,7 @@ export default function Events() {
       </section>
 
       {/* --- EVENT CATEGORY 1: COMMERCIAL EVENTS --- */}
-      <section id="commercial-events" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <section id="commercial-events" className={`${sectionScrollClass} py-20 px-4 sm:px-6 lg:px-8 bg-slate-50`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -129,7 +139,7 @@ export default function Events() {
               </div>
 
               <Link
-                to="/contact?service=Commercial+Events"
+                to={quoteHref(QUOTE.commercial)}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-[#0a2540] hover:bg-[#1787b2] text-white text-xs font-semibold rounded-xl transition-colors shadow-sm"
               >
                 <span>Plan a Commercial Event</span>
@@ -176,7 +186,7 @@ export default function Events() {
       </section>
 
       {/* --- EVENT CATEGORY 2: PHARMACEUTICAL EVENTS --- */}
-      <section id="pharma-events" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="pharma-events" className={`${sectionScrollClass} py-20 px-4 sm:px-6 lg:px-8 bg-white`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -245,7 +255,7 @@ export default function Events() {
               </div>
 
               <Link
-                to="/contact?service=Pharmaceutical+Events"
+                to={quoteHref(QUOTE.pharma)}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-[#1787b2] hover:bg-[#0a2540] text-white text-xs font-semibold rounded-xl transition-colors shadow-sm"
               >
                 <span>Plan a Pharma Event</span>
@@ -257,7 +267,7 @@ export default function Events() {
       </section>
 
       {/* --- EVENT CATEGORY 3: SPORTS & TOURNAMENTS --- */}
-      <section id="sports-events" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-y border-slate-200">
+      <section id="sports-events" className={`${sectionScrollClass} py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-y border-slate-200`}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -299,7 +309,7 @@ export default function Events() {
               </div>
 
               <Link
-                to="/contact?service=Sports+and+Tournaments"
+                to={quoteHref(QUOTE.sports)}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-[#0a2540] hover:bg-[#1787b2] text-white text-xs font-semibold rounded-xl transition-colors shadow-sm"
               >
                 <span>Plan a Sports Championship</span>
@@ -363,7 +373,7 @@ export default function Events() {
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
                 High-resolution P2.6 and P3.9 indoor and outdoor LED video walls, curved screens, and vertical totems with live video switching.
               </p>
-              <Link to="/rental-products" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
+              <Link to="/rental-products?category=led_screens" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
                 Explore LED Inventory <ArrowRight size={12} />
               </Link>
             </div>
@@ -376,7 +386,7 @@ export default function Events() {
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
                 Line array speaker arrays, digital mixing consoles, and multi-channel UHF wireless microphone systems with feedback management.
               </p>
-              <Link to="/rental-products" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
+              <Link to="/rental-products?category=sound_systems" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
                 Explore Sound Inventory <ArrowRight size={12} />
               </Link>
             </div>
@@ -389,7 +399,7 @@ export default function Events() {
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
                 DMX-controlled moving heads, stage wash battens, architectural truss illumination, and custom gobo brand projections.
               </p>
-              <Link to="/rental-products" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
+              <Link to="/rental-products?category=lighting" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
                 Explore Lighting Inventory <ArrowRight size={12} />
               </Link>
             </div>
@@ -402,7 +412,7 @@ export default function Events() {
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
                 Heavy-duty German stage platforms, high-gloss plexiglass runways, aluminum trusses, and certified safety guardrails.
               </p>
-              <Link to="/rental-products" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
+              <Link to="/rental-products?category=stages" className="text-xs font-semibold text-[#1787b2] flex items-center gap-1 hover:underline">
                 Explore Staging Inventory <ArrowRight size={12} />
               </Link>
             </div>
@@ -421,7 +431,7 @@ export default function Events() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/contact?service=Event+Management+and+Production"
+              to={quoteHref(QUOTE.events)}
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-sm rounded-xl transition-all shadow-md"
             >
               Request an Event Proposal
@@ -435,6 +445,15 @@ export default function Events() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/exhibitions", label: "Exhibitions" },
+          { href: "/conferences", label: "Conferences" },
+          { href: "/rental-products", label: "Rental products" },
+          { href: "/projects?pillar=events", label: "Event projects" },
+        ]}
+      />
 
       <Footer />
     </>

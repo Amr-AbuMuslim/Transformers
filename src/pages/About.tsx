@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ContinueLinks } from "@/components/SectionNav";
 import PageHeader from "@/components/PageHeader";
 import SectionTitle from "@/components/SectionTitle";
 import SEOHead from "@/components/SEOHead";
@@ -96,7 +97,7 @@ export default function About() {
                 We are proud to serve as the <strong>exclusive sole distributor in Egypt of the Transformers modular display system</strong>, precision-engineered and manufactured in Taiwan. This breakthrough system replaces heavy, wasteful timber carpentry with aircraft-grade foldable aluminum frameworks that assemble in 3 to 4 hours.
               </p>
               <p className="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed">
-                Operating from Cairo, we provide complete turnkey services across three distinct business pillars: <strong>Exhibitions</strong>, <strong>Events Management</strong>, and <strong>Conferences</strong>, supported by an in-house inventory of LED video walls, sound systems, stage decks, and exhibition furniture.
+                Operating from Cairo, we provide complete turnkey services across three services: <strong>Exhibitions</strong>, <strong>Events Management</strong>, and <strong>Conferences</strong>, supported by an in-house inventory of LED video walls, sound systems, stage decks, and exhibition furniture.
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100 text-xs text-slate-700">
@@ -110,7 +111,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Layers size={16} className="text-[#1787b2]" />
-                  <span>3 Specialized Pillars</span>
+                  <span>3 Core Services</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin size={16} className="text-[#1787b2]" />
@@ -201,7 +202,7 @@ export default function About() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto">
           <SectionTitle
-            badge="Three Pillars"
+            badge="Services"
             title="How We Serve Egyptian & Regional Clients"
             subtitle="Specialized operational units delivering synchronized event excellence."
           />
@@ -254,7 +255,7 @@ export default function About() {
               to="/contact"
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-sm rounded-xl transition-all shadow-md"
             >
-              Get in Touch
+              Request a Quote
             </Link>
             <a
               href="tel:+201110999646"
@@ -265,6 +266,15 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/exhibitions", label: "Exhibitions" },
+          { href: "/events", label: "Events" },
+          { href: "/conferences", label: "Conferences" },
+          { href: "/projects", label: "Projects" },
+        ]}
+      />
 
       <Footer />
     </>

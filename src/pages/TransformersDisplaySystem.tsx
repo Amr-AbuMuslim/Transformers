@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { QUOTE, quoteHref } from "@/data/navigation";
+import { ContinueLinks } from "@/components/SectionNav";
 import {
   ArrowRight,
   ShieldCheck,
@@ -40,7 +42,8 @@ export default function TransformersDisplaySystem() {
   });
 
   const breadcrumbs = [
-    { label: "Products", href: "/rental-products" },
+    { label: "Services", href: "/#services" },
+    { label: "Exhibitions", href: "/exhibitions" },
     { label: "Transformers Display System" },
   ];
 
@@ -275,7 +278,7 @@ export default function TransformersDisplaySystem() {
               </ul>
 
               <Link
-                to="/contact?service=Transformers+Display+System+Rental"
+                to={quoteHref(QUOTE.displaySystem, { preference: "rental" })}
                 className="w-full py-3 bg-[#0a2540] hover:bg-[#1787b2] text-white rounded-xl text-center text-xs font-semibold transition-colors"
               >
                 Request Rental Rates
@@ -316,7 +319,7 @@ export default function TransformersDisplaySystem() {
               </ul>
 
               <Link
-                to="/contact?service=Transformers+Display+System+Purchase"
+                to={quoteHref(QUOTE.displaySystem, { preference: "purchase" })}
                 className="w-full py-3 bg-[#1787b2] hover:bg-[#0a2540] text-white rounded-xl text-center text-xs font-semibold transition-colors"
               >
                 Request Hardware Purchase Pricing
@@ -340,7 +343,7 @@ export default function TransformersDisplaySystem() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/contact?service=Transformers+Catalog+Request"
+              to={quoteHref(QUOTE.displaySystem, { preference: "consultation", intent: "catalog" })}
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-sm rounded-xl transition-all shadow-md"
             >
               Request Catalog & Specs
@@ -354,6 +357,15 @@ export default function TransformersDisplaySystem() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/exhibitions", label: "Back to Exhibitions" },
+          { href: "/exhibitions#single-booths", label: "Single Booths" },
+          { href: "/rental-products?category=transformers_system", label: "Booth catalog" },
+          { href: "/projects?pillar=exhibitions", label: "Exhibition projects" },
+        ]}
+      />
 
       <Footer />
     </>

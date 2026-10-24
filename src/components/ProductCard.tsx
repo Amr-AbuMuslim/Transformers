@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, Tag } from "lucide-react";
 import type { ProductItem } from "@/data/products";
+import { QUOTE, quoteHref } from "@/data/navigation";
 
 interface ProductCardProps {
   product: ProductItem;
@@ -83,7 +84,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Footer Actions */}
         <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
           <Link
-            to={`/contact?product=${encodeURIComponent(product.name)}&service=${encodeURIComponent(product.categoryLabel)}`}
+            to={quoteHref(
+              product.category === "transformers_system" ? QUOTE.displaySystem : QUOTE.equipment,
+              { product: product.name }
+            )}
             className="w-full py-2.5 px-3 bg-[#0a2540] hover:bg-[#1787b2] text-white text-xs font-semibold rounded-xl transition-colors text-center shadow-xs flex items-center justify-center gap-1"
           >
             Request a Quote <ArrowRight size={13} />

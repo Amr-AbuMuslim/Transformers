@@ -20,42 +20,66 @@ import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import SectionTitle from "@/components/SectionTitle";
 import SEOHead from "@/components/SEOHead";
+import { ContinueLinks } from "@/components/SectionNav";
+import { SERVICE_OPTIONS, resolveService } from "@/data/navigation";
+
+const PREFERENCES = ["rental", "purchase", "both", "consultation"] as const;
+type Preference = (typeof PREFERENCES)[number];
+
+const CATALOG_NOTE =
+  "Please send the Transformers Display System technical specifications catalog, including booth dimensions, weights, graphic templates, and electrical load data.";
+
+function isPreference(value: string | null): value is Preference {
+  return PREFERENCES.includes(value as Preference);
+}
+
+function inquiryFromParams(params: URLSearchParams) {
+  const serviceParam = params.get("service");
+  const productParam = params.get("product");
+  const projectRef = params.get("projectRef");
+  const preference = params.get("preference");
+  const intent = params.get("intent");
+
+  return {
+    servicePillar: resolveService(serviceParam),
+    productInterest: productParam || "",
+    preference: isPreference(preference) ? preference : ("rental" as Preference),
+    projectDescription: projectRef
+      ? `Inquiry regarding: ${projectRef}`
+      : intent === "catalog"
+        ? CATALOG_NOTE
+        : "",
+  };
+}
 
 export default function Contact() {
   const [searchParams] = useSearchParams();
+  const inquiry = inquiryFromParams(searchParams);
 
   const [formData, setFormData] = useState({
     fullName: "",
     company: "",
     email: "",
     phone: "",
-    servicePillar: searchParams.get("service") || "",
-    productInterest: searchParams.get("product") || "",
-    preference: "rental" as "rental" | "purchase" | "both" | "consultation",
+    servicePillar: inquiry.servicePillar,
+    productInterest: inquiry.productInterest,
+    preference: inquiry.preference,
     eventDate: "",
     venueCity: "Cairo",
-    projectDescription: searchParams.get("projectRef")
-      ? `Inquiry regarding case study: ${searchParams.get("projectRef")}`
-      : "",
+    projectDescription: inquiry.projectDescription,
   });
 
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    const serviceParam = searchParams.get("service");
-    const productParam = searchParams.get("product");
-    const projectRef = searchParams.get("projectRef");
-
-    if (serviceParam || productParam || projectRef) {
-      setFormData((prev) => ({
-        ...prev,
-        servicePillar: serviceParam || prev.servicePillar,
-        productInterest: productParam || prev.productInterest,
-        projectDescription: projectRef
-          ? `Inquiry regarding: ${projectRef}`
-          : prev.projectDescription,
-      }));
-    }
+    const next = inquiryFromParams(searchParams);
+    setFormData((prev) => ({
+      ...prev,
+      servicePillar: next.servicePillar || prev.servicePillar,
+      productInterest: next.productInterest || prev.productInterest,
+      preference: searchParams.get("preference") ? next.preference : prev.preference,
+      projectDescription: next.projectDescription || prev.projectDescription,
+    }));
   }, [searchParams]);
 
   const handleChange = (
@@ -73,7 +97,7 @@ export default function Contact() {
       `Quotation Request: ${formData.servicePillar || "Transformers Services"} - ${formData.company || formData.fullName}`
     );
     const body = encodeURIComponent(
-      `Full Name: ${formData.fullName}\nCompany: ${formData.company}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService Pillar: ${formData.servicePillar}\nProduct of Interest: ${formData.productInterest}\nPreference: ${formData.preference}\nEvent Date: ${formData.eventDate}\nVenue/City: ${formData.venueCity}\n\nProject Scope:\n${formData.projectDescription}`
+      `Full Name: ${formData.fullName}\nCompany: ${formData.company}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.servicePillar}\nProduct of Interest: ${formData.productInterest}\nPreference: ${formData.preference}\nEvent Date: ${formData.eventDate}\nVenue/City: ${formData.venueCity}\n\nProject Scope:\n${formData.projectDescription}`
     );
 
     // Open email client with formatted inquiry
@@ -82,7 +106,7 @@ export default function Contact() {
     setSubmitted(true);
   };
 
-  const breadcrumbs = [{ label: "Contact & Request a Quote" }];
+  const breadcrumbs = [{ label: "Contact" }];
 
   const contactSchema = {
     "@context": "https://schema.org",
@@ -214,24 +238,27 @@ export default function Contact() {
                 {/* Service Pillar & Product Interest */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                      Primary Service Pillar *
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5" htmlFor="servicePillar">
+                      Service *
                     </label>
                     <select
+                      id="servicePillar"
                       name="servicePillar"
                       value={formData.servicePillar}
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#1787b2] bg-slate-50/50"
                     >
-                      <option value="">Select Service Pillar</option>
-                      <option value="Exhibitions - Single Modular Booths">Exhibitions — Single Modular Booths (Codes A–Q)</option>
-                      <option value="Exhibitions - Full Custom Stands">Exhibitions — Full Custom Stand Design & Build</option>
-                      <option value="Events - Commercial Brand Launches">Events — Commercial Brand Launches & Galas</option>
-                      <option value="Events - Pharmaceutical Symposia">Events — Pharmaceutical Symposia & Medical</option>
-                      <option value="Events - Sports & Tournaments">Events — Sports Championships & Arenas</option>
-                      <option value="Conferences - Stages & AV Systems">Conferences — Stages, LED Video Walls & Sound</option>
-                      <option value="Equipment Rental Only">Equipment Rental Only (Screens, Sound, Stages)</option>
+                      <option value="">Select a service</option>
+                      {SERVICE_OPTIONS.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                      {formData.servicePillar &&
+                        !SERVICE_OPTIONS.some((option) => option.value === formData.servicePillar) && (
+                          <option value={formData.servicePillar}>{formData.servicePillar}</option>
+                        )}
                     </select>
                   </div>
 
@@ -434,6 +461,16 @@ export default function Contact() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/exhibitions", label: "Exhibitions" },
+          { href: "/events", label: "Events" },
+          { href: "/conferences", label: "Conferences" },
+          { href: "/rental-products", label: "Rental products" },
+          { href: "/projects", label: "Projects" },
+        ]}
+      />
 
       <Footer />
     </>

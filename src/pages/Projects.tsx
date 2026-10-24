@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   Layers,
@@ -17,6 +17,8 @@ import SectionTitle from "@/components/SectionTitle";
 import SEOHead from "@/components/SEOHead";
 import ProjectCard from "@/components/ProjectCard";
 import { PROJECTS, PROJECT_PILLARS, ProjectPillar } from "@/data/projects";
+import { ContinueLinks } from "@/components/SectionNav";
+import { QUOTE, quoteHref } from "@/data/navigation";
 
 // Curated verified installation snapshots from the live exhibition archive
 const ARCHIVE_SNAPSHOTS = [
@@ -38,6 +40,11 @@ export default function Projects() {
   const initialPillar = (searchParams.get("pillar") as ProjectPillar | "all") || "all";
 
   const [selectedPillar, setSelectedPillar] = useState<string>(initialPillar);
+
+  useEffect(() => {
+    const pillar = searchParams.get("pillar");
+    setSelectedPillar(pillar && PROJECT_PILLARS.some((item) => item.id === pillar) ? pillar : "all");
+  }, [searchParams]);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   const filteredProjects = useMemo(() => {
@@ -45,7 +52,14 @@ export default function Projects() {
     return PROJECTS.filter((p) => p.pillar === selectedPillar);
   }, [selectedPillar]);
 
-  const breadcrumbs = [{ label: "Projects & Portfolio" }];
+  const activePillar = PROJECT_PILLARS.find((pillar) => pillar.id === selectedPillar);
+  const breadcrumbs =
+    selectedPillar !== "all" && activePillar
+      ? [
+          { label: "Projects", href: "/projects" },
+          { label: activePillar.label },
+        ]
+      : [{ label: "Projects" }];
 
   const projectsSchema = {
     "@context": "https://schema.org",
@@ -79,7 +93,7 @@ export default function Projects() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
           <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
             <span className="text-xs font-semibold text-slate-500 mr-1 sm:mr-2 flex items-center gap-1 shrink-0">
-              <Filter size={13} /> Pillar:
+              <Filter size={13} /> Service:
             </span>
             <div className="flex gap-2">
               {PROJECT_PILLARS.map((pillar) => (
@@ -101,9 +115,19 @@ export default function Projects() {
             </div>
           </div>
 
-          <span className="text-xs text-slate-500 hidden sm:block">
-            Showing <strong>{filteredProjects.length}</strong> featured case studies
-          </span>
+          <div className="flex items-center justify-between gap-3 text-xs text-slate-500">
+            <span>
+              Showing <strong>{filteredProjects.length}</strong> featured case studies
+            </span>
+            {selectedPillar !== "all" && (
+              <Link
+                to={selectedPillar === "exhibitions" ? "/exhibitions" : selectedPillar === "events" ? "/events" : "/conferences"}
+                className="font-semibold text-[#1787b2] hover:underline"
+              >
+                Explore {activePillar?.label}
+              </Link>
+            )}
+          </div>
         </div>
       </section>
 
@@ -187,7 +211,15 @@ export default function Projects() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
-              to="/contact"
+              to={
+                selectedPillar === "exhibitions"
+                  ? quoteHref(QUOTE.fullStands)
+                  : selectedPillar === "events"
+                    ? quoteHref(QUOTE.events)
+                    : selectedPillar === "conferences"
+                      ? quoteHref(QUOTE.conferences)
+                      : "/contact"
+              }
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-md"
             >
               Request a Project Quotation
@@ -201,6 +233,15 @@ export default function Projects() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/exhibitions", label: "Exhibitions" },
+          { href: "/events", label: "Events" },
+          { href: "/conferences", label: "Conferences" },
+          { href: "/rental-products", label: "Rental products" },
+        ]}
+      />
 
       <Footer />
     </>

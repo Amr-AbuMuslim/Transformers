@@ -1,208 +1,305 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Mail, MapPin, ChevronDown, Sparkles } from "lucide-react";
+import { Menu, X, Phone, Mail, MapPin, ChevronDown } from "lucide-react";
+import {
+  PRIMARY_LINKS,
+  SERVICES,
+  isNavActive,
+  isServicePath,
+} from "@/data/navigation";
+
+const focusRing =
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1787b2]";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [pillarsOpen, setPillarsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const location = useLocation();
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const servicesButtonRef = useRef<HTMLButtonElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const focusFirstServiceLink = useRef(false);
+  const onServicePage = isServicePath(location.pathname);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 15);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile drawer on route change
   useEffect(() => {
     setIsOpen(false);
-    setPillarsOpen(false);
-  }, [location.pathname]);
+    setServicesOpen(false);
+    setMobileServicesOpen(onServicePage);
+  }, [location.pathname, location.hash, location.search, onServicePage]);
 
-  const navLinks = [
-    { href: "/", label: "Home" },
-    {
-      label: "Our Pillars",
-      isDropdown: true,
-      subItems: [
-        { href: "/exhibitions", label: "Exhibitions", desc: "Single Booths, Full Stands & Modular Displays" },
-        { href: "/events", label: "Events", desc: "Commercial, Pharma & Sports Tournaments" },
-        { href: "/conferences", label: "Conferences", desc: "Stages, LED Video Walls & Technical Setups" },
-      ],
-    },
-    { href: "/transformers-display-system", label: "Transformers System", shortLabel: "Transformers", highlight: true },
-    { href: "/rental-products", label: "Rental Products", shortLabel: "Rentals" },
-    { href: "/projects", label: "Projects" },
-    { href: "/insights", label: "Insights" },
-    { href: "/about", label: "About Us", shortLabel: "About" },
-    { href: "/contact", label: "Contact" },
-  ];
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const menu = mobileMenuRef.current;
+    const getFocusable = () =>
+      Array.from(menu?.querySelectorAll<HTMLElement>("a, button") ?? []).filter(
+        (el) => !el.hasAttribute("disabled")
+      );
+    const frame = window.requestAnimationFrame(() => getFocusable()[0]?.focus());
 
-  const isActive = (path: string) => {
-    if (path === "/" && location.pathname !== "/") return false;
-    return location.pathname.startsWith(path);
-  };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+      if (event.key !== "Tab" || !menu) return;
+      const focusable = getFocusable();
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!servicesOpen) return;
+    if (focusFirstServiceLink.current) {
+      focusFirstServiceLink.current = false;
+      servicesRef.current?.querySelector<HTMLElement>("a")?.focus();
+    }
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setServicesOpen(false);
+        servicesButtonRef.current?.focus();
+      }
+    };
+    const onPointerDown = (event: MouseEvent) => {
+      if (!servicesRef.current?.contains(event.target as Node)) {
+        setServicesOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("mousedown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("mousedown", onPointerDown);
+    };
+  }, [servicesOpen]);
+
+  const serviceActive = onServicePage;
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white">
-      {/* Top Utility Bar (Tablet & Desktop) */}
-      <div className="bg-[#071a2d] text-slate-300 text-[11px] lg:text-xs py-1.5 px-4 sm:px-6 lg:px-8 border-b border-white/10 hidden md:block">
-        <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
-          <div className="flex items-center gap-3 lg:gap-6 shrink-0">
+      <a
+        href="#main-content"
+        className="absolute left-4 top-2 z-[60] -translate-y-24 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-[#0a2540] shadow focus:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1787b2]"
+      >
+        Skip to content
+      </a>
+
+      <div className="hidden border-b border-white/10 bg-[#071a2d] px-4 py-1.5 text-[11px] text-slate-300 md:block lg:text-xs sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+          <div className="flex shrink-0 items-center gap-3 lg:gap-6">
             <span className="flex items-center gap-1.5 font-medium text-slate-300">
               <MapPin size={12} className="text-[#1787b2]" /> Cairo, Egypt (Sole Taiwan Distributor)
             </span>
-            <a
-              href="tel:+201110999646"
-              className="flex items-center gap-1.5 hover:text-white transition-colors"
-            >
+            <a href="tel:+201110999646" className={`flex items-center gap-1.5 hover:text-white ${focusRing} rounded-sm`}>
               <Phone size={12} className="text-[#1787b2]" /> +20 111 099 9646
             </a>
             <a
               href="mailto:sales@transformers-me.com"
-              className="hidden xl:flex items-center gap-1.5 hover:text-white transition-colors"
+              className={`hidden items-center gap-1.5 hover:text-white xl:flex ${focusRing} rounded-sm`}
             >
               <Mail size={12} className="text-[#1787b2]" /> sales@transformers-me.com
             </a>
           </div>
-
-          <div className="flex items-center gap-3 shrink-0">
-            <span className="text-slate-400 hidden 2xl:inline">Exhibitions • Events • Conferences</span>
-            <span className="hidden 2xl:inline-block w-1 h-1 rounded-full bg-[#1787b2]"></span>
-            <span className="text-emerald-400 font-medium">Rental & Sale Available</span>
+          <div className="flex shrink-0 items-center gap-3">
+            <span className="hidden text-slate-400 2xl:inline">Exhibitions • Events • Conferences</span>
+            <span className="hidden h-1 w-1 rounded-full bg-[#1787b2] 2xl:inline-block" />
+            <span className="font-medium text-emerald-400">Rental & Sale Available</span>
           </div>
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
       <nav
-        className={`w-full bg-white/95 backdrop-blur-md transition-shadow duration-200 border-b border-slate-100 ${
-          isScrolled ? "shadow-sm border-slate-200" : ""
+        aria-label="Primary"
+        className={`w-full border-b border-slate-100 bg-white/95 backdrop-blur-md transition-shadow duration-200 ${
+          isScrolled ? "border-slate-200 shadow-sm" : ""
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 md:h-20">
-            {/* Logo */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between md:h-20">
             <Link
               to="/"
-              className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 group focus:outline-none focus:ring-2 focus:ring-[#1787b2] rounded-lg shrink-0"
+              className={`group flex shrink-0 items-center gap-2 rounded-lg sm:gap-2.5 ${focusRing}`}
               aria-label="Transformers Home"
             >
-              <div className="w-9 h-9 sm:w-11 sm:h-11 xl:w-12 xl:h-12 flex items-center justify-center p-0.5 shrink-0">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center p-0.5 sm:h-11 sm:w-11">
                 <img
                   src="/LOGO (1) (2).png"
-                  alt="Transformers"
-                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  alt=""
+                  className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
                   width={48}
                   height={48}
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-serif font-bold text-sm sm:text-base xl:text-lg tracking-tight text-[#0a2540] leading-none">
+                <span className="font-serif text-sm font-bold leading-none tracking-tight text-[#0a2540] sm:text-base xl:text-lg">
                   TRANSFORMERS
                 </span>
-                <span className="text-[8px] sm:text-[9px] xl:text-[10px] text-[#1787b2] font-semibold tracking-wider uppercase mt-0.5">
+                <span className="mt-0.5 hidden text-[10px] font-semibold uppercase tracking-wider text-[#1787b2] xl:block">
                   Events & Display Systems
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation Links & Action */}
-            <div className="hidden lg:flex items-center gap-1.5 xl:gap-3 2xl:gap-4 shrink-0">
-              {/* Navigation Links Group */}
-              <div className="flex items-center gap-1 xl:gap-2.5 2xl:gap-3.5">
-                {navLinks.map((link) => {
-                  if (link.isDropdown) {
-                    const isAnySubActive = link.subItems?.some((sub) => location.pathname === sub.href);
-                    return (
-                      <div key={link.label} className="relative group shrink-0">
-                        <button
-                          className={`flex items-center gap-1 text-xs xl:text-sm font-semibold transition-colors py-1.5 px-1.5 xl:px-2 rounded-md ${
-                            isAnySubActive ? "text-[#1787b2]" : "text-slate-700 hover:text-[#1787b2]"
-                          }`}
-                          aria-expanded="false"
-                        >
-                          {link.label}
-                          <ChevronDown size={13} className="transition-transform group-hover:rotate-180" />
-                        </button>
+            <div className="hidden items-center gap-1 xl:flex">
+              <ul className="flex items-center gap-0.5">
+                <li>
+                  <DesktopLink href="/" label="Home" active={location.pathname === "/"} />
+                </li>
+                <li>
+                  <div
+                    ref={servicesRef}
+                    className="relative"
+                    onBlur={(event) => {
+                      if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+                        setServicesOpen(false);
+                      }
+                    }}
+                  >
+                    <button
+                      ref={servicesButtonRef}
+                      type="button"
+                      className={`flex items-center gap-1 rounded-md px-2.5 py-2 text-sm font-semibold ${focusRing} ${
+                        serviceActive ? "text-[#1787b2]" : "text-slate-700 hover:text-[#1787b2]"
+                      }`}
+                      aria-expanded={servicesOpen}
+                      aria-haspopup="true"
+                      aria-controls="services-menu"
+                      aria-current={serviceActive ? "true" : undefined}
+                      onClick={() => setServicesOpen((open) => !open)}
+                      onKeyDown={(event) => {
+                        if (event.key === "ArrowDown") {
+                          event.preventDefault();
+                          if (servicesOpen) {
+                            servicesRef.current?.querySelector<HTMLElement>("a")?.focus();
+                          } else {
+                            focusFirstServiceLink.current = true;
+                            setServicesOpen(true);
+                          }
+                        }
+                      }}
+                    >
+                      Services
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {serviceActive && (
+                      <span className="absolute bottom-0 left-2.5 right-2.5 h-0.5 rounded-full bg-[#1787b2]" />
+                    )}
 
-                        <div className="absolute top-full left-0 w-72 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 z-50">
-                          {link.subItems?.map((sub) => (
-                            <Link
-                              key={sub.href}
-                              to={sub.href}
-                              className={`block px-4 py-2.5 transition-colors ${
-                                location.pathname === sub.href
-                                  ? "bg-slate-50 text-[#1787b2] font-semibold"
-                                  : "text-slate-700 hover:bg-slate-50 hover:text-[#1787b2]"
-                              }`}
-                            >
-                              <p className="text-xs xl:text-sm font-medium">{sub.label}</p>
-                              <p className="text-[11px] text-slate-500 line-clamp-1">{sub.desc}</p>
-                            </Link>
-                          ))}
+                    {servicesOpen && (
+                      <div
+                        id="services-menu"
+                        className="absolute left-0 top-full z-50 w-[22rem] max-w-[calc(100vw-2rem)] pt-2"
+                        onMouseDown={(event) => event.preventDefault()}
+                      >
+                        <div className="max-h-[70vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white py-2 shadow-xl">
+                          {SERVICES.map((service) => {
+                            const parentActive = service.match.includes(location.pathname);
+                            const childExact = service.children.some((child) =>
+                              isNavActive(location.pathname, location.hash, child.href)
+                            );
+                            return (
+                              <div key={service.href} className="px-2 py-1">
+                                <Link
+                                  to={service.href}
+                                  aria-current={parentActive && !childExact ? "page" : undefined}
+                                  className={`block rounded-xl px-3 py-2 ${focusRing} ${
+                                    parentActive ? "bg-slate-50 text-[#1787b2]" : "text-slate-800 hover:bg-slate-50"
+                                  }`}
+                                >
+                                  <span className="block text-sm font-semibold">{service.label}</span>
+                                  <span className="mt-0.5 block text-[11px] leading-snug text-slate-500">
+                                    {service.description}
+                                  </span>
+                                </Link>
+                                <ul className="mt-0.5 mb-1 ml-3 border-l border-slate-200">
+                                  {service.children.map((child) => {
+                                    const active = isNavActive(location.pathname, location.hash, child.href);
+                                    return (
+                                      <li key={child.href}>
+                                        <Link
+                                          to={child.href}
+                                          aria-current={active ? "page" : undefined}
+                                          className={`block rounded-r-lg px-3 py-1.5 text-[13px] font-medium ${focusRing} ${
+                                            active
+                                              ? "bg-[#1787b2]/10 text-[#0d586f]"
+                                              : "text-slate-600 hover:bg-slate-50 hover:text-[#1787b2]"
+                                          }`}
+                                        >
+                                          {child.label}
+                                        </Link>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
-                    );
-                  }
+                    )}
+                  </div>
+                </li>
+                {PRIMARY_LINKS.filter((link) => link.href !== "/").map((link) => (
+                  <li key={link.href}>
+                    <DesktopLink
+                      href={link.href}
+                      label={link.label}
+                      active={isNavActive(location.pathname, location.hash, link.href, link.match)}
+                    />
+                  </li>
+                ))}
+              </ul>
 
-                  return (
-                    <Link
-                      key={link.href}
-                      to={link.href!}
-                      className={`text-xs xl:text-sm font-semibold transition-colors relative py-1 px-1.5 xl:px-2.5 rounded-md shrink-0 whitespace-nowrap ${
-                        isActive(link.href!)
-                          ? "text-[#1787b2]"
-                          : "text-slate-700 hover:text-[#1787b2]"
-                      } ${
-                        link.highlight
-                          ? "inline-flex items-center gap-1 px-2 py-0.5 xl:px-2.5 xl:py-1 rounded-full bg-[#1787b2]/10 text-[#0d586f] border border-[#1787b2]/20 hover:bg-[#1787b2]/20 text-[11px] xl:text-xs"
-                          : ""
-                      }`}
-                    >
-                      {link.highlight && <Sparkles size={11} className="text-[#1787b2] shrink-0" />}
-                      <span className="lg:hidden xl:inline">{link.label}</span>
-                      <span className="hidden lg:inline xl:hidden">{link.shortLabel || link.label}</span>
-                      {isActive(link.href!) && !link.highlight && (
-                        <span className="absolute bottom-0 left-1.5 right-1.5 h-0.5 bg-[#1787b2] rounded-full" />
-                      )}
-                    </Link>
-                  );
-                })}
-              </div>
-
-              {/* Subtle Vertical Divider between Navigation and CTA */}
-              <div className="h-5 w-px bg-slate-200 mx-1 xl:mx-2 shrink-0" aria-hidden="true" />
-
-              {/* Desktop Request Quote Button */}
-              <div className="shrink-0">
-                <Link
-                  to="/contact"
-                  className="px-3.5 py-1.5 xl:px-4.5 xl:py-2 rounded-xl bg-[#0a2540] text-white hover:bg-[#1787b2] text-xs xl:text-sm font-semibold transition-all shadow-xs hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#1787b2] focus:ring-offset-2 flex items-center gap-1.5 whitespace-nowrap"
-                >
-                  Request a Quote
-                </Link>
-              </div>
+              <div className="mx-1 h-5 w-px bg-slate-200" aria-hidden="true" />
+              <QuoteLink />
             </div>
 
-            {/* Mobile / Tablet actions */}
-            <div className="flex items-center gap-2.5 sm:gap-3 lg:hidden shrink-0">
-              <Link
-                to="/contact"
-                className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl bg-[#0a2540] text-white text-xs sm:text-sm font-semibold hover:bg-[#1787b2] transition-colors whitespace-nowrap shadow-xs"
-              >
-                Request a Quote
-              </Link>
+            <div className="flex shrink-0 items-center gap-2 xl:hidden">
+              <QuoteLink compact />
               <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-[#1787b2]"
-                aria-label={isOpen ? "Close main navigation menu" : "Open main navigation menu"}
+                ref={menuButtonRef}
+                type="button"
+                onClick={() => {
+                  setIsOpen((open) => {
+                    const next = !open;
+                    if (next && onServicePage) setMobileServicesOpen(true);
+                    return next;
+                  });
+                }}
+                className={`inline-flex h-11 w-11 items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100 ${focusRing}`}
+                aria-label={isOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isOpen}
+                aria-controls="mobile-navigation"
               >
                 {isOpen ? <X size={22} /> : <Menu size={22} />}
               </button>
@@ -210,131 +307,143 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
         {isOpen && (
-          <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 max-h-[calc(100dvh-4rem)] overflow-y-auto space-y-1 shadow-2xl animate-fade-in-up">
-            <div className="mb-3 px-3 py-2 bg-slate-50 rounded-xl text-xs text-slate-600 flex justify-between items-center">
+          <div
+            ref={mobileMenuRef}
+            id="mobile-navigation"
+            className="max-h-[calc(100dvh-4rem)] overflow-y-auto overflow-x-hidden border-t border-slate-200 bg-white px-4 pb-6 pt-3 shadow-2xl md:max-h-[calc(100dvh-7.5rem)] xl:hidden"
+          >
+            <div className="mb-3 flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-xs text-slate-600">
               <span className="flex items-center gap-1">
                 <MapPin size={12} className="text-[#1787b2]" /> Cairo, Egypt
               </span>
-              <a href="tel:+201110999646" className="font-semibold text-[#1787b2] flex items-center gap-1">
+              <a href="tel:+201110999646" className={`flex items-center gap-1 font-semibold text-[#1787b2] ${focusRing} rounded-sm`}>
                 <Phone size={12} /> +20 111 099 9646
               </a>
             </div>
 
-            <Link
-              to="/"
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold ${
-                location.pathname === "/" ? "bg-[#1787b2]/10 text-[#1787b2]" : "text-slate-800 hover:bg-slate-50"
-              }`}
-            >
-              Home
-            </Link>
+            <ul className="space-y-1">
+              <li>
+                <MobileLink to="/" label="Home" active={location.pathname === "/"} />
+              </li>
+              <li className="border-y border-slate-100 py-1">
+                <button
+                  type="button"
+                  className={`flex min-h-11 w-full items-center justify-between rounded-xl px-3 text-sm font-semibold ${focusRing} ${
+                    serviceActive ? "text-[#1787b2]" : "text-slate-800 hover:bg-slate-50"
+                  }`}
+                  aria-expanded={mobileServicesOpen}
+                  aria-controls="mobile-services"
+                  onClick={() => setMobileServicesOpen((open) => !open)}
+                >
+                  <span>Services</span>
+                  <ChevronDown size={16} className={`transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`} />
+                </button>
+                {mobileServicesOpen && (
+                  <div id="mobile-services" className="space-y-2 py-1 pl-2">
+                    {SERVICES.map((service) => {
+                      const parentActive = service.match.includes(location.pathname) && !location.hash;
+                      return (
+                        <div key={service.href}>
+                          <Link
+                            to={service.href}
+                            aria-current={parentActive ? "page" : undefined}
+                            className={`flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold ${focusRing} ${
+                              service.match.includes(location.pathname)
+                                ? "text-[#1787b2]"
+                                : "text-slate-800 hover:bg-slate-50"
+                            }`}
+                          >
+                            {service.label}
+                          </Link>
+                          <ul className="ml-3 border-l border-slate-200">
+                            {service.children.map((child) => {
+                              const active = isNavActive(location.pathname, location.hash, child.href);
+                              return (
+                                <li key={child.href}>
+                                  <Link
+                                    to={child.href}
+                                    aria-current={active ? "page" : undefined}
+                                    className={`flex min-h-11 items-center rounded-r-lg px-3 text-sm ${focusRing} ${
+                                      active ? "font-semibold text-[#1787b2]" : "text-slate-600 hover:text-[#1787b2]"
+                                    }`}
+                                  >
+                                    {child.label}
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </li>
+              {PRIMARY_LINKS.filter((link) => link.href !== "/").map((link) => (
+                <li key={link.href}>
+                  <MobileLink
+                    to={link.href}
+                    label={link.label}
+                    active={isNavActive(location.pathname, location.hash, link.href, link.match)}
+                  />
+                </li>
+              ))}
+            </ul>
 
-            {/* Pillars Accordion in Mobile */}
-            <div className="border-y border-slate-100 py-1 my-1">
-              <button
-                onClick={() => setPillarsOpen(!pillarsOpen)}
-                className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-semibold text-slate-800 rounded-xl hover:bg-slate-50"
-              >
-                <span>Three Business Pillars</span>
-                <ChevronDown size={16} className={`transition-transform duration-200 ${pillarsOpen ? "rotate-180" : ""}`} />
-              </button>
-
-              {pillarsOpen && (
-                <div className="pl-4 pr-2 py-1 space-y-1 bg-slate-50/70 rounded-xl mb-1">
-                  <Link
-                    to="/exhibitions"
-                    className="block px-3 py-2 text-xs font-medium text-slate-700 hover:text-[#1787b2]"
-                  >
-                    Exhibitions (Single Booths & Stands)
-                  </Link>
-                  <Link
-                    to="/events"
-                    className="block px-3 py-2 text-xs font-medium text-slate-700 hover:text-[#1787b2]"
-                  >
-                    Events (Commercial, Pharma, Sports)
-                  </Link>
-                  <Link
-                    to="/conferences"
-                    className="block px-3 py-2 text-xs font-medium text-slate-700 hover:text-[#1787b2]"
-                  >
-                    Conferences (Stages & AV Systems)
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            <Link
-              to="/transformers-display-system"
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between ${
-                location.pathname === "/transformers-display-system"
-                  ? "bg-[#1787b2]/10 text-[#1787b2]"
-                  : "text-slate-800 hover:bg-slate-50"
-              }`}
-            >
-              <span>Transformers Display System</span>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-[#1787b2]/10 text-[#1787b2]">
-                Modular
-              </span>
-            </Link>
-
-            <Link
-              to="/rental-products"
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold ${
-                location.pathname === "/rental-products" ? "bg-[#1787b2]/10 text-[#1787b2]" : "text-slate-800 hover:bg-slate-50"
-              }`}
-            >
-              Rental Products Catalog
-            </Link>
-
-            <Link
-              to="/projects"
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold ${
-                location.pathname === "/projects" ? "bg-[#1787b2]/10 text-[#1787b2]" : "text-slate-800 hover:bg-slate-50"
-              }`}
-            >
-              Projects & Portfolio
-            </Link>
-
-            <Link
-              to="/insights"
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold ${
-                location.pathname === "/insights" ? "bg-[#1787b2]/10 text-[#1787b2]" : "text-slate-800 hover:bg-slate-50"
-              }`}
-            >
-              Insights & Guides
-            </Link>
-
-            <Link
-              to="/about"
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold ${
-                location.pathname === "/about" ? "bg-[#1787b2]/10 text-[#1787b2]" : "text-slate-800 hover:bg-slate-50"
-              }`}
-            >
-              About Us (Heritage 1997)
-            </Link>
-
-            <Link
-              to="/contact"
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold ${
-                location.pathname === "/contact" ? "bg-[#1787b2]/10 text-[#1787b2]" : "text-slate-800 hover:bg-slate-50"
-              }`}
-            >
-              Contact & Support
-            </Link>
-
-            <div className="pt-3 mt-3 border-t border-slate-100">
+            <div className="mt-3 border-t border-slate-100 pt-3">
               <Link
                 to="/contact"
-                className="block w-full py-3 px-4 bg-[#0a2540] text-white text-center rounded-xl text-sm font-semibold shadow hover:bg-[#1787b2] transition-colors"
+                className={`flex min-h-11 w-full items-center justify-center rounded-xl bg-[#0a2540] px-4 text-sm font-semibold text-white hover:bg-[#1787b2] ${focusRing}`}
               >
-                Request a Free Quotation
+                Request a Quote
               </Link>
             </div>
           </div>
         )}
       </nav>
     </header>
+  );
+}
+
+function DesktopLink({ href, label, active }: { href: string; label: string; active: boolean }) {
+  return (
+    <Link
+      to={href}
+      aria-current={active ? "page" : undefined}
+      className={`relative whitespace-nowrap rounded-md px-2.5 py-2 text-sm font-semibold ${focusRing} ${
+        active ? "text-[#1787b2]" : "text-slate-700 hover:text-[#1787b2]"
+      }`}
+    >
+      {label}
+      {active && <span className="absolute bottom-0 left-2.5 right-2.5 h-0.5 rounded-full bg-[#1787b2]" />}
+    </Link>
+  );
+}
+
+function MobileLink({ to, label, active }: { to: string; label: string; active: boolean }) {
+  return (
+    <Link
+      to={to}
+      aria-current={active ? "page" : undefined}
+      className={`flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold ${focusRing} ${
+        active ? "bg-[#1787b2]/10 text-[#1787b2]" : "text-slate-800 hover:bg-slate-50"
+      }`}
+    >
+      {label}
+    </Link>
+  );
+}
+
+function QuoteLink({ compact = false }: { compact?: boolean }) {
+  return (
+    <Link
+      to="/contact"
+      className={`inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-xl bg-[#0a2540] font-semibold text-white shadow-xs transition-colors hover:bg-[#1787b2] ${focusRing} ${
+        compact ? "px-3 text-xs sm:px-4 sm:text-sm" : "px-4 text-sm"
+      }`}
+    >
+      Request a Quote
+    </Link>
   );
 }

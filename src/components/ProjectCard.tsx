@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MapPin, Layers, X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ProjectItem } from "@/data/projects";
+import { QUOTE, quoteHref, resolveService } from "@/data/navigation";
 
 interface ProjectCardProps {
   project: ProjectItem;
@@ -12,6 +13,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const [activeSlide, setActiveSlide] = useState(0);
 
   const images = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
+  const servicePage = {
+    exhibitions: { href: "/exhibitions", label: "View Exhibitions" },
+    events: { href: "/events", label: "View Events" },
+    conferences: { href: "/conferences", label: "View Conferences" },
+  }[project.pillar];
 
   const pillarColor = {
     exhibitions: "bg-blue-50 text-blue-700 border-blue-200",
@@ -216,11 +222,20 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
               <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 pt-4 border-t border-slate-100">
                 <Link
-                  to={`/contact?service=${encodeURIComponent(project.pillarLabel)}&projectRef=${encodeURIComponent(project.title)}`}
+                  to={quoteHref(resolveService(project.pillarLabel) || QUOTE.events, {
+                    projectRef: project.title,
+                  })}
                   onClick={() => setModalOpen(false)}
                   className="flex-1 py-3 px-5 bg-[#0a2540] hover:bg-[#1787b2] text-white text-center rounded-xl font-semibold text-xs sm:text-sm transition-colors"
                 >
                   Request a Quote for a Similar Project
+                </Link>
+                <Link
+                  to={servicePage.href}
+                  onClick={() => setModalOpen(false)}
+                  className="py-3 px-5 border border-slate-200 hover:bg-slate-50 text-[#1787b2] rounded-xl font-semibold text-xs sm:text-sm transition-colors text-center"
+                >
+                  {servicePage.label}
                 </Link>
                 <button
                   onClick={() => setModalOpen(false)}

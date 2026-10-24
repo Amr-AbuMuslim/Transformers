@@ -1,0 +1,15 @@
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "redirects": [
+    {
+      "source": "/modular-display-system",
+      "destination": "/transformers-display-system",
+      "permanent": true
+    },
+    {
+      "source": "/request-a-quote",
+      "destination": "/contact",
+      "permanent": true
+    }
+  ]
+}

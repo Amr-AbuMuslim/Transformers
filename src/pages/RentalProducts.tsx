@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   Search,
@@ -16,12 +16,18 @@ import PageHeader from "@/components/PageHeader";
 import SEOHead from "@/components/SEOHead";
 import ProductCard from "@/components/ProductCard";
 import { PRODUCTS, PRODUCT_CATEGORIES } from "@/data/products";
+import { QUOTE, quoteHref } from "@/data/navigation";
+import { ContinueLinks } from "@/components/SectionNav";
 
 export default function RentalProducts() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialCategory = searchParams.get("category") || "all";
 
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
+
+  useEffect(() => {
+    setSelectedCategory(searchParams.get("category") || "all");
+  }, [searchParams]);
   const [selectedAvailability, setSelectedAvailability] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -59,7 +65,14 @@ export default function RentalProducts() {
     });
   }, [selectedCategory, selectedAvailability, searchQuery]);
 
-  const breadcrumbs = [{ label: "Rental Products & Equipment Catalog" }];
+  const activeCategory = PRODUCT_CATEGORIES.find((cat) => cat.id === selectedCategory);
+  const breadcrumbs =
+    selectedCategory !== "all" && activeCategory
+      ? [
+          { label: "Rental Products", href: "/rental-products" },
+          { label: activeCategory.label },
+        ]
+      : [{ label: "Rental Products" }];
 
   const catalogSchema = {
     "@context": "https://schema.org",
@@ -246,7 +259,7 @@ export default function RentalProducts() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
-              to="/contact?service=Custom+Equipment+Package"
+              to={quoteHref(QUOTE.equipment)}
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-md"
             >
               Request Custom Package Quote
@@ -260,6 +273,15 @@ export default function RentalProducts() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/exhibitions", label: "Exhibitions" },
+          { href: "/events", label: "Events" },
+          { href: "/conferences", label: "Conferences" },
+          { href: "/transformers-display-system", label: "Transformers Display System" },
+        ]}
+      />
 
       <Footer />
     </>

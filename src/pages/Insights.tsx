@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ContinueLinks } from "@/components/SectionNav";
 import PageHeader from "@/components/PageHeader";
 import SectionTitle from "@/components/SectionTitle";
 import SEOHead from "@/components/SEOHead";
@@ -30,7 +31,7 @@ export default function Insights() {
     return article.category === selectedCategory;
   });
 
-  const breadcrumbs = [{ label: "Insights & Industry Guides" }];
+  const breadcrumbs = [{ label: "Insights" }];
 
   const insightsSchema = {
     "@context": "https://schema.org",
@@ -239,7 +240,7 @@ export default function Insights() {
                   onClick={() => setSelectedArticle(null)}
                   className="px-6 py-3 bg-[#0a2540] hover:bg-[#1787b2] text-white text-xs font-semibold rounded-xl transition-colors shrink-0 shadow-xs text-center"
                 >
-                  Request a Free Consultation
+                  Request a Quote
                 </Link>
               </div>
             </div>
@@ -261,7 +262,7 @@ export default function Insights() {
               to="/contact"
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-md"
             >
-              Discuss Your Brief
+              Request a Quote
             </Link>
             <Link
               to="/rental-products"
@@ -272,6 +273,15 @@ export default function Insights() {
           </div>
         </div>
       </section>
+
+      <ContinueLinks
+        links={[
+          { href: "/exhibitions", label: "Exhibitions" },
+          { href: "/events", label: "Events" },
+          { href: "/conferences", label: "Conferences" },
+          { href: "/faq", label: "FAQ" },
+        ]}
+      />
 
       <Footer />
     </>

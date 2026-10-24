@@ -85,8 +85,8 @@ export default function Home() {
 
   const faqs = [
     {
-      q: "What are the three core business pillars of Transformers?",
-      a: "Transformers operates across three specialized pillars: (1) Exhibitions (single modular booths, full stands, and custom design & build), (2) Events Management (turnkey production for commercial brand launches, pharmaceutical symposia, and sporting championships), and (3) Conferences (stage structures, panoramic LED video walls, speaker audio reinforcement, and branded backdrops).",
+      q: "What services does Transformers provide?",
+      a: "Transformers provides three specialized services: (1) Exhibitions (single modular booths, full stands, and custom design & build), (2) Events (turnkey production for commercial brand launches, pharmaceutical symposia, and sporting championships), and (3) Conferences (stage structures, panoramic LED video walls, speaker audio reinforcement, and branded backdrops).",
     },
     {
       q: "What is the Transformers Modular Display System?",
@@ -118,7 +118,7 @@ export default function Home() {
       <Navbar />
 
       {/* --- HERO SECTION --- */}
-      <section className="relative min-h-[520px] sm:min-h-[580px] lg:min-h-[660px] flex items-center justify-center overflow-hidden bg-[#071a2d] w-full">
+      <section id="main-content" tabIndex={-1} className="relative min-h-[520px] sm:min-h-[580px] lg:min-h-[660px] flex items-center justify-center overflow-hidden bg-[#071a2d] w-full outline-none">
         {/* Background Image with LCP priority */}
         <img
           src="/download.png"
@@ -149,7 +149,7 @@ export default function Home() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-10">
               <a
-                href="#pillars"
+                href="#services"
                 className="px-6 sm:px-8 py-3.5 sm:py-4 bg-[#1787b2] text-white hover:bg-[#6fbdd7] hover:text-[#0a2540] rounded-xl font-semibold text-sm sm:text-base transition-all shadow-lg flex items-center justify-center gap-2"
               >
                 Explore Our Solutions <ArrowRight size={17} />
@@ -162,32 +162,32 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Three Pillar Quick Badges */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 pt-5 sm:pt-6 border-t border-white/15 text-xs text-slate-300">
-              <div className="flex items-center gap-2">
+            <nav aria-label="Services" className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 pt-5 sm:pt-6 border-t border-white/15 text-xs text-slate-300">
+              <Link to="/exhibitions" className="flex items-center gap-2 rounded-md hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6fbdd7]">
                 <CheckCircle2 size={14} className="text-[#6fbdd7] shrink-0" />
                 <span>Exhibitions</span>
-              </div>
-              <div className="flex items-center gap-2">
+              </Link>
+              <Link to="/events" className="flex items-center gap-2 rounded-md hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6fbdd7]">
                 <CheckCircle2 size={14} className="text-[#6fbdd7] shrink-0" />
-                <span>Events Management</span>
-              </div>
-              <div className="flex items-center gap-2">
+                <span>Events</span>
+              </Link>
+              <Link to="/conferences" className="flex items-center gap-2 rounded-md hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6fbdd7]">
                 <CheckCircle2 size={14} className="text-[#6fbdd7] shrink-0" />
                 <span>Conferences</span>
-              </div>
-            </div>
+              </Link>
+            </nav>
           </div>
         </div>
       </section>
 
       {/* --- SECTION 2: THREE CORE BUSINESS PILLARS --- */}
-      <section id="pillars" className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 w-full">
+      <div id="pillars" className="sr-only" />
+      <section id="services" className="scroll-mt-28 md:scroll-mt-36 py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 w-full">
         <div className="max-w-7xl mx-auto">
           <SectionTitle
-            badge="Business Architecture"
-            title="Three Core Business Pillars"
-            subtitle="Clear specialization across every format of live B2B brand engagement in Egypt."
+            badge="Services"
+            title="Exhibitions, Events, and Conferences"
+            subtitle="Three specialized services for live brand engagement in Egypt — modular booths and custom stands, turnkey event production, and conference staging."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
@@ -201,7 +201,7 @@ export default function Home() {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-[#0a2540]/90 text-white text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full backdrop-blur-xs">
-                  Pillar 01
+                  Exhibitions
                 </div>
               </div>
 
@@ -215,17 +215,23 @@ export default function Home() {
                 </p>
 
                 <ul className="space-y-2 mb-6 text-xs text-slate-700">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                    Single Exhibition Booths (U & L Shapes)
+                  <li>
+                    <Link to="/exhibitions#single-booths" className="flex items-center gap-2 rounded-sm hover:text-[#1787b2]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                      Single Exhibition Booths (U & L Shapes)
+                    </Link>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                    Full Custom Exhibition Stands & Pavilions
+                  <li>
+                    <Link to="/exhibitions#full-stands" className="flex items-center gap-2 rounded-sm hover:text-[#1787b2]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                      Full Custom Exhibition Stands & Pavilions
+                    </Link>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                    Modular Reusable Aluminum Booth Systems
+                  <li>
+                    <Link to="/transformers-display-system" className="flex items-center gap-2 rounded-sm hover:text-[#1787b2]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                      Modular Reusable Aluminum Booth Systems
+                    </Link>
                   </li>
                 </ul>
 
@@ -249,7 +255,7 @@ export default function Home() {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-[#0a2540]/90 text-white text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full backdrop-blur-xs">
-                  Pillar 02
+                  Events
                 </div>
               </div>
 
@@ -263,17 +269,23 @@ export default function Home() {
                 </p>
 
                 <ul className="space-y-2 mb-6 text-xs text-slate-700">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                    Commercial Events & Store Launches
+                  <li>
+                    <Link to="/events#commercial-events" className="flex items-center gap-2 rounded-sm hover:text-[#1787b2]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                      Commercial Events & Store Launches
+                    </Link>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                    Pharmaceutical Scientific Meetings & Galas
+                  <li>
+                    <Link to="/events#pharma-events" className="flex items-center gap-2 rounded-sm hover:text-[#1787b2]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                      Pharmaceutical Scientific Meetings & Galas
+                    </Link>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                    Sports Tournaments & World Championships
+                  <li>
+                    <Link to="/events#sports-events" className="flex items-center gap-2 rounded-sm hover:text-[#1787b2]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                      Sports Tournaments & World Championships
+                    </Link>
                   </li>
                 </ul>
 
@@ -297,7 +309,7 @@ export default function Home() {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-[#0a2540]/90 text-white text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full backdrop-blur-xs">
-                  Pillar 03
+                  Conferences
                 </div>
               </div>
 
@@ -311,17 +323,23 @@ export default function Home() {
                 </p>
 
                 <ul className="space-y-2 mb-6 text-xs text-slate-700">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                    Keynote Stages & German Stage Decks
+                  <li>
+                    <Link to="/conferences#keynote-stages" className="flex items-center gap-2 rounded-sm hover:text-[#1787b2]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                      Keynote Stages & German Stage Decks
+                    </Link>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                    High-Definition LED Video Walls (P2.6)
+                  <li>
+                    <Link to="/conferences#led-backdrops" className="flex items-center gap-2 rounded-sm hover:text-[#1787b2]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                      High-Definition LED Video Walls (P2.6)
+                    </Link>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
-                    Speech Reinforcement Line Arrays & Mics
+                  <li>
+                    <Link to="/conferences#speech-audio" className="flex items-center gap-2 rounded-sm hover:text-[#1787b2]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1787b2]"></span>
+                      Speech Reinforcement Line Arrays & Mics
+                    </Link>
                   </li>
                 </ul>
 
@@ -411,7 +429,7 @@ export default function Home() {
                   View System Specs & Configurations
                 </Link>
                 <Link
-                  to="/rental-products"
+                  to="/rental-products?category=transformers_system"
                   className="px-6 py-3.5 border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl font-semibold text-xs sm:text-sm transition-colors text-center"
                 >
                   Browse Booth Catalog (Codes A–Q)
@@ -654,7 +672,7 @@ export default function Home() {
               to="/contact"
               className="px-6 sm:px-8 py-3.5 sm:py-4 bg-[#1787b2] text-white hover:bg-[#6fbdd7] hover:text-[#0a2540] rounded-xl font-semibold text-xs sm:text-base transition-all shadow-lg flex items-center justify-center gap-2"
             >
-              Request a Free Quote <ArrowRight size={17} />
+              Request a Quote <ArrowRight size={17} />
             </Link>
             <a
               href="tel:+201110999646"
