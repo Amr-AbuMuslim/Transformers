@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Exhibitions from "./pages/Exhibitions";
 import Events from "./pages/Events";
 import Conferences from "./pages/Conferences";
+import SportsTournaments from "./pages/SportsTournaments";
 import TransformersDisplaySystem from "./pages/TransformersDisplaySystem";
 import RentalProducts from "./pages/RentalProducts";
 import Projects from "./pages/Projects";
@@ -22,6 +23,8 @@ function App() {
         <Route path="/exhibitions" element={<Exhibitions />} />
         <Route path="/events" element={<Events />} />
         <Route path="/conferences" element={<Conferences />} />
+        <Route path="/sports-tournaments" element={<SportsTournaments />} />
+        <Route path="/sports" element={<Navigate to="/sports-tournaments" replace />} />
 
         {/* Dedicated Flagship Display System Landing Page */}
         <Route

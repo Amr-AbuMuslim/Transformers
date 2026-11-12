@@ -97,7 +97,7 @@ export default function About() {
                 We are proud to serve as the <strong>exclusive sole distributor in Egypt of the Transformers modular display system</strong>, precision-engineered and manufactured in Taiwan. This breakthrough system replaces heavy, wasteful timber carpentry with aircraft-grade foldable aluminum frameworks that assemble in 3 to 4 hours.
               </p>
               <p className="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed">
-                Operating from Cairo, we provide complete turnkey services across three services: <strong>Exhibitions</strong>, <strong>Events Management</strong>, and <strong>Conferences</strong>, supported by an in-house inventory of LED video walls, sound systems, stage decks, and exhibition furniture.
+                Operating from Cairo, we provide complete turnkey services across four areas: <strong>Exhibitions</strong>, <strong>Events</strong>, <strong>Sports Tournaments</strong>, and <strong>Conferences</strong>, supported by an in-house inventory of LED video walls, sound systems, stage decks, and exhibition furniture.
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100 text-xs text-slate-700">
@@ -111,7 +111,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Layers size={16} className="text-[#1787b2]" />
-                  <span>3 Core Services</span>
+                  <span>4 Core Services</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin size={16} className="text-[#1787b2]" />
@@ -207,11 +207,11 @@ export default function About() {
             subtitle="Specialized operational units delivering synchronized event excellence."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="bg-white p-6 rounded-2xl border border-slate-200">
               <h4 className="font-serif font-bold text-xl text-[#0a2540] mb-2">1. Exhibitions</h4>
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                Single modular booths (Codes A–Q) and large custom exhibition stands. Full design and build, graphic banner printing, and turnkey setup across all Egyptian exhibition halls.
+                Modular booths and custom exhibition stands, with graphics, furniture, lighting, and display structures for organizers and exhibitors.
               </p>
               <Link to="/exhibitions" className="text-xs font-semibold text-[#1787b2] hover:underline flex items-center gap-1">
                 Explore Exhibitions <ArrowRight size={12} />
@@ -221,7 +221,7 @@ export default function About() {
             <div className="bg-white p-6 rounded-2xl border border-slate-200">
               <h4 className="font-serif font-bold text-xl text-[#0a2540] mb-2">2. Events</h4>
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                Commercial brand launches, pharmaceutical symposia, and major international sports championships. In-house staging, LED screens, sound systems, and lighting rigs.
+                Stages, screens, sound, lighting, and sponsor structures for launches, galas, and corporate gatherings.
               </p>
               <Link to="/events" className="text-xs font-semibold text-[#1787b2] hover:underline flex items-center gap-1">
                 Explore Events <ArrowRight size={12} />
@@ -229,9 +229,19 @@ export default function About() {
             </div>
 
             <div className="bg-white p-6 rounded-2xl border border-slate-200">
-              <h4 className="font-serif font-bold text-xl text-[#0a2540] mb-2">3. Conferences</h4>
+              <h4 className="font-serif font-bold text-xl text-[#0a2540] mb-2">3. Sports Tournaments</h4>
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                Plenary keynote stages, panoramic P2.6 LED video backdrops, acoustic speech audio reinforcement, and foyer sponsor exhibition booths.
+                Venue branding, ceremony stages, podiums, LED screens, and audio for championships and tournaments.
+              </p>
+              <Link to="/sports-tournaments" className="text-xs font-semibold text-[#1787b2] hover:underline flex items-center gap-1">
+                Explore Sports Tournaments <ArrowRight size={12} />
+              </Link>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl border border-slate-200">
+              <h4 className="font-serif font-bold text-xl text-[#0a2540] mb-2">4. Conferences</h4>
+              <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                Keynote stages, LED presentation backdrops, speech audio, registration counters, and foyer sponsor booths.
               </p>
               <Link to="/conferences" className="text-xs font-semibold text-[#1787b2] hover:underline flex items-center gap-1">
                 Explore Conferences <ArrowRight size={12} />
@@ -271,6 +281,7 @@ export default function About() {
         links={[
           { href: "/exhibitions", label: "Exhibitions" },
           { href: "/events", label: "Events" },
+          { href: "/sports-tournaments", label: "Sports Tournaments" },
           { href: "/conferences", label: "Conferences" },
           { href: "/projects", label: "Projects" },
         ]}

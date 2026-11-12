@@ -72,7 +72,7 @@ export default function Projects() {
   return (
     <>
       <SEOHead
-        title="Completed Projects & Portfolio | Exhibitions, Events, Conferences Egypt"
+        title="Completed Projects & Portfolio | Exhibitions, Events, Sports & Conferences"
         description="Explore verified case studies and photo galleries of completed exhibitions, international sports tournaments, pharmaceutical galas, and conferences in Egypt."
         canonicalPath="/projects"
         structuredData={projectsSchema}
@@ -82,7 +82,7 @@ export default function Projects() {
 
       <PageHeader
         title="Delivered Projects & Portfolio"
-        subtitle="A verified archive of completed exhibition stands, international sports tournaments, commercial galas, and conferences executed across Egypt."
+        subtitle="A verified archive of completed exhibition stands, corporate events, sports tournaments, and conferences executed across Egypt."
         image="/1.jpg"
         breadcrumbs={breadcrumbs}
         badge="Proven Track Record in Egypt"
@@ -121,7 +121,15 @@ export default function Projects() {
             </span>
             {selectedPillar !== "all" && (
               <Link
-                to={selectedPillar === "exhibitions" ? "/exhibitions" : selectedPillar === "events" ? "/events" : "/conferences"}
+                to={
+                  selectedPillar === "exhibitions"
+                    ? "/exhibitions"
+                    : selectedPillar === "events"
+                      ? "/events"
+                      : selectedPillar === "sports"
+                        ? "/sports-tournaments"
+                        : "/conferences"
+                }
                 className="font-semibold text-[#1787b2] hover:underline"
               >
                 Explore {activePillar?.label}
@@ -213,12 +221,14 @@ export default function Projects() {
             <Link
               to={
                 selectedPillar === "exhibitions"
-                  ? quoteHref(QUOTE.fullStands)
+                  ? quoteHref(QUOTE.exhibitions)
                   : selectedPillar === "events"
-                    ? quoteHref(QUOTE.events)
-                    : selectedPillar === "conferences"
-                      ? quoteHref(QUOTE.conferences)
-                      : "/contact"
+                    ? quoteHref(QUOTE.eventsOverview)
+                    : selectedPillar === "sports"
+                      ? quoteHref(QUOTE.sportsTournaments)
+                      : selectedPillar === "conferences"
+                        ? quoteHref(QUOTE.conferencesOverview)
+                        : "/contact"
               }
               className="px-8 py-3.5 bg-[#1787b2] hover:bg-[#6fbdd7] hover:text-[#0a2540] text-white font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-md"
             >
@@ -238,6 +248,7 @@ export default function Projects() {
         links={[
           { href: "/exhibitions", label: "Exhibitions" },
           { href: "/events", label: "Events" },
+          { href: "/sports-tournaments", label: "Sports Tournaments" },
           { href: "/conferences", label: "Conferences" },
           { href: "/rental-products", label: "Rental products" },
         ]}

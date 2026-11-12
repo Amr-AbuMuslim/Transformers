@@ -115,7 +115,7 @@ export default function Navbar() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           <div className="flex shrink-0 items-center gap-3 lg:gap-6">
             <span className="flex items-center gap-1.5 font-medium text-slate-300">
-              <MapPin size={12} className="text-[#1787b2]" /> Cairo, Egypt (Sole Taiwan Distributor)
+              <MapPin size={12} className="text-[#1787b2]" /> Cairo, Egypt
             </span>
             <a href="tel:+201110999646" className={`flex items-center gap-1.5 hover:text-white ${focusRing} rounded-sm`}>
               <Phone size={12} className="text-[#1787b2]" /> +20 111 099 9646
@@ -128,7 +128,7 @@ export default function Navbar() {
             </a>
           </div>
           <div className="flex shrink-0 items-center gap-3">
-            <span className="hidden text-slate-400 2xl:inline">Exhibitions • Events • Conferences</span>
+            <span className="hidden text-slate-400 2xl:inline">Exhibitions • Events • Sports • Conferences</span>
             <span className="hidden h-1 w-1 rounded-full bg-[#1787b2] 2xl:inline-block" />
             <span className="font-medium text-emerald-400">Rental & Sale Available</span>
           </div>
@@ -241,26 +241,28 @@ export default function Navbar() {
                                     {service.description}
                                   </span>
                                 </Link>
-                                <ul className="mt-0.5 mb-1 ml-3 border-l border-slate-200">
-                                  {service.children.map((child) => {
-                                    const active = isNavActive(location.pathname, location.hash, child.href);
-                                    return (
-                                      <li key={child.href}>
-                                        <Link
-                                          to={child.href}
-                                          aria-current={active ? "page" : undefined}
-                                          className={`block rounded-r-lg px-3 py-1.5 text-[13px] font-medium ${focusRing} ${
-                                            active
-                                              ? "bg-[#1787b2]/10 text-[#0d586f]"
-                                              : "text-slate-600 hover:bg-slate-50 hover:text-[#1787b2]"
-                                          }`}
-                                        >
-                                          {child.label}
-                                        </Link>
-                                      </li>
-                                    );
-                                  })}
-                                </ul>
+                                {service.children.length > 0 && (
+                                  <ul className="mt-0.5 mb-1 ml-3 border-l border-slate-200">
+                                    {service.children.map((child) => {
+                                      const active = isNavActive(location.pathname, location.hash, child.href);
+                                      return (
+                                        <li key={child.href}>
+                                          <Link
+                                            to={child.href}
+                                            aria-current={active ? "page" : undefined}
+                                            className={`block rounded-r-lg px-3 py-1.5 text-[13px] font-medium ${focusRing} ${
+                                              active
+                                                ? "bg-[#1787b2]/10 text-[#0d586f]"
+                                                : "text-slate-600 hover:bg-slate-50 hover:text-[#1787b2]"
+                                            }`}
+                                          >
+                                            {child.label}
+                                          </Link>
+                                        </li>
+                                      );
+                                    })}
+                                  </ul>
+                                )}
                               </div>
                             );
                           })}
@@ -356,24 +358,26 @@ export default function Navbar() {
                           >
                             {service.label}
                           </Link>
-                          <ul className="ml-3 border-l border-slate-200">
-                            {service.children.map((child) => {
-                              const active = isNavActive(location.pathname, location.hash, child.href);
-                              return (
-                                <li key={child.href}>
-                                  <Link
-                                    to={child.href}
-                                    aria-current={active ? "page" : undefined}
-                                    className={`flex min-h-11 items-center rounded-r-lg px-3 text-sm ${focusRing} ${
-                                      active ? "font-semibold text-[#1787b2]" : "text-slate-600 hover:text-[#1787b2]"
-                                    }`}
-                                  >
-                                    {child.label}
-                                  </Link>
-                                </li>
-                              );
-                            })}
-                          </ul>
+                          {service.children.length > 0 && (
+                            <ul className="ml-3 border-l border-slate-200">
+                              {service.children.map((child) => {
+                                const active = isNavActive(location.pathname, location.hash, child.href);
+                                return (
+                                  <li key={child.href}>
+                                    <Link
+                                      to={child.href}
+                                      aria-current={active ? "page" : undefined}
+                                      className={`flex min-h-11 items-center rounded-r-lg px-3 text-sm ${focusRing} ${
+                                        active ? "font-semibold text-[#1787b2]" : "text-slate-600 hover:text-[#1787b2]"
+                                      }`}
+                                    >
+                                      {child.label}
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          )}
                         </div>
                       );
                     })}

@@ -21,12 +21,10 @@ export default function SEOHead({
   image = DEFAULT_IMAGE,
   type = "website",
   keywords = [
-    "Transformers Display System",
-    "Transformers Modular Display System",
-    "Modular Exhibition Display System",
     "Exhibition Booth Rental Egypt",
     "Exhibition Stand Design and Build Egypt",
     "Event Management and Production Egypt",
+    "Sports Tournament Branding Egypt",
     "Conference Display Solutions Egypt",
     "Exhibition and Event Equipment Rental Egypt",
   ],

@@ -15,52 +15,34 @@ export interface ServiceGroup {
   children: NavLink[];
 }
 
-export const EXHIBITION_SECTIONS: NavLink[] = [
-  { href: "/exhibitions#single-booths", label: "Single Booths" },
-  { href: "/exhibitions#full-stands", label: "Full Exhibition Stands" },
-  { href: "/exhibitions#modular-system", label: "Transformers Display System" },
-  { href: "/exhibitions#design-build", label: "Design and Build" },
-  { href: "/exhibitions#exhibition-projects", label: "Exhibition Projects" },
-];
-
-export const EVENT_SECTIONS: NavLink[] = [
-  { href: "/events#commercial-events", label: "Commercial Events" },
-  { href: "/events#pharma-events", label: "Pharmaceutical Events" },
-  { href: "/events#sports-events", label: "Sports Tournaments" },
-];
-
-export const CONFERENCE_SECTIONS: NavLink[] = [
-  { href: "/conferences#keynote-stages", label: "Keynote Stages" },
-  { href: "/conferences#led-backdrops", label: "LED Backdrops" },
-  { href: "/conferences#speech-audio", label: "Speech Audio" },
-  { href: "/conferences#foyer-hubs", label: "Foyer and Sponsor Hubs" },
-];
-
 export const SERVICES: ServiceGroup[] = [
   {
     href: "/exhibitions",
     label: "Exhibitions",
-    description: "Single booths, full stands, and the Transformers display system",
+    description: "Booths, stands, and exhibition environments",
     match: ["/exhibitions", "/transformers-display-system"],
-    children: [
-      { href: "/exhibitions#single-booths", label: "Single Booths" },
-      { href: "/exhibitions#full-stands", label: "Full Exhibition Stands" },
-      { href: "/transformers-display-system", label: "Transformers Display System" },
-    ],
+    children: [],
   },
   {
     href: "/events",
     label: "Events",
-    description: "Commercial launches, pharmaceutical events, and sports tournaments",
+    description: "Stages, branding, and event production",
     match: ["/events"],
-    children: EVENT_SECTIONS,
+    children: [],
+  },
+  {
+    href: "/sports-tournaments",
+    label: "Sports Tournaments",
+    description: "Venue branding, ceremonies, and tournament infrastructure",
+    match: ["/sports-tournaments", "/sports"],
+    children: [],
   },
   {
     href: "/conferences",
     label: "Conferences",
-    description: "Stages, LED video walls, speech audio, and foyer setups",
+    description: "Stages, presentation displays, and sponsor areas",
     match: ["/conferences"],
-    children: CONFERENCE_SECTIONS,
+    children: [],
   },
 ];
 
@@ -72,7 +54,6 @@ export interface PrimaryLink {
 
 export const PRIMARY_LINKS: PrimaryLink[] = [
   { href: "/", label: "Home", match: ["/"] },
-  { href: "/rental-products", label: "Rental Products", match: ["/rental-products", "/products"] },
   { href: "/projects", label: "Projects", match: ["/projects", "/gallery"] },
   { href: "/about", label: "About Us", match: ["/about"] },
   { href: "/contact", label: "Contact", match: ["/contact", "/request-a-quote"] },
@@ -90,6 +71,10 @@ export const RENTAL_LINKS: NavLink[] = [
 ];
 
 export const QUOTE = {
+  exhibitions: "Exhibitions",
+  eventsOverview: "Events",
+  sportsTournaments: "Sports Tournaments",
+  conferencesOverview: "Conferences",
   singleBooths: "Exhibitions - Single Modular Booths",
   fullStands: "Exhibitions - Full Custom Stands",
   displaySystem: "Exhibitions - Transformers Display System",
@@ -102,12 +87,16 @@ export const QUOTE = {
 } as const;
 
 export const SERVICE_OPTIONS: { value: string; label: string }[] = [
+  { value: QUOTE.exhibitions, label: "Exhibitions" },
+  { value: QUOTE.eventsOverview, label: "Events" },
+  { value: QUOTE.sportsTournaments, label: "Sports Tournaments" },
+  { value: QUOTE.conferencesOverview, label: "Conferences" },
   { value: QUOTE.singleBooths, label: "Exhibitions — Single Booths" },
   { value: QUOTE.fullStands, label: "Exhibitions — Full Exhibition Stands" },
   { value: QUOTE.displaySystem, label: "Exhibitions — Transformers Display System" },
   { value: QUOTE.commercial, label: "Events — Commercial Events" },
   { value: QUOTE.pharma, label: "Events — Pharmaceutical Events" },
-  { value: QUOTE.sports, label: "Events — Sports Tournaments" },
+  { value: QUOTE.sports, label: "Sports Tournaments — Infrastructure & Branding" },
   { value: QUOTE.events, label: "Events — Turnkey Production" },
   { value: QUOTE.conferences, label: "Conferences — Stages, LED & Audio" },
   { value: QUOTE.equipment, label: "Rental Products — Equipment" },
@@ -126,8 +115,10 @@ export const SERVICE_ALIASES: Record<string, string> = {
   "Transformers Modular Display Systems": QUOTE.displaySystem,
   "Commercial Events": QUOTE.commercial,
   "Pharmaceutical Events": QUOTE.pharma,
-  "Sports and Tournaments": QUOTE.sports,
-  "Sports & Tournaments": QUOTE.sports,
+  "Sports and Tournaments": QUOTE.sportsTournaments,
+  "Sports & Tournaments": QUOTE.sportsTournaments,
+  Sports: QUOTE.sportsTournaments,
+  "Sports Tournaments": QUOTE.sportsTournaments,
   "Event Management and Production": QUOTE.events,
   Conferences: QUOTE.conferences,
   "Custom Equipment Package": QUOTE.equipment,

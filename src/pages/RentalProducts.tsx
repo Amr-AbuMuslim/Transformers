@@ -278,6 +278,7 @@ export default function RentalProducts() {
         links={[
           { href: "/exhibitions", label: "Exhibitions" },
           { href: "/events", label: "Events" },
+          { href: "/sports-tournaments", label: "Sports Tournaments" },
           { href: "/conferences", label: "Conferences" },
           { href: "/transformers-display-system", label: "Transformers Display System" },
         ]}

@@ -278,6 +278,7 @@ export default function Insights() {
         links={[
           { href: "/exhibitions", label: "Exhibitions" },
           { href: "/events", label: "Events" },
+          { href: "/sports-tournaments", label: "Sports Tournaments" },
           { href: "/conferences", label: "Conferences" },
           { href: "/faq", label: "FAQ" },
         ]}

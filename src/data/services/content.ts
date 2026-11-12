@@ -1,0 +1,390 @@
+import { QUOTE } from "@/data/navigation";
+import type { ServiceContent } from "./types";
+
+export const exhibitionsContent: ServiceContent = {
+  area: "exhibitions",
+  path: "/exhibitions",
+  quote: QUOTE.exhibitions,
+  seoTitle: "Exhibition Solutions in Egypt | Booths, Stands & Display Systems",
+  seoDescription:
+    "Exhibition booths, custom stands, display systems, lighting, and furniture for organizers and exhibitors in Egypt. Complete setups or selected rental equipment.",
+  headline: "Exhibition solutions, from booths to complete show environments",
+  intro:
+    "An exhibition asks two different things of the floor: organizers need a hall that is readable and workable, and exhibitors need a stand that presents the brand and the product. Transformers builds both, from single modular booths to larger custom stands.",
+  capability:
+    "Booth structures, branded graphics, podiums, counters, display lighting, digital signage, and furniture from our Cairo inventory, installed for the show and removed after it.",
+  image: "/Transformers_Assets/12_Trade_Shows/MOG_Exhibition_Large_Setup.jpg",
+  imageAlt: "Large MOG exhibition stand with lighting and branded structure",
+  needsTitle: "What an exhibition usually requires",
+  needsIntro: "Organizers and exhibitors prepare different parts of the same hall. Use the list that matches your role.",
+  needs: [
+    {
+      title: "Organizer requirements",
+      intro: "The hall has to guide visitors and give exhibitors a place to work.",
+      items: [
+        { title: "Space and booth coordination", text: "Aisles, booth footprints, and shared structures need to be agreed before graphics and electrical loads are fixed." },
+        { title: "Entrance and information points", text: "Reception counters, header signs, and digital totems help visitors find registration and the show itself." },
+        { title: "Hall branding and direction", text: "Headers, towers, and branded structures mark zones without relying on a separate signage system we do not supply as software." },
+        { title: "Light and power for stands", text: "Booth lighting and display power have to match the venue’s rules and the stand drawings." },
+        { title: "Install and dismantle", text: "The hall only opens for a short build window. Structures need a crew that can assemble and clear them on that schedule." },
+      ],
+    },
+    {
+      title: "Exhibitor requirements",
+      intro: "The stand has to carry the brand, the product, and a place to talk.",
+      items: [
+        { title: "Booth or custom stand", text: "A modular booth for a standard plot, or a designed stand when the space, height, or brand treatment needs more than a shell." },
+        { title: "Graphics and identity", text: "Header signs, banner panels, podiums, and counters printed to the brand." },
+        { title: "Product display", text: "Open structures, glass showcases, and counters for products that need to be seen or locked." },
+        { title: "Furniture and storage", text: "Meeting tables, consultation tables, and counters with internal storage for collateral." },
+        { title: "Screens and light", text: "Digital signage and booth spotlights where the product or the message needs more than a printed wall." },
+      ],
+    },
+  ],
+  solutionsTitle: "How we fit those requirements",
+  solutionsIntro: "These are the exhibition services already in our work and inventory. We do not supply venue catering, visitor registration software, or hall-wide electrical contracting.",
+  solutions: [
+    {
+      title: "Modular booths",
+      text: "Codes A–Q cover U-shape, L-shape, tower, ring, pavilion, and open layouts, with podium, header, and spotlights included on the standard packages.",
+      image: "/A.png",
+      imageAlt: "Code A U-shape modular exhibition booth",
+      points: ["Standard footprints from 3×3 m upward", "Rental or purchase", "Graphics changed between shows"],
+    },
+    {
+      title: "Custom stands",
+      text: "Larger island and perimeter stands, including the kind of branded build delivered for MOG, MANNOR, and ARERA.",
+      image: "/Transformers_Assets/09_Past_Events/MANNOR_Booth.jpg",
+      imageAlt: "MANNOR exhibition booth",
+      points: ["Design and build for a specific plot", "Feature towers, rings, and headers", "Coordinated graphics and lighting"],
+    },
+    {
+      title: "Display, light, and furniture",
+      text: "Digital signage, exhibition lighting, meeting furniture, hospitality counters, and lockable glass cases for the stand interior.",
+      image: "/Transformers_Assets/07_Furniture/Meeting_Tables.jpg",
+      imageAlt: "Exhibition meeting tables",
+      points: ["Counters and consultation tables", "Illuminated product cases", "Booth and feature lighting"],
+    },
+  ],
+  completeTitle: "A complete exhibition setup, or only the pieces you need",
+  completeText:
+    "Some exhibitors want the stand handled as one job: structure, graphics, furniture, light, delivery, and dismantling. Others already have a contractor and only need selected structures or furniture. Both are available.",
+  completePoints: [
+    "One scope for structure, graphics, and the furniture on the stand",
+    "The same visual language across booths when an organizer needs a row of them",
+    "Equipment drawn from local inventory rather than a one-off build for every item",
+    "The scope scaled to the plot, from a single booth to a larger stand",
+  ],
+  completeImage: "/Transformers_Assets/09_Past_Events/Career_Expo_Hall.jpg",
+  completeImageAlt: "Career expo hall with multiple exhibition booths",
+  rentalTitle: "Exhibition equipment you can rent",
+  rentalIntro:
+    "These are items from the current catalog that belong on an exhibition floor. Prices and quantities are confirmed in the quotation, not listed here.",
+  catalogHref: "/rental-products?category=transformers_system",
+  catalogLabel: "Browse modular booths",
+  prepTitle: "Planning an exhibition? Prepare this first",
+  prepIntro: "Send these with the enquiry so the quotation matches the plot and the venue.",
+  prep: [
+    { title: "Plot size and position", text: "Length, depth, open sides, and whether the stand is inline, corner, or island. Codes A–Q are sized around those footprints." },
+    { title: "Brand files", text: "Logo, colors, and artwork for headers, podiums, and wall graphics. The wooden header on standard booths is 70×30 cm." },
+    { title: "What must be displayed", text: "Products, screens, locked cases, or a meeting table. That decides between a simple booth and added showcases or signage." },
+    { title: "Power and light", text: "Venue electrical rules, and whether the included booth spotlights are enough or the stand needs a larger lighting plot." },
+    { title: "Build window", text: "Installation and dismantling dates. Modular booths are built for a short hall window; custom stands need the venue’s build schedule." },
+    { title: "What to send us", text: "Floor plan, stand number, dates, city, and whether you want a complete stand or specific rental items." },
+  ],
+  ctaTitle: "Plan your exhibition with us",
+  ctaText: "Tell us the hall, the plot, and whether you need a complete stand or selected equipment.",
+  ctaLabel: "Request an exhibition quote",
+};
+
+export const eventsContent: ServiceContent = {
+  area: "events",
+  path: "/events",
+  quote: QUOTE.eventsOverview,
+  seoTitle: "Event Production in Egypt | Stages, Screens, Lighting & Branding",
+  seoDescription:
+    "Stages, LED backdrops, sound, lighting, and sponsor structures for corporate events, launches, and gatherings in Egypt. Complete production or selected rental equipment.",
+  headline: "Event production for launches, gatherings, and branded occasions",
+  intro:
+    "A live event is a room that has to work for an audience, a brand, and often a sponsor. Transformers supplies the stage, the picture, the sound, the light, and the branded structures around them.",
+  capability:
+    "Stage decks, LED backdrops, line-array and console audio, wireless microphones, event lighting, and sponsor booths or counters. Commercial launches, anniversaries, galas, and pharmaceutical gatherings are the work we have already delivered.",
+  image: "/Transformers_Assets/06_Event_Lighting/SHIRA_20Years_Anniversary.jpg",
+  imageAlt: "SHIRA anniversary event lighting and stage",
+  needsTitle: "What the event has to hold",
+  needsIntro: "Organizers plan the room. Sponsors and participants need a place that is visibly theirs.",
+  needs: [
+    {
+      title: "Organizer requirements",
+      intro: "The audience has to see, hear, and understand where to go.",
+      items: [
+        { title: "Stage and backdrop", text: "A platform and a branded picture behind the speakers, product, or hosts." },
+        { title: "Sound for the room", text: "Coverage for speech or a program, with microphones for hosts and guests." },
+        { title: "Light", text: "Light on the stage and enough atmosphere in the room for the kind of event it is." },
+        { title: "Arrival and reception", text: "A branded entrance, a counter, or a registration point so guests know they are in the right place." },
+        { title: "Sponsor space", text: "A defined area for a partner, not a logo lost on the backdrop." },
+      ],
+    },
+    {
+      title: "Sponsor and participant requirements",
+      intro: "A sponsor usually needs a physical place, not only a mention.",
+      items: [
+        { title: "Activation structure", text: "A booth, counter, or backdrop that can carry their own graphics." },
+        { title: "A screen of their own", text: "Digital signage or a share of the stage LED, when the agreement includes picture." },
+        { title: "Furniture", text: "Cocktail tables or a hospitality counter for a hosted conversation." },
+      ],
+    },
+  ],
+  solutionsTitle: "Production we can actually deliver",
+  solutionsIntro: "Grouped the way an event is built. Sports tournaments have their own page. We do not provide catering, artist booking, or event photography.",
+  solutions: [
+    {
+      title: "Stage and picture",
+      text: "Modular and glass stages, branded LED backdrops, and curved screens for launches and ceremonies. PROXIMA and SHIRA used this kind of stage picture and light.",
+      image: "/Transformers_Assets/08_Stages/German_Stage_Glass.jpg",
+      imageAlt: "Modular glass stage deck",
+      points: ["German modular stage decks", "Gloss white or black stage finishes", "LED backdrops and curved walls"],
+    },
+    {
+      title: "Sound and light",
+      text: "Line-array systems, digital consoles, wireless microphones, and lighting plots for galas and corporate rooms.",
+      image: "/Transformers_Assets/05_Sound_Systems/Line_Array_Speakers.jpg",
+      imageAlt: "Line array loudspeakers",
+      points: ["Speech and program audio", "Handheld, lapel, and headset mics", "Stage and room lighting"],
+    },
+    {
+      title: "Brand and sponsor structures",
+      text: "Entrance gates, podiums, counters, and a small set of modular booths for a partner who needs a staffed space. BDS and Winzoxib are examples of branded event builds.",
+      image: "/Transformers_Assets/10_Sports_Events/BDS_Store_Launch.jpg",
+      imageAlt: "BDS brand launch environment",
+      points: ["Entrance structures and headers", "Branded counters and podiums", "Booths for a sponsor corner"],
+    },
+  ],
+  completeTitle: "One production, or the equipment list you choose",
+  completeText:
+    "A complete event covers the stage, the audiovisual system, the light, and the branded structures in one scope. A rental keeps the choice to the items you actually need, for example a stage and a screen without a full sponsor build.",
+  completePoints: [
+    "Stage, picture, sound, and light specified together",
+    "Graphics coordinated across backdrop, entrance, and sponsor pieces",
+    "Local inventory for the screens, audio, stages, and furniture",
+    "Scope set by the room and the program, not by a fixed package",
+  ],
+  completeImage: "/Transformers_Assets/06_Event_Lighting/PROXIMA_Gala.jpg",
+  completeImageAlt: "PROXIMA gala with stage lighting",
+  rentalTitle: "Event equipment you can rent",
+  rentalIntro: "Shown here only if it is in the catalog and useful for a corporate, commercial, or hosted event. Ask for availability with the date and venue.",
+  catalogHref: "/rental-products?category=led_screens",
+  catalogLabel: "Browse LED screens",
+  prepTitle: "Planning an event? Prepare this first",
+  prepIntro: "The quotation depends on the room and the program more than on a slogan.",
+  prep: [
+    { title: "Audience and format", text: "A seated dinner, a standing launch, or a hosted scientific gathering changes the stage, the light, and the furniture." },
+    { title: "Room dimensions", text: "Width, depth, ceiling height, and where the audience stands or sits. Stage modules are 2×1 m and rise from 20 cm to 140 cm." },
+    { title: "What must be seen and heard", text: "Speech only, a video backdrop, or both. That chooses between a conference-style screen, a branded stage LED, or a curved wall." },
+    { title: "Brand and sponsor deliverables", text: "Whose logo is on the backdrop, and whether a sponsor needs a booth, a counter, or only a graphic." },
+    { title: "Schedule", text: "Load-in, rehearsal, and load-out. Send the venue’s technical restrictions with the dates." },
+    { title: "What to send us", text: "Date, city, venue, audience size, and a note on whether you want full production or a list of rental items." },
+  ],
+  ctaTitle: "Let's build your event",
+  ctaText: "Share the venue and the program. We will reply with a stage, audiovisual, and branding scope, or a rental list.",
+  ctaLabel: "Request an event quote",
+};
+
+export const sportsContent: ServiceContent = {
+  area: "sports",
+  path: "/sports-tournaments",
+  quote: QUOTE.sportsTournaments,
+  seoTitle: "Sports Tournament Infrastructure & Branding in Egypt | Transformers",
+  seoDescription:
+    "Venue branding, ceremony stages, LED screens, podiums, and audio for sports tournaments in Egypt. Built from delivered championship work and current rental inventory.",
+  headline: "Tournament infrastructure, branding, and ceremony setups",
+  intro:
+    "A tournament is not a gala with a different backdrop. The field or pool stays visible, sponsors need placements that read from a distance, and the ceremony needs a stage, a podium, and a picture that cameras can use.",
+  capability:
+    "We have built this for CITI Para Swimming, World Para Powerlifting, CMAS Finswimming, and an international gymnastics championship: branding, ceremony platforms, LED, light, and audio.",
+  image: "/Transformers_Assets/10_Sports_Events/CITI_PARA_Swimming_Egypt_2024.jpg",
+  imageAlt: "CITI Para Swimming World Series venue in Egypt",
+  needsTitle: "What a tournament asks for",
+  needsIntro: "The organizer, the sponsors, and the people in front of cameras do not need the same structures.",
+  needs: [
+    {
+      title: "Tournament organizers",
+      intro: "The venue has to read clearly for athletes, spectators, and broadcast.",
+      items: [
+        { title: "Field and venue branding", text: "Perimeter and entrance structures that identify the event without blocking the competition." },
+        { title: "Sponsor placements", text: "Walls, headers, and counters where a partner’s mark is actually visible." },
+        { title: "Presentation and ceremony", text: "A stage for officials and a podium and backdrop for medals." },
+        { title: "Screens", text: "A picture large enough for a hall or arena, including feeds the venue already produces." },
+        { title: "Arrival and direction", text: "An entrance structure and headers so teams, media, and spectators find the right zone." },
+        { title: "Build around the sport", text: "Install dates that respect training, water, or competition surfaces and the venue’s restrictions." },
+      ],
+    },
+    {
+      title: "Sponsors",
+      intro: "A logo on a board is one deliverable. A staffed presence is another.",
+      items: [
+        { title: "Branded structures", text: "Display walls, entrance pieces, and backdrops printed for that partner." },
+        { title: "A staffed point", text: "A counter or small booth when the sponsor needs to meet people, not only be seen." },
+        { title: "Screen presence", text: "Arena LED or a stage screen when the agreement includes moving picture." },
+      ],
+    },
+    {
+      title: "Teams, ceremonies, and media",
+      intro: "These are physical sets, not a media service.",
+      items: [
+        { title: "Podium and winner backdrop", text: "A branded podium and a clean background for photographs and the medal moment." },
+        { title: "Interview background", text: "A press backdrop of the kind used at CMAS, separate from the competition branding." },
+        { title: "Ceremony platform", text: "A stage deck that can carry officials, trophies, and the presentation." },
+      ],
+    },
+  ],
+  solutionsTitle: "What we provide around the competition",
+  solutionsIntro: "Matched to championship work we have delivered. We do not supply timing systems, sports flooring, or broadcast crews.",
+  solutions: [
+    {
+      title: "Venue and sponsor branding",
+      text: "Aluminum structures, headers, entrance gates, and printed walls for poolside, arena, and arrival branding.",
+      image: "/Transformers_Assets/10_Sports_Events/CMAS_Finswimming_2023_1.jpg",
+      imageAlt: "CMAS Finswimming championship branding",
+      points: ["Entrance gates and headers", "Perimeter and sponsor walls", "Modular partitions for a VIP or media edge"],
+    },
+    {
+      title: "Ceremony stage and podium",
+      text: "Heavy-duty and presentation stages, plus the branded podium used for medal and award moments.",
+      image: "/Transformers_Assets/10_Sports_Events/World_Para_Powerlifting_1.jpg",
+      imageAlt: "World Para Powerlifting competition platform",
+      points: ["Modular stage decks", "Gloss presentation finishes", "Branded podium and winner backdrop"],
+    },
+    {
+      title: "Arena picture, light, and sound",
+      text: "Large-venue LED specified for halls and arenas, stage LED, lighting, and PA so speeches and ceremonies carry in a sports room.",
+      image: "/Transformers_Assets/04_LED_Screens/LED_Large_Venue.jpg",
+      imageAlt: "Large venue LED screen",
+      points: ["High-brightness large-format LED", "Line array and console audio", "Wireless microphones for ceremonies"],
+    },
+  ],
+  completeTitle: "The tournament environment, or the pieces the venue still needs",
+  completeText:
+    "A complete tournament scope ties branding, ceremony structures, screens, and audio into one installation. A rental is the right path when the federation already has the field and only needs a screen, a stage, a podium, or sponsor structures.",
+  completePoints: [
+    "Branding, ceremony, and technical equipment planned as one visit",
+    "Sponsor graphics produced with the event graphics, not as a last-minute add-on",
+    "Screens, stages, and audio from inventory already used in Egyptian venues",
+    "The list trimmed to the ceremony and the camera positions that matter",
+  ],
+  completeImage: "/Transformers_Assets/10_Sports_Events/International_Gymnastics_Championship.jpg",
+  completeImageAlt: "International gymnastics championship arena",
+  rentalTitle: "Tournament equipment you can rent",
+  rentalIntro: "A short list on purpose. Full exhibition booth ranges stay on the Exhibitions page.",
+  catalogHref: "/rental-products?category=stages",
+  catalogLabel: "Browse stages",
+  prepTitle: "Planning a tournament? Prepare this first",
+  prepIntro: "Competition venues leave less room for guesswork than a ballroom.",
+  prep: [
+    { title: "Format and scale", text: "Number of days, sessions, and whether you need a ceremony stage as well as field or pool branding." },
+    { title: "Venue dimensions", text: "The competition surface, the camera side, and the ceiling or rigging points. Send the venue plan if you have it." },
+    { title: "Sponsor positions", text: "Which partners need a wall, a counter, or a screen. We will not invent placements that the venue cannot host." },
+    { title: "Where the picture must read", text: "Spectator distance decides between a large-venue LED and a stage backdrop. Say who has to see it." },
+    { title: "Ceremony", text: "Podium, backdrop, and whether officials speak. That sets the stage size and the microphone package." },
+    { title: "Restrictions and dates", text: "Access hours, protection of the playing surface, and the dismantle deadline. Include them in the enquiry." },
+  ],
+  ctaTitle: "Prepare your sports tournament",
+  ctaText: "Send the venue, the dates, and the ceremony or branding you need. We will quote the structures and equipment that match.",
+  ctaLabel: "Request a tournament quote",
+};
+
+export const conferencesContent: ServiceContent = {
+  area: "conferences",
+  path: "/conferences",
+  quote: QUOTE.conferencesOverview,
+  seoTitle: "Conference Stages, LED Backdrops & Sponsor Areas in Egypt",
+  seoDescription:
+    "Conference stages, LED presentation backdrops, speech audio, lighting, registration furniture, and sponsor booths for events in Egypt.",
+  headline: "Conference environments for the stage, the foyer, and the sponsors",
+  intro:
+    "A conference fails in public if the speaker cannot be seen or heard, and it fails commercially if sponsors have nowhere to stand. Transformers builds the stage picture, the speech audio, and the foyer structures around them.",
+  capability:
+    "Keynote stages, panoramic LED backdrops, wireless microphones, lighting, registration counters, and modular sponsor booths. Delivered for leadership, medical, and investment gatherings in Egypt.",
+  image: "/Transformers_Assets/06_Event_Lighting/HR_Conference.jpg",
+  imageAlt: "Human resources leadership conference stage",
+  needsTitle: "What a conference has to set up",
+  needsIntro: "The plenary room and the foyer are different jobs. We cover the physical and technical ones, not the program itself.",
+  needs: [
+    {
+      title: "Conference organizers",
+      intro: "Delegates need to find the room, see the slides, and hear the speaker.",
+      items: [
+        { title: "Main stage", text: "A stable platform, steps, and a finish that looks right on camera." },
+        { title: "Backdrop and screens", text: "A branded or LED background wide enough for slides, names, and a camera feed." },
+        { title: "Microphones and room sound", text: "Lectern, lapel, and handheld options, with a system tuned for speech." },
+        { title: "Light on the speaker", text: "Front light that keeps a face readable and a wash for the set." },
+        { title: "Registration", text: "Counters and tables for the team greeting delegates. We do not provide registration software." },
+        { title: "Direction", text: "Headers and branded structures that mark the hall. Printed wayfinding systems beyond that need to be confirmed case by case." },
+        { title: "Technical install", text: "A build and strike that leaves time for a rehearsal before doors." },
+      ],
+    },
+    {
+      title: "Sponsors and exhibiting participants",
+      intro: "Many conferences carry a small exhibition. That is a booth problem, not a stage problem.",
+      items: [
+        { title: "Sponsor booths", text: "A repeatable modular booth so partners look consistent in the foyer." },
+        { title: "Counters and product display", text: "A branded counter or showcase when a full booth is more than the agreement." },
+        { title: "Their own screen", text: "A totem or a small LED for a loop, separate from the plenary wall." },
+        { title: "A backdrop for photographs", text: "A printed or lit wall for speakers and partners outside the session." },
+      ],
+    },
+  ],
+  solutionsTitle: "Conference services, starting with the stage",
+  solutionsIntro: "We do not provide simultaneous interpretation, translation, catering, or delegate registration platforms.",
+  solutions: [
+    {
+      title: "Stage, backdrop, and slides",
+      text: "Modular stage decks and a conference LED backdrop with multi-window switching for slides and camera. Used on leadership and scientific programs.",
+      image: "/Transformers_Assets/04_LED_Screens/LED_Conference_Setup.jpg",
+      imageAlt: "Conference mainstage LED backdrop",
+      points: ["Stage decks with stairs and skirting", "Wide LED for slides and names", "Branded return walls beside the screen"],
+    },
+    {
+      title: "Speech audio and light",
+      text: "Line array or distributed speech systems, wireless microphones, consoles, and lighting aimed at the speaker rather than a show floor.",
+      image: "/Transformers_Assets/05_Sound_Systems/Wireless_Microphone_Package.jpg",
+      imageAlt: "Wireless microphone package",
+      points: ["Lapel, handheld, and headset mics", "A console and room tuning", "Speaker key light and set wash"],
+    },
+    {
+      title: "Foyer, registration, and sponsors",
+      text: "Counters, meeting tables, digital totems, and modular booths for the sponsor row outside the plenary.",
+      image: "/Transformers_Assets/12_Trade_Shows/Corporate_Conference_Booths.jpg",
+      imageAlt: "Sponsor booths at a corporate conference",
+      points: ["Registration counters", "Agenda and sponsor totems", "Repeatable sponsor booths"],
+    },
+  ],
+  completeTitle: "The room as one setup, or the equipment the venue lacks",
+  completeText:
+    "A complete conference setup joins the stage, the LED, the microphones, the light, and the foyer furniture. Rent selected pieces when the hotel already has a stage and you need the screen, the microphones, or the sponsor booths.",
+  completePoints: [
+    "Stage, picture, and speech audio specified together",
+    "Sponsor booths that match the stage graphics",
+    "Furniture for registration and side meetings from the same inventory",
+    "The scope limited to the rooms you are actually using",
+  ],
+  completeImage: "/Transformers_Assets/09_Past_Events/Medical_Conferences.jpg",
+  completeImageAlt: "Medical and pharmaceutical conference setup",
+  rentalTitle: "Conference equipment you can rent",
+  rentalIntro: "Plenary equipment first, then the foyer. Auditorium seating is not part of this catalog.",
+  catalogHref: "/rental-products?category=led_screens",
+  catalogLabel: "Browse LED screens",
+  prepTitle: "Planning a conference? Prepare this first",
+  prepIntro: "A useful quotation starts with the room and the sessions, not with a theme.",
+  prep: [
+    { title: "How many people, and how they sit", text: "Headcount and whether the room is theatre, classroom, or banquet. We do not rent auditorium chair banks, so the venue seating plan still matters." },
+    { title: "Sessions and speakers", text: "Keynote, panel, or both. Panels need more microphones. Slides need a screen wide enough to read from the back row." },
+    { title: "Screen size and sightlines", text: "Room width and the last row. Say if you need one wide wall or a screen plus side returns." },
+    { title: "Audio", text: "Lectern, lapel, audience questions, or a recording feed. List them so the channel count is real." },
+    { title: "Registration and sponsors", text: "How many counters, and how many sponsor booths. A 3×3 m booth is a different enquiry from a counter." },
+    { title: "Rehearsal and access", text: "When the room is free, and when the first speaker walks on. Send that with the venue name and city." },
+  ],
+  ctaTitle: "Plan your conference setup",
+  ctaText: "Share the agenda outline, the room, and whether sponsors need booths. We will quote the stage and the foyer separately if that is clearer.",
+  ctaLabel: "Request a conference quote",
+};

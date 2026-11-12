@@ -8,6 +8,8 @@ export type ProductCategory =
   | "stages"
   | "furniture";
 
+export type ServiceArea = "exhibitions" | "events" | "sports" | "conferences";
+
 export interface ProductItem {
   id: string;
   code?: string;
@@ -20,6 +22,7 @@ export interface ProductItem {
   sizes?: string[];
   specs: string[];
   featured?: boolean;
+  usedFor?: ServiceArea[];
 }
 
 export const PRODUCT_CATEGORIES = [
@@ -594,3 +597,91 @@ export const PRODUCTS: ProductItem[] = [
     ],
   },
 ];
+
+const PRODUCT_ORDER: Record<ServiceArea, string[]> = {
+  exhibitions: [
+    "booth-code-a",
+    "booth-code-b",
+    "booth-code-c",
+    "booth-code-d",
+    "booth-code-e",
+    "booth-code-f",
+    "booth-code-g",
+    "booth-code-h",
+    "booth-code-i",
+    "booth-code-j",
+    "booth-code-k",
+    "booth-code-l",
+    "booth-code-m",
+    "booth-code-n",
+    "booth-code-o",
+    "booth-code-p",
+    "booth-code-q",
+    "led-digital-signage",
+    "lighting-expo-stage",
+    "furniture-meeting-tables",
+    "furniture-xtables",
+    "furniture-mini-bars",
+    "awards-glass-showcase",
+    "led-curved-screen",
+  ],
+  events: [
+    "led-branded-stage",
+    "led-curved-screen",
+    "led-digital-signage",
+    "lighting-expo-stage",
+    "lighting-gala-proxima",
+    "stage-german-glass",
+    "stage-plexi-black-white",
+    "sound-line-array",
+    "sound-pa-console",
+    "sound-wireless-mics",
+    "furniture-hydraulic-tables",
+    "furniture-mini-bars",
+    "booth-code-a",
+    "booth-code-f",
+    "booth-code-k",
+    "booth-code-m",
+  ],
+  sports: [
+    "led-large-venue",
+    "led-branded-stage",
+    "stage-german-glass",
+    "stage-plexi-black-white",
+    "sound-line-array",
+    "sound-pa-console",
+    "sound-wireless-mics",
+    "lighting-expo-stage",
+    "lighting-gala-proxima",
+    "booth-code-m",
+    "booth-code-k",
+    "booth-code-l",
+  ],
+  conferences: [
+    "led-conference-setup",
+    "led-branded-stage",
+    "led-digital-signage",
+    "stage-german-glass",
+    "sound-line-array",
+    "sound-pa-console",
+    "sound-wireless-mics",
+    "lighting-expo-stage",
+    "furniture-xtables",
+    "furniture-meeting-tables",
+    "furniture-mini-bars",
+    "booth-code-a",
+    "booth-code-f",
+    "booth-code-m",
+  ],
+};
+
+for (const product of PRODUCTS) {
+  product.usedFor = (Object.keys(PRODUCT_ORDER) as ServiceArea[]).filter((area) =>
+    PRODUCT_ORDER[area].includes(product.id)
+  );
+}
+
+export function productsFor(area: ServiceArea): ProductItem[] {
+  const byId = new Map(PRODUCTS.map((product) => [product.id, product]));
+  return PRODUCT_ORDER[area].map((id) => byId.get(id)).filter((product): product is ProductItem => Boolean(product));
+}

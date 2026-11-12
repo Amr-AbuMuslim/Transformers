@@ -112,7 +112,7 @@ export default function Contact() {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     name: "Contact Transformers for Events Management and Display Systems",
-    description: "Request a quotation for exhibition booths, event management, and conference staging in Egypt.",
+    description: "Request a quotation for exhibitions, events, sports tournaments, and conference staging in Egypt.",
     url: "https://transformers-me.com/contact",
   };
 
@@ -120,7 +120,7 @@ export default function Contact() {
     <>
       <SEOHead
         title="Contact Us & Request a Quote | Transformers Egypt"
-        description="Request a quotation for exhibition booth rental, event management, or conference staging in Egypt. Contact our Cairo sales engineers at +20 111 099 9646."
+        description="Request a quotation for exhibitions, events, sports tournaments, or conferences in Egypt. Contact our Cairo team at +20 111 099 9646."
         canonicalPath="/contact"
         structuredData={contactSchema}
       />
@@ -129,7 +129,7 @@ export default function Contact() {
 
       <PageHeader
         title="Contact & Request a Quote"
-        subtitle="Let our engineering and production team bring your exhibition, event, or conference to life. Connect with our Cairo headquarters for fast, itemized quotations."
+        subtitle="Tell us which of the four services you need: exhibitions, events, sports tournaments, or conferences. Our Cairo team will prepare a quotation from that scope."
         image="/Contact.jpg"
         breadcrumbs={breadcrumbs}
         badge="Direct Sales & Technical Support"
@@ -466,6 +466,7 @@ export default function Contact() {
         links={[
           { href: "/exhibitions", label: "Exhibitions" },
           { href: "/events", label: "Events" },
+          { href: "/sports-tournaments", label: "Sports Tournaments" },
           { href: "/conferences", label: "Conferences" },
           { href: "/rental-products", label: "Rental products" },
           { href: "/projects", label: "Projects" },

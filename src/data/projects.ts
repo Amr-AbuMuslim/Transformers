@@ -1,4 +1,4 @@
-export type ProjectPillar = "exhibitions" | "events" | "conferences";
+export type ProjectPillar = "exhibitions" | "events" | "sports" | "conferences";
 
 export interface ProjectItem {
   id: string;
@@ -19,6 +19,7 @@ export const PROJECT_PILLARS = [
   { id: "all", label: "All Projects" },
   { id: "exhibitions", label: "Exhibitions" },
   { id: "events", label: "Events" },
+  { id: "sports", label: "Sports Tournaments" },
   { id: "conferences", label: "Conferences" },
 ] as const;
 
@@ -27,8 +28,8 @@ export const PROJECTS: ProjectItem[] = [
   {
     id: "citi-para-swimming-egypt",
     title: "CITI Para Swimming World Series Egypt 2024",
-    pillar: "events",
-    pillarLabel: "Sports & Tournaments",
+    pillar: "sports",
+    pillarLabel: "Sports Tournaments",
     category: "International Sports Championship",
     image: "/Transformers_Assets/10_Sports_Events/CITI_PARA_Swimming_Egypt_2024.jpg",
     gallery: [
@@ -51,8 +52,8 @@ export const PROJECTS: ProjectItem[] = [
   {
     id: "world-para-powerlifting-egypt",
     title: "World Para Powerlifting World Cup & African Championships",
-    pillar: "events",
-    pillarLabel: "Sports & Tournaments",
+    pillar: "sports",
+    pillarLabel: "Sports Tournaments",
     category: "World Championship Athletics",
     image: "/Transformers_Assets/10_Sports_Events/World_Para_Powerlifting_1.jpg",
     gallery: [
@@ -76,8 +77,8 @@ export const PROJECTS: ProjectItem[] = [
   {
     id: "cmas-finswimming-championship",
     title: "CMAS Finswimming World Championships",
-    pillar: "events",
-    pillarLabel: "Sports & Tournaments",
+    pillar: "sports",
+    pillarLabel: "Sports Tournaments",
     category: "Global Aquatic Tournament",
     image: "/Transformers_Assets/10_Sports_Events/CMAS_Finswimming_2023_1.jpg",
     gallery: [
@@ -100,8 +101,8 @@ export const PROJECTS: ProjectItem[] = [
   {
     id: "international-gymnastics-championship",
     title: "International Gymnastics Championship",
-    pillar: "events",
-    pillarLabel: "Sports & Tournaments",
+    pillar: "sports",
+    pillarLabel: "Sports Tournaments",
     category: "International Championship",
     image: "/Transformers_Assets/10_Sports_Events/International_Gymnastics_Championship.jpg",
     description:

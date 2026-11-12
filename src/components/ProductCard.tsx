@@ -6,9 +6,10 @@ import { QUOTE, quoteHref } from "@/data/navigation";
 interface ProductCardProps {
   product: ProductItem;
   featured?: boolean;
+  quoteService?: string;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, quoteService }: ProductCardProps) {
   const availabilityBadge = {
     rental: { label: "Rental Only", color: "bg-amber-50 text-amber-700 border-amber-200" },
     sale: { label: "For Sale", color: "bg-blue-50 text-blue-700 border-blue-200" },
@@ -85,8 +86,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
           <Link
             to={quoteHref(
-              product.category === "transformers_system" ? QUOTE.displaySystem : QUOTE.equipment,
-              { product: product.name }
+              quoteService ||
+                (product.category === "transformers_system" ? QUOTE.displaySystem : QUOTE.equipment),
+              quoteService ? { product: product.name, preference: "rental" } : { product: product.name }
             )}
             className="w-full py-2.5 px-3 bg-[#0a2540] hover:bg-[#1787b2] text-white text-xs font-semibold rounded-xl transition-colors text-center shadow-xs flex items-center justify-center gap-1"
           >

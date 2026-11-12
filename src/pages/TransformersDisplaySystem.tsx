@@ -361,7 +361,7 @@ export default function TransformersDisplaySystem() {
       <ContinueLinks
         links={[
           { href: "/exhibitions", label: "Back to Exhibitions" },
-          { href: "/exhibitions#single-booths", label: "Single Booths" },
+          { href: "/exhibitions#rental", label: "Exhibition rental products" },
           { href: "/rental-products?category=transformers_system", label: "Booth catalog" },
           { href: "/projects?pillar=exhibitions", label: "Exhibition projects" },
         ]}

@@ -64,7 +64,7 @@ const FAQ_DATA: FAQCategory[] = [
     items: [
       {
         q: "What types of events do you produce across Egypt?",
-        a: "We produce three primary event formats: (1) Commercial Brand Events (store grand openings, corporate anniversaries, and product reveals), (2) Pharmaceutical Symposia (medical congresses, advisory boards, and scientific gala dinners), and (3) International Sports Tournaments (competition staging, arena branding, and medal podiums for world championships).",
+        a: "Transformers works across four areas: exhibitions, corporate and commercial events, sports tournaments, and conferences. Event production covers launches, anniversaries, galas, and pharmaceutical gatherings. Tournament branding, ceremony stages, and arena screens are handled on the sports tournaments page, not as a subtype of a gala.",
       },
       {
         q: "What technical equipment do you maintain in Cairo?",
@@ -235,6 +235,7 @@ export default function FAQ() {
         links={[
           { href: "/exhibitions", label: "Exhibitions" },
           { href: "/events", label: "Events" },
+          { href: "/sports-tournaments", label: "Sports Tournaments" },
           { href: "/conferences", label: "Conferences" },
           { href: "/insights", label: "Insights" },
         ]}

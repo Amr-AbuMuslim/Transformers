@@ -16,12 +16,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const servicePage = {
     exhibitions: { href: "/exhibitions", label: "View Exhibitions" },
     events: { href: "/events", label: "View Events" },
+    sports: { href: "/sports-tournaments", label: "View Sports Tournaments" },
     conferences: { href: "/conferences", label: "View Conferences" },
   }[project.pillar];
 
   const pillarColor = {
     exhibitions: "bg-blue-50 text-blue-700 border-blue-200",
     events: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    sports: "bg-amber-50 text-amber-800 border-amber-200",
     conferences: "bg-purple-50 text-purple-700 border-purple-200",
   }[project.pillar];
 
