@@ -27,7 +27,7 @@ const PREFERENCES = ["rental", "purchase", "both", "consultation"] as const;
 type Preference = (typeof PREFERENCES)[number];
 
 const CATALOG_NOTE =
-  "Please send the Transformers Display System technical specifications catalog, including booth dimensions, weights, graphic templates, and electrical load data.";
+  "Please send the Transformers Display System configuration details you can confirm for my plot, including the relevant booth codes and footprints.";
 
 function isPreference(value: string | null): value is Preference {
   return PREFERENCES.includes(value as Preference);
@@ -129,7 +129,7 @@ export default function Contact() {
 
       <PageHeader
         title="Contact & Request a Quote"
-        subtitle="Tell us which of the four services you need: exhibitions, events, sports tournaments, or conferences. Our Cairo team will prepare a quotation from that scope."
+        subtitle="Tell us which service you need: exhibitions, events, sports tournaments, conferences, or the Transformers display system. Our Cairo team will prepare a quotation from that scope."
         image="/Contact.jpg"
         breadcrumbs={breadcrumbs}
         badge="Direct Sales & Technical Support"
@@ -468,6 +468,7 @@ export default function Contact() {
           { href: "/events", label: "Events" },
           { href: "/sports-tournaments", label: "Sports Tournaments" },
           { href: "/conferences", label: "Conferences" },
+          { href: "/transformers-display-system", label: "Transformers" },
           { href: "/rental-products", label: "Rental products" },
           { href: "/projects", label: "Projects" },
         ]}

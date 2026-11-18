@@ -31,7 +31,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-slate-400">
-              Integrated solutions for exhibitions, events, sports tournaments, and conferences across Egypt.
+              Integrated solutions for exhibitions, events, sports tournaments, conferences, and modular display systems across Egypt.
             </p>
           </div>
 

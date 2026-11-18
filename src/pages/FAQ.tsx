@@ -64,7 +64,7 @@ const FAQ_DATA: FAQCategory[] = [
     items: [
       {
         q: "What types of events do you produce across Egypt?",
-        a: "Transformers works across four areas: exhibitions, corporate and commercial events, sports tournaments, and conferences. Event production covers launches, anniversaries, galas, and pharmaceutical gatherings. Tournament branding, ceremony stages, and arena screens are handled on the sports tournaments page, not as a subtype of a gala.",
+        a: "Transformers works across five areas: exhibitions, corporate and commercial events, sports tournaments, conferences, and the Transformers display system. Event production covers launches, anniversaries, galas, and pharmaceutical gatherings. Tournament branding, ceremony stages, and arena screens are handled on the sports tournaments page, not as a subtype of a gala.",
       },
       {
         q: "What technical equipment do you maintain in Cairo?",

@@ -18,14 +18,14 @@ export default function ProductCard({ product, quoteService }: ProductCardProps)
   }[product.availability];
 
   return (
-    <article className="group bg-white rounded-2xl sm:rounded-3xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:rounded-3xl">
       {/* Image container with fixed aspect ratio */}
       <div className="relative aspect-[4/3] bg-slate-100 overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
 
         {/* Availability Badge */}

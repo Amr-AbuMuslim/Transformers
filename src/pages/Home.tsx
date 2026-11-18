@@ -3,41 +3,50 @@ import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { IMAGES, type ImageId } from "@/data/images";
 
-const CATEGORIES = [
+const CATEGORIES: { index: string; title: string; description: string; href: string; image: ImageId; position: string }[] = [
   {
     index: "01",
     title: "Exhibitions",
+    description: "Booths, stands, and the hall around them.",
     href: "/exhibitions",
-    image: "/Transformers_Assets/12_Trade_Shows/MOG_Exhibition_Large_Setup.jpg",
-    alt: "MOG exhibition stand built by Transformers",
+    image: "homeExhibitions",
     position: "object-[center_40%]",
   },
   {
     index: "02",
     title: "Events",
+    description: "Stages, light, sound, and brand structures.",
     href: "/events",
-    image: "/Transformers_Assets/04_LED_Screens/LED_Large_Venue.jpg",
-    alt: "Large venue stage with lighting for a corporate event",
+    image: "homeEvents",
     position: "object-center",
   },
   {
     index: "03",
     title: "Sports Tournaments",
+    description: "Venue branding, ceremonies, and screens.",
     href: "/sports-tournaments",
-    image: "/Transformers_Assets/10_Sports_Events/CITI_PARA_Swimming_Egypt_2024.jpg",
-    alt: "CITI Para Swimming World Series venue setup in Egypt",
+    image: "homeSports",
     position: "object-[center_18%]",
   },
   {
     index: "04",
     title: "Conferences",
+    description: "Rooms, compact booths, and presentation displays.",
     href: "/conferences",
-    image: "/Transformers_Assets/04_LED_Screens/LED_Conference_Setup.jpg",
-    alt: "Conference stage with LED wall and seating",
-    position: "object-[center_62%]",
+    image: "homeConferences",
+    position: "object-center",
   },
-] as const;
+  {
+    index: "05",
+    title: "Transformers Display System",
+    description: "Modular structures for booths, pavilions, and branding.",
+    href: "/transformers-display-system",
+    image: "homeDisplay",
+    position: "object-center",
+  },
+];
 
 export default function Home() {
   const homeSchema = {
@@ -45,8 +54,8 @@ export default function Home() {
     "@type": "WebPage",
     name: "Transformers for Events Management and Display Systems",
     description:
-      "Transformers delivers integrated solutions for exhibitions, corporate events, sports tournaments, and conferences across Egypt.",
-    url: "https://transformers-me.com/",
+      "Transformers delivers integrated solutions for exhibitions, corporate events, sports tournaments, conferences, and modular display systems across Egypt.",
+    url: "https://transformers-me.com",
     mainEntity: {
       "@type": "ItemList",
       itemListElement: CATEGORIES.map((category, index) => ({
@@ -61,8 +70,8 @@ export default function Home() {
   return (
     <>
       <SEOHead
-        title="Exhibitions, Events, Sports Tournaments & Conferences | Transformers Egypt"
-        description="Transformers delivers integrated solutions for exhibitions, corporate events, sports tournaments, and conferences across Egypt, including infrastructure, staging, branding, and display systems."
+        title="Exhibitions, Events, Sports Tournaments, Conferences & Display Systems | Transformers Egypt"
+        description="Transformers delivers integrated solutions for exhibitions, corporate events, sports tournaments, conferences, and modular display systems across Egypt."
         canonicalPath="/"
         structuredData={homeSchema}
       />
@@ -80,14 +89,12 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#071a2d] via-[#071a2d]/55 to-[#071a2d]/25" />
 
           <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-12 pt-28 sm:px-8 sm:pb-16">
-            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.32em] text-[#9fd4e8]">
-              Cairo, Egypt
-            </p>
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.32em] text-[#9fd4e8]">Cairo, Egypt</p>
             <h1 className="max-w-3xl font-serif text-[2.35rem] font-medium leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Exhibitions, events, tournaments, and conferences.
+              Exhibitions, events, tournaments, conferences, and display systems.
             </h1>
-            <p className="mt-5 max-w-xl text-sm leading-relaxed text-slate-100/85 sm:text-[15px]">
-              Transformers delivers integrated solutions for Exhibitions, Corporate Events, Sports Tournaments, and Conferences across Egypt. From event infrastructure, staging, and exhibition environments to professional display systems, branding, and technical production, we provide the services and equipment needed to bring successful events to life.
+            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-slate-100/85 sm:text-[15px]">
+              Transformers delivers integrated solutions for exhibitions, corporate events, sports tournaments, conferences, and modular display systems across Egypt. From event infrastructure and exhibition environments to technical production and modular display structures, we supply the services and equipment that bring an event to life.
             </p>
           </div>
         </section>
@@ -95,40 +102,44 @@ export default function Home() {
         <section id="services" aria-label="Choose your event" className="scroll-mt-24 border-t border-white/10 bg-[#071a2d]">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
             <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-[#9fd4e8]">Choose your event</p>
-            <p className="text-[11px] tracking-[0.22em] text-white/35">01 — 04</p>
+            <p className="text-[11px] tracking-[0.22em] text-white/35">01 — 05</p>
           </div>
 
-          <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2 xl:grid-cols-4">
-            {CATEGORIES.map((category) => (
-              <Link
-                key={category.href}
-                to={category.href}
-                className="group relative isolate block min-h-[300px] overflow-hidden bg-[#071a2d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#9fd4e8] sm:min-h-[440px] xl:min-h-[520px]"
-              >
-                <img
-                  src={category.image}
-                  alt={category.alt}
-                  loading="lazy"
-                  className={`absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${category.position}`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071a2d] via-[#071a2d]/25 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                  <div className="mb-3 h-px w-8 bg-[#9fd4e8] transition-all duration-500 group-hover:w-14 motion-reduce:transition-none" />
-                  <div className="flex items-end justify-between gap-4">
-                    <div>
-                      <p className="text-[11px] tracking-[0.24em] text-white/55">{category.index}</p>
-                      <h2 className="mt-1 max-w-[12rem] font-serif text-[1.7rem] font-medium leading-tight tracking-tight text-white sm:text-[1.85rem]">
-                        {category.title}
-                      </h2>
+          <div className="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2 min-[1200px]:grid-cols-5">
+            {CATEGORIES.map((category) => {
+              const photo = IMAGES[category.image];
+              return (
+                <Link
+                  key={category.href}
+                  to={category.href}
+                  className="group relative isolate block min-h-[320px] overflow-hidden bg-[#071a2d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#9fd4e8] sm:min-h-[440px] min-[1200px]:min-h-[520px]"
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    loading="lazy"
+                    className={`absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${category.position}`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#071a2d] via-[#071a2d]/35 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
+                    <div className="mb-3 h-px w-8 bg-[#9fd4e8] transition-all duration-500 group-hover:w-14 motion-reduce:transition-none" />
+                    <div className="flex items-end justify-between gap-3">
+                      <div>
+                        <p className="text-[11px] tracking-[0.24em] text-white/55">{category.index}</p>
+                        <h2 className="mt-1 font-serif text-[1.55rem] font-medium leading-tight tracking-tight text-white sm:text-[1.7rem]">
+                          {category.title}
+                        </h2>
+                        <p className="mt-2 max-w-[16rem] text-sm leading-snug text-white/75">{category.description}</p>
+                      </div>
+                      <span className="mb-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/25 text-white transition duration-300 group-hover:border-white group-hover:bg-white group-hover:text-[#071a2d] motion-reduce:transition-none">
+                        <ArrowUpRight size={16} />
+                        <span className="sr-only">Open {category.title}</span>
+                      </span>
                     </div>
-                    <span className="mb-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/25 text-white transition duration-300 group-hover:border-white group-hover:bg-white group-hover:text-[#071a2d]">
-                      <ArrowUpRight size={16} />
-                      <span className="sr-only">Open {category.title}</span>
-                    </span>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </section>
       </main>

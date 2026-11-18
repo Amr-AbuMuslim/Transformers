@@ -97,7 +97,7 @@ export default function About() {
                 We are proud to serve as the <strong>exclusive sole distributor in Egypt of the Transformers modular display system</strong>, precision-engineered and manufactured in Taiwan. This breakthrough system replaces heavy, wasteful timber carpentry with aircraft-grade foldable aluminum frameworks that assemble in 3 to 4 hours.
               </p>
               <p className="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed">
-                Operating from Cairo, we provide complete turnkey services across four areas: <strong>Exhibitions</strong>, <strong>Events</strong>, <strong>Sports Tournaments</strong>, and <strong>Conferences</strong>, supported by an in-house inventory of LED video walls, sound systems, stage decks, and exhibition furniture.
+                Operating from Cairo, we provide complete turnkey services across five areas: <strong>Exhibitions</strong>, <strong>Events</strong>, <strong>Sports Tournaments</strong>, <strong>Conferences</strong>, and the <strong>Transformers Display System</strong>, supported by an in-house inventory of LED video walls, sound systems, stage decks, and exhibition furniture.
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100 text-xs text-slate-700">
